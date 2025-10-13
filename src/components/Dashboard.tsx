@@ -3,9 +3,14 @@
 import { useState, useEffect } from 'react';
 import { User, Room } from '@/types';
 import FriendsList from './FriendsList';
+import ChatModal from './ChatModal';
 import RoomsList from './RoomsList';
 import CreateRoomModal from './CreateRoomModal';
 import ImportScriptModal from './ImportScriptModal';
+import ScriptStore from './ScriptStore';
+import ScriptRemixModal from './ScriptRemixModal';
+import RatingStars from './RatingStars';
+import RateScriptModal from './RateScriptModal';
 import TestImportModal from './TestImportModal';
 
 interface DashboardProps {
@@ -19,13 +24,26 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
   const [showTestImport, setShowTestImport] = useState(false);
   const [rooms, setRooms] = useState<Room[]>([]);
   const [friends, setFriends] = useState([]);
+  const [styleGrants, setStyleGrants] = useState<string[]>([]);
   const [selectedCollectedScript, setSelectedCollectedScript] = useState<any>(null);
   const [currentUser, setCurrentUser] = useState<User>(user);
+  const [chatFriend, setChatFriend] = useState<any>(null);
+  const [showStore, setShowStore] = useState(false);
+  const [remixScriptId, setRemixScriptId] = useState<string | null>(null);
+  const [remixCollectedId, setRemixCollectedId] = useState<string | null>(null);
+  const [ratingSubmitting, setRatingSubmitting] = useState<string | null>(null);
+
+  const [rateModalOpen, setRateModalOpen] = useState(false);
+  const [rateTarget, setRateTarget] = useState<any>(null);
+  const openRate = (script:any) => { setRateTarget(script); setRateModalOpen(true); };
+  const handleRated = () => { setRateModalOpen(false); setRateTarget(null); };
 
   useEffect(() => {
-    fetchRooms();
-    fetchFriends();
+    // 确保立即获取最新的用户数据
     fetchUserData();
+    fetchRooms();
+  fetchFriends();
+  fetchStyleGrants();
     
     // 添加自定义事件监听器来刷新用户数据
     const handleUserDataUpdate = () => {
@@ -37,19 +55,24 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
     return () => {
       window.removeEventListener('userDataUpdated', handleUserDataUpdate);
     };
-  }, []);
+  }, [user.id]); // 添加user.id作为依赖
 
   // 获取最新的用户数据
   const fetchUserData = async () => {
     try {
+      console.log('Fetching user data for ID:', user.id);
       const response = await fetch(`/api/users/${user.id}/profile`);
       if (response.ok) {
         const data = await response.json();
+        console.log('User data response:', data);
         if (data.success) {
+          console.log('Setting current user with collected scripts:', data.user.collectedScripts);
           setCurrentUser(data.user);
           // 更新 sessionStorage 中的用户数据
           sessionStorage.setItem('currentUser', JSON.stringify(data.user));
         }
+      } else {
+        console.error('Failed to fetch user data:', response.status);
       }
     } catch (error) {
       console.error('Failed to fetch user data:', error);
@@ -68,6 +91,23 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
     }
   };
 
+  // 轮询刷新房间列表，让大厅自动出现新房间（无需手动刷新）
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        const response = await fetch('/api/rooms');
+        const data = await response.json();
+        if (data.success) {
+          setRooms(data.rooms);
+        }
+      } catch (error) {
+        // 静默失败即可，避免打扰用户
+      }
+    }, 2000); // 每2秒拉取一次
+
+    return () => clearInterval(interval);
+  }, []);
+
   const fetchFriends = async () => {
     try {
       const response = await fetch(`/api/users/${currentUser.id}/friends`);
@@ -77,6 +117,37 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
       }
     } catch (error) {
       console.error('Failed to fetch friends:', error);
+    }
+  };
+
+  const fetchStyleGrants = async () => {
+    try {
+      const res = await fetch(`/api/users/${user.id}/style-grants`);
+      const data = await res.json();
+      if (data.success) setStyleGrants(data.grants || []);
+    } catch (e) {
+      console.error('Failed to fetch style grants', e);
+    }
+  };
+
+  const toggleGrant = async (friendId: string, isGranted: boolean) => {
+    try {
+      if (isGranted) {
+        // revoke
+        const res = await fetch(`/api/users/${user.id}/style-grants?friendId=${friendId}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) setStyleGrants(data.grants || []);
+      } else {
+        const res = await fetch(`/api/users/${user.id}/style-grants`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ friendId })
+        });
+        const data = await res.json();
+        if (data.success) setStyleGrants(data.grants || []);
+      }
+    } catch (e) {
+      console.error('Toggle style grant failed', e);
     }
   };
 
@@ -161,7 +232,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
                   </span>
                 </div>
                 <div className="flex-1 overflow-y-auto">
-                  <FriendsList friends={friends} />
+                  <FriendsList friends={friends} currentUserId={currentUser.id} styleGrants={styleGrants} onToggleGrant={toggleGrant} onChat={(f:any)=> setChatFriend(f)} />
                 </div>
               </div>
             </div>
@@ -190,12 +261,12 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
                       🧪 测试导入
                     </button>
                     <span className="text-sm text-gray-400">
-                      {currentUser.collectedScripts?.length || 0} 个
+                      {currentUser?.collectedScripts?.length || 0} 个
                     </span>
                   </div>
                 </div>
                 <div className="flex-1 overflow-y-auto">
-                  {(!currentUser.collectedScripts || currentUser.collectedScripts.length === 0) ? (
+                  {(!currentUser?.collectedScripts || currentUser.collectedScripts.length === 0) ? (
                     <div className="text-center py-8">
                       <div className="text-4xl mb-3">📖</div>
                       <p className="text-gray-400 text-sm">暂无收藏剧本</p>
@@ -203,7 +274,9 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      {currentUser.collectedScripts.map((script) => (
+                      {([...currentUser.collectedScripts]
+                        .sort((a:any,b:any)=> (b.collectedAt||0) - (a.collectedAt||0)))
+                        .map((script) => (
                         <div 
                           key={script.id} 
                           className="bg-gray-800 rounded-lg p-3 hover:bg-gray-700 transition-colors cursor-pointer"
@@ -211,11 +284,46 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
                         >
                           <h4 className="text-white text-sm font-medium">{script.title}</h4>
                           <p className="text-gray-400 text-xs mt-1">
-                            {script.rounds}轮 · {new Date(script.collectedAt).toLocaleDateString()}
+                            {script.rounds}轮 · {script.collectedAt ? new Date(script.collectedAt).toLocaleDateString() : '收藏时间未知'}
                           </p>
                           <p className="text-gray-500 text-xs mt-1 line-clamp-2">
                             {script.background}
                           </p>
+                          <div className="mt-2 flex items-center gap-2 flex-wrap">
+                            <button
+                              type="button"
+                              onClick={(e) => { e.stopPropagation(); setRemixScriptId(script.originalScriptId || script.id); setRemixCollectedId(script.id); }}
+                              className="text-xs px-2 py-1 bg-purple-600/40 hover:bg-purple-600/60 text-purple-200 rounded"
+                            >二次创作</button>
+                            <button
+                              type="button"
+                              onClick={(e)=> { e.stopPropagation(); openRate(script); }}
+                              className="text-xs px-2 py-1 bg-yellow-600/40 hover:bg-yellow-600/60 text-yellow-200 rounded"
+                            >评分</button>
+                            {!script.derivativeOfScriptId && (
+                              <button
+                                type="button"
+                                onClick={async (e) => {
+                                  e.stopPropagation();
+                                  const priceStr = prompt('请输入上架价格(>=0整数):','10');
+                                  if (priceStr === null) return;
+                                  const p = parseInt(priceStr,10);
+                                  if (Number.isNaN(p) || p < 0) { alert('价格无效'); return; }
+                                  try {
+                                    const res = await fetch('/api/scripts/collected/publish', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ userId: currentUser.id, collectedScriptId: script.id, price: p }) });
+                                    const data = await res.json();
+                                    if (data.success) { 
+                                      alert('上架成功'); 
+                                      // 触发数据刷新事件
+                                      window.dispatchEvent(new Event('userDataUpdated'));
+                                    }
+                                    else alert(data.error || '上架失败');
+                                  } catch { alert('网络错误'); }
+                                }}
+                                className="text-xs px-2 py-1 bg-green-600/40 hover:bg-green-600/60 text-green-200 rounded"
+                              >上架</button>
+                            )}
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -246,6 +354,9 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
                 <RoomsList rooms={rooms} currentUser={user} />
               </div>
             </div>
+            <div className="mt-6 h-80">
+              <ScriptStore currentUser={currentUser} />
+            </div>
           </div>
         </div>
       </div>
@@ -268,6 +379,7 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
           isOpen={showImportScript}
           onClose={() => setShowImportScript(false)}
           onSuccess={handleImportSuccess}
+          currentUserId={currentUser?.id}
         />
       )}
 
@@ -279,6 +391,31 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
           onSuccess={handleImportSuccess}
         />
       )}
+      {chatFriend && (
+        <ChatModal
+          user={currentUser}
+          friend={chatFriend}
+          onClose={()=> setChatFriend(null)}
+          collectedScripts={currentUser?.collectedScripts || []}
+        />
+      )}
+    {remixScriptId && (
+        <ScriptRemixModal
+          scriptId={remixScriptId}
+          onClose={()=> setRemixScriptId(null)}
+          currentUser={currentUser}
+      personalCollectedId={remixCollectedId || undefined}
+      onRemixCompleted={(newScript)=> { window.dispatchEvent(new Event('userDataUpdated')); setRemixCollectedId(null); }}
+        />
+      )}
+    <RateScriptModal
+      open={rateModalOpen}
+      onClose={()=>{ setRateModalOpen(false); setRateTarget(null); }}
+      scriptId={rateTarget? (rateTarget.originalScriptId || rateTarget.id): ''}
+      displayTitle={rateTarget?.title || ''}
+      userId={currentUser.id}
+      onRated={handleRated}
+    />
     </div>
   );
 }

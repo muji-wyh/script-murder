@@ -19,13 +19,18 @@ export default function RoomPage() {
   const [room, setRoom] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [players, setPlayers] = useState([]);
-  const [rounds, setRounds] = useState('6');
+  const [rounds, setRounds] = useState('3');
   const [plotRequirement, setPlotRequirement] = useState('');
   const [selectedAITypes, setSelectedAITypes] = useState(new Map()); // 改为Map存储数量
   const [loading, setLoading] = useState(true);
   const [gameData, setGameData] = useState(null);
   const [chatMessages, setChatMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [sttOn, setSttOn] = useState(false); // 语音转文字是否进行中
+  const [sttError, setSttError] = useState('');
+  const sttRecognizerRef = useRef(null);
+  const sttMediaRecorderRef = useRef(null);
+  const sttChunksRef = useRef([]);
   const [readyPlayers, setReadyPlayers] = useState(new Set()); // 已准备的玩家
   const [showGameSummary, setShowGameSummary] = useState(false); // 显示游戏复盘
   const [gameSummary, setGameSummary] = useState(null); // 游戏复盘数据
@@ -33,8 +38,17 @@ export default function RoomPage() {
   const [showCollectScript, setShowCollectScript] = useState(false); // 显示收藏剧本选项
   const [isScriptCollected, setIsScriptCollected] = useState(false); // 是否已收藏剧本
   const [pollingInterval, setPollingInterval] = useState(null); // 轮询定时器
+  const [shouldAutoScroll, setShouldAutoScroll] = useState(true); // 是否应该自动滚动到底部
+  const [userScrolledUp, setUserScrolledUp] = useState(false); // 用户是否主动向上滚动
+  const [previousChatCount, setPreviousChatCount] = useState(0); // 记录之前的聊天消息数量
+  const [previousRoundCount, setPreviousRoundCount] = useState(0); // 记录之前的轮次数量
+  const [userScrolledUpPlot, setUserScrolledUpPlot] = useState(false); // 用户是否在剧情区域向上滚动
+  const [userScrolledUpClues, setUserScrolledUpClues] = useState(false); // 用户是否在线索区域向上滚动
+  const [friendStyles, setFriendStyles] = useState([]); // 我可用的好友风格
+  const [selectedFriendStyles, setSelectedFriendStyles] = useState([]); // 选中的好友风格AI列表
   const chatContainerRef = useRef(null); // 聊天容器引用
   const plotContainerRef = useRef(null); // 剧情容器引用
+  const cluesContainerRef = useRef(null); // 私人线索容器引用
 
   useEffect(() => {
     // 使用sessionStorage而不是localStorage，避免多标签页冲突
@@ -48,6 +62,30 @@ export default function RoomPage() {
 
     fetchRoomData();
   }, [params.id, router]);
+
+  // 若房间是收藏剧本，初始化轮数与剧情要求
+  useEffect(() => {
+    if (room && (room).collectedScript) {
+      const cs = (room).collectedScript;
+      if (cs.rounds && rounds !== String(cs.rounds)) setRounds(String(cs.rounds));
+      if (cs.plotRequirement && !plotRequirement) setPlotRequirement(cs.plotRequirement);
+    }
+  }, [room]);
+
+  // 拉取我可用的好友风格（对方授权给我的）
+  useEffect(() => {
+    const loadFriendStyles = async () => {
+      if (!currentUser) return;
+      try {
+        const res = await fetch(`/api/users/${currentUser.id}/friend-styles`);
+        const data = await res.json();
+        if (data.success) setFriendStyles(data.friendStyles || []);
+      } catch (e) {
+        console.error('Failed to fetch friend styles', e);
+      }
+    };
+    loadFriendStyles();
+  }, [currentUser?.id]);
 
   // 启动实时同步轮询
   useEffect(() => {
@@ -121,24 +159,135 @@ export default function RoomPage() {
     }
   }, [room, currentUser]);
 
-  // 自动滚动到聊天底部
+  // 初始化计数状态
   useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    if (chatMessages.length > 0 && previousChatCount === 0) {
+      setPreviousChatCount(chatMessages.length);
     }
-  }, [chatMessages]);
+    if (gameData?.roundRecords?.length > 0 && previousRoundCount === 0) {
+      setPreviousRoundCount(gameData.roundRecords.length);
+    }
+  }, [chatMessages.length, gameData?.roundRecords?.length, previousChatCount, previousRoundCount]);
 
-  // 自动滚动到最新剧情
+  // 自动滚动到聊天底部 - 只在有新消息且应该自动滚动时执行
   useEffect(() => {
-    if (plotContainerRef.current && gameData?.script?.roundContents) {
-      // 延迟一点执行，确保DOM已更新
-      setTimeout(() => {
-        if (plotContainerRef.current) {
-          plotContainerRef.current.scrollTop = plotContainerRef.current.scrollHeight;
-        }
-      }, 100);
+    const currentChatCount = chatMessages.length;
+    const hasNewMessages = currentChatCount > previousChatCount;
+    
+    if (hasNewMessages) {
+      setPreviousChatCount(currentChatCount);
+      
+      // 只有在应该自动滚动且用户没有向上滚动时才滚动
+      if (chatContainerRef.current && shouldAutoScroll && !userScrolledUp) {
+        setTimeout(() => {
+          if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+          }
+        }, 100);
+      }
     }
-  }, [gameData?.roundRecords?.length, gameData?.script?.roundContents]);
+  }, [chatMessages.length, shouldAutoScroll, userScrolledUp, previousChatCount]);
+
+  // 监听聊天容器的滚动事件
+  useEffect(() => {
+    const chatContainer = chatContainerRef.current;
+    if (!chatContainer) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = chatContainer;
+      const isAtBottom = Math.abs(scrollHeight - scrollTop - clientHeight) < 5; // 允许5px的误差
+      
+      // 如果用户滚动到底部，重新启用自动滚动
+      if (isAtBottom) {
+        setUserScrolledUp(false);
+        setShouldAutoScroll(true);
+      } else {
+        // 如果用户向上滚动，禁用自动滚动
+        setUserScrolledUp(true);
+        setShouldAutoScroll(false);
+      }
+    };
+
+    chatContainer.addEventListener('scroll', handleScroll);
+    return () => {
+      chatContainer.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // 监听剧情容器的滚动事件
+  useEffect(() => {
+    const plotContainer = plotContainerRef.current;
+    if (!plotContainer) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = plotContainer;
+      const isAtBottom = Math.abs(scrollHeight - scrollTop - clientHeight) < 5;
+      setUserScrolledUpPlot(!isAtBottom);
+    };
+
+    plotContainer.addEventListener('scroll', handleScroll);
+    return () => {
+      plotContainer.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // 自动滚动到最新剧情 - 只在有新轮次时滚动
+  useEffect(() => {
+    const currentRoundCount = gameData?.roundRecords?.length || 0;
+    const hasNewRound = currentRoundCount > previousRoundCount;
+    
+    if (hasNewRound && gameData?.script?.roundContents) {
+      setPreviousRoundCount(currentRoundCount);
+      
+      // 只有在用户没有向上滚动时才自动滚动
+      if (plotContainerRef.current && !userScrolledUpPlot) {
+        setTimeout(() => {
+          if (plotContainerRef.current) {
+            plotContainerRef.current.scrollTop = plotContainerRef.current.scrollHeight;
+          }
+        }, 100);
+      }
+    }
+  }, [gameData?.roundRecords?.length, gameData?.script?.roundContents, previousRoundCount, userScrolledUpPlot]);
+
+  // 监听线索容器的滚动事件
+  useEffect(() => {
+    const cluesContainer = cluesContainerRef.current;
+    if (!cluesContainer) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = cluesContainer;
+      const isAtBottom = Math.abs(scrollHeight - scrollTop - clientHeight) < 5;
+      setUserScrolledUpClues(!isAtBottom);
+    };
+
+    cluesContainer.addEventListener('scroll', handleScroll);
+    return () => {
+      cluesContainer.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // 自动滚动到最新线索 - 只在有新轮次时滚动
+  useEffect(() => {
+    const currentRoundCount = gameData?.roundRecords?.length || 0;
+    const hasNewRound = currentRoundCount > previousRoundCount;
+    
+    if (hasNewRound) {
+      // 只有在用户没有向上滚动时才自动滚动
+      if (!userScrolledUpClues) {
+        setTimeout(() => {
+          const currentRound = gameData?.roundRecords?.length || 0;
+          const target = document.querySelector(`#clue-round-${currentRound}`);
+          if (target && typeof target.scrollIntoView === 'function') {
+            target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          } else if (cluesContainerRef.current) {
+            // fallback
+            cluesContainerRef.current.scrollTop = cluesContainerRef.current.scrollHeight;
+          }
+        }, 200);
+      }
+    }
+  }, [gameData?.roundRecords?.length, previousRoundCount, userScrolledUpClues]);
 
   const fetchRoomData = async () => {
     try {
@@ -206,24 +355,24 @@ export default function RoomPage() {
         // 检查轮次是否发生变化
         if (gameData && newGameData.roundRecords.length !== gameData.roundRecords.length) {
           console.log('游戏轮次发生变化，刷新界面');
-          // 轮次变化时的特殊处理
-          const currentRound = newGameData.roundRecords.length - 1;
-          if (currentRound >= 0) {
-            setChatMessages(newGameData.roundRecords[currentRound]?.messages || []);
-          }
-        } else if (gameData) {
-          // 更新当前轮次的聊天消息
-          const currentRound = newGameData.roundRecords.length - 1;
-          if (currentRound >= 0) {
-            setChatMessages(newGameData.roundRecords[currentRound]?.messages || []);
-          }
-        } else {
-          // 首次加载
-          const currentRound = newGameData.roundRecords.length - 1;
-          if (currentRound >= 0) {
-            setChatMessages(newGameData.roundRecords[currentRound]?.messages || []);
+        }
+        
+        // 更新聊天消息：合并所有轮次的聊天记录
+        const allMessages = [];
+        if (newGameData.roundRecords && newGameData.roundRecords.length > 0) {
+          for (const roundRecord of newGameData.roundRecords) {
+            if (roundRecord.messages && roundRecord.messages.length > 0) {
+              // 为每条消息添加轮次信息
+              const messagesWithRound = roundRecord.messages.map(msg => ({
+                ...msg,
+                roundNumber: roundRecord.round
+              }));
+              allMessages.push(...messagesWithRound);
+            }
           }
         }
+        
+        setChatMessages(allMessages);
         
         setGameData(newGameData);
         
@@ -275,14 +424,15 @@ export default function RoomPage() {
   };
 
   const startGame = async () => {
-    if (!plotRequirement.trim()) {
+    // 收藏剧本无需剧情要求
+    if (!room.collectedScript && !plotRequirement.trim()) {
       alert('请输入剧情要求');
       return;
     }
 
     const roundCount = parseInt(rounds);
-    if (isNaN(roundCount) || roundCount < 1 || roundCount > 20) {
-      alert('请输入有效的轮数（1-20）');
+    if (isNaN(roundCount) || roundCount < 1 || roundCount > 30) {
+      alert('请输入有效的轮数（1-30）');
       return;
     }
 
@@ -313,9 +463,10 @@ export default function RoomPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          rounds: roundCount,
-          plotRequirement,
-          aiNPCTypes: aiNPCTypes
+          rounds: room.collectedScript ? room.collectedScript.rounds : roundCount,
+          plotRequirement: room.collectedScript ? (room.collectedScript.plotRequirement || '外部导入剧本') : plotRequirement,
+          aiNPCTypes: aiNPCTypes,
+          friendStyleNPCs: selectedFriendStyles // 可能为空
         })
       });
 
@@ -360,6 +511,65 @@ export default function RoomPage() {
     } finally {
       setStartingGame(false); // 结束加载状态
     }
+  };
+
+  // ===== 语音转文字（Aliyun DashScope via server transcription） =====
+  const beginSTT = async () => {
+    try {
+      setSttError('');
+      // Request mic
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mr = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+      sttMediaRecorderRef.current = mr;
+      sttChunksRef.current = [];
+      mr.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) sttChunksRef.current.push(e.data);
+      };
+      mr.onstop = async () => {
+        try {
+          const blob = new Blob(sttChunksRef.current, { type: 'audio/webm' });
+          const form = new FormData();
+          form.append('audio', blob, 'speech.webm');
+          form.append('language', 'zh');
+          const dashscopeKey = typeof window !== 'undefined' ? sessionStorage.getItem('dashscopeKey') : null;
+          const res = await fetch('/api/speech/transcribe', {
+            method: 'POST',
+            headers: dashscopeKey ? { 'x-dashscope-key': dashscopeKey } : undefined,
+            body: form,
+          });
+          const data = await res.json();
+          if (!data.success) {
+            console.warn('STT failure details:', data);
+            throw new Error(data.error || '转写失败');
+          }
+          if (!data.text) {
+            console.warn('STT returned success but empty text:', data);
+          }
+          setNewMessage((prev) => (prev ? `${prev} ${data.text || ''}` : (data.text || '')));
+        } catch (err) {
+          setSttError((err && err.message) ? err.message : '转写失败');
+        } finally {
+          // stop tracks
+          stream.getTracks().forEach(t => t.stop());
+        }
+      };
+      mr.start();
+      setSttOn(true);
+    } catch (err) {
+      setSttError(err.message || '无法访问麦克风');
+      setSttOn(false);
+    }
+  };
+
+  const endSTT = async () => {
+    try {
+      const mr = sttMediaRecorderRef.current;
+      if (mr && mr.state !== 'inactive') {
+        mr.stop();
+      }
+      sttMediaRecorderRef.current = null;
+    } catch {}
+    setSttOn(false);
   };
 
   const leaveRoom = async () => {
@@ -537,86 +747,108 @@ export default function RoomPage() {
             </div>
             
             {/* 剧情滚动区域 */}
-            <div 
-              ref={plotContainerRef}
-              className="max-h-64 overflow-y-auto space-y-4"
-              style={{ scrollBehavior: 'smooth' }}
-            >
-              {gameData?.script?.roundContents?.map((roundContent, index) => {
-                const roundNumber = roundContent.round;
-                const isCurrentRound = roundNumber === currentRound;
-                const hasReached = roundNumber <= currentRound;
-                
-                if (!hasReached) return null; // 只显示已经到达的轮次
-                
-                return (
-                  <div 
-                    key={roundNumber}
-                    className={`rounded-xl border p-4 transition-all ${
-                      isCurrentRound 
-                        ? 'bg-slate-800/70 border-purple-500/50 ring-1 ring-purple-500/30' 
-                        : 'bg-slate-800/30 border-slate-600/50'
-                    }`}
-                  >
-                    <div className={`text-sm mb-2 flex items-center justify-between ${
-                      isCurrentRound ? 'text-purple-300' : 'text-slate-400'
-                    }`}>
-                      <span>第 {roundNumber} 轮 / 共 {gameData?.rounds} 轮</span>
-                      {isCurrentRound && <span className="text-xs bg-purple-600 px-2 py-1 rounded">当前</span>}
+            <div className="relative">
+              <div 
+                ref={plotContainerRef}
+                className="max-h-64 overflow-y-auto space-y-4"
+                style={{ scrollBehavior: 'smooth' }}
+              >
+                {gameData?.script?.roundContents?.map((roundContent, index) => {
+                  const roundNumber = roundContent.round;
+                  const isCurrentRound = roundNumber === currentRound;
+                  const hasReached = roundNumber <= currentRound;
+                  
+                  if (!hasReached) return null; // 只显示已经到达的轮次
+                  
+                  return (
+                    <div 
+                      key={roundNumber}
+                      className={`rounded-xl border p-4 transition-all ${
+                        isCurrentRound 
+                          ? 'bg-slate-800/70 border-purple-500/50 ring-1 ring-purple-500/30' 
+                          : 'bg-slate-800/30 border-slate-600/50'
+                      }`}
+                    >
+                      <div className={`text-sm mb-2 flex items-center justify-between ${
+                        isCurrentRound ? 'text-purple-300' : 'text-slate-400'
+                      }`}>
+                        <span>第 {roundNumber} 轮 / 共 {gameData?.rounds} 轮</span>
+                        {isCurrentRound && <span className="text-xs bg-purple-600 px-2 py-1 rounded">当前</span>}
+                      </div>
+                      <div className={`leading-relaxed ${
+                        isCurrentRound ? 'text-white' : 'text-slate-300'
+                      }`}>
+                        {(() => {
+                          const myCharacterId = gameData?.playerCharacters?.[currentUser?.id];
+                          const personalScript = myCharacterId ? gameData?.personalScripts?.[myCharacterId] : null;
+                          const personalRoundContent = personalScript?.personalRoundContents?.find(prc => prc.round === roundNumber);
+                          return personalRoundContent?.personalPlot || roundContent.plot || '剧情加载中...';
+                        })()}
+                      </div>
                     </div>
-                    <div className={`leading-relaxed ${
-                      isCurrentRound ? 'text-white' : 'text-slate-300'
-                    }`}>
-                      {(() => {
-                        const myCharacterId = gameData?.playerCharacters?.[currentUser?.id];
-                        const personalScript = myCharacterId ? gameData?.personalScripts?.[myCharacterId] : null;
-                        const personalRoundContent = personalScript?.personalRoundContents?.find(prc => prc.round === roundNumber);
-                        return personalRoundContent?.personalPlot || roundContent.plot || '剧情加载中...';
-                      })()}
+                  );
+                })}
+                
+                {/* 准备按钮区域 - 只在故事阅读状态且没有剧情轮次时显示 */}
+                {gameData?.status === 'story_reading' && currentRound === 0 && (
+                  <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
+                    <div className="text-center text-slate-400">
+                      <div>
+                        <p className="mb-4">请仔细阅读你的背景故事</p>
+                        {!readyPlayers.has(currentUser?.id) && (
+                          <button
+                            onClick={markPlayerReady}
+                            className="px-6 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold rounded-lg transition-all"
+                          >
+                            已看完，开始剧情
+                          </button>
+                        )}
+                        {readyPlayers.has(currentUser?.id) && (
+                          <div>
+                            <p className="text-green-400 mb-2">✅ 已准备</p>
+                            <p className="text-sm">等待其他玩家准备... ({readyPlayers.size}/{players.length})</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-                );
-              })}
-              
-              {/* 准备按钮区域 - 只在故事阅读状态且没有剧情轮次时显示 */}
-              {gameData?.status === 'story_reading' && currentRound === 0 && (
-                <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
-                  <div className="text-center text-slate-400">
-                    <div>
-                      <p className="mb-4">请仔细阅读你的背景故事</p>
-                      {!readyPlayers.has(currentUser?.id) && (
-                        <button
-                          onClick={markPlayerReady}
-                          className="px-6 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold rounded-lg transition-all"
-                        >
-                          已看完，开始剧情
-                        </button>
-                      )}
-                      {readyPlayers.has(currentUser?.id) && (
-                        <div>
-                          <p className="text-green-400 mb-2">✅ 已准备</p>
-                          <p className="text-sm">等待其他玩家准备... ({readyPlayers.size}/{players.length})</p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )}
+                )}
 
-              {/* 空剧情提示 - 只在真正没有剧情且不在故事阅读状态时显示 */}
-              {(!gameData?.script?.roundContents || gameData.script.roundContents.length === 0) && 
-               gameData?.status !== 'story_reading' && (
-                <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
-                  <div className="text-center text-slate-400">
-                    等待剧情开始...
+                {/* 空剧情提示 - 只在真正没有剧情且不在故事阅读状态时显示 */}
+                {(!gameData?.script?.roundContents || gameData.script.roundContents.length === 0) && 
+                 gameData?.status !== 'story_reading' && (
+                  <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
+                    <div className="text-center text-slate-400">
+                      等待剧情开始...
+                    </div>
                   </div>
+                )}
+              </div>
+              
+              {/* 剧情回到底部按钮 */}
+              {userScrolledUpPlot && (
+                <div className="absolute bottom-2 right-2 z-10">
+                  <button
+                    onClick={() => {
+                      setUserScrolledUpPlot(false);
+                      if (plotContainerRef.current) {
+                        plotContainerRef.current.scrollTop = plotContainerRef.current.scrollHeight;
+                      }
+                    }}
+                    className="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg transition-all duration-200 flex items-center space-x-1 text-xs"
+                  >
+                    <span>最新</span>
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                  </button>
                 </div>
               )}
             </div>
           </div>
 
           {/* 聊天区域 */}
-          <div className="flex-1 flex flex-col min-h-0">
+          <div className="flex-1 flex flex-col min-h-0 relative">
             <div className="p-6 pb-2 flex-shrink-0">
               <h3 className="text-lg font-bold text-white mb-4">💬 讨论区</h3>
             </div>
@@ -625,41 +857,103 @@ export default function RoomPage() {
               className="flex-1 px-6 pb-4 overflow-y-auto min-h-0"
               style={{ maxHeight: 'calc(100vh - 400px)' }}
             >
-              <div className="space-y-3">
-                {chatMessages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`p-3 rounded-lg max-w-[80%] ${
-                      message.isNPC
-                        ? 'bg-blue-600/20 border border-blue-500/30 ml-4'
-                        : message.senderId === currentUser?.id
-                        ? 'bg-purple-600/20 border border-purple-500/30 ml-auto'
-                        : 'bg-slate-600/20 border border-slate-500/30'
-                    }`}
-                  >
-                    <div className="flex items-center space-x-2 mb-1">
-                      <span className={`text-sm font-medium ${
-                        message.isNPC ? 'text-blue-300' : 'text-purple-300'
-                      }`}>
-                        {message.senderName || '匿名'}
-                      </span>
-                      <span className="text-xs text-slate-400">
-                        {new Date(message.timestamp).toLocaleTimeString()}
-                      </span>
+              <div className="space-y-4">
+                {(() => {
+                  // 按轮次分组聊天记录
+                  const messagesByRound = {};
+                  chatMessages.forEach(message => {
+                    const round = message.roundNumber || 1;
+                    if (!messagesByRound[round]) {
+                      messagesByRound[round] = [];
+                    }
+                    messagesByRound[round].push(message);
+                  });
+
+                  const rounds = Object.keys(messagesByRound).sort((a, b) => Number(a) - Number(b));
+                  
+                  if (rounds.length === 0) {
+                    return (
+                      <div className="text-center text-slate-400 py-8">
+                        暂无讨论内容，开始你的推理吧！
+                      </div>
+                    );
+                  }
+
+                  return rounds.map(round => (
+                    <div key={round} className="space-y-3">
+                      {/* 轮次分隔符 */}
+                      <div className="flex items-center justify-center my-4">
+                        <div className="flex-1 h-px bg-purple-500/30"></div>
+                        <div className="px-4 py-1 bg-purple-600/20 border border-purple-500/30 rounded-full text-purple-300 text-xs font-medium">
+                          第 {round} 轮讨论
+                        </div>
+                        <div className="flex-1 h-px bg-purple-500/30"></div>
+                      </div>
+                      
+                      {/* 该轮次的消息 */}
+                      {messagesByRound[round].map((message) => (
+                        <div
+                          key={message.id}
+                          className={`p-3 rounded-lg max-w-[80%] ${
+                            message.isNPC
+                              ? 'bg-blue-600/20 border border-blue-500/30 ml-4'
+                              : message.senderId === currentUser?.id
+                              ? 'bg-purple-600/20 border border-purple-500/30 ml-auto'
+                              : 'bg-slate-600/20 border border-slate-500/30'
+                          }`}
+                        >
+                          <div className="flex items-center space-x-2 mb-1">
+                            <span className={`text-sm font-medium ${
+                              message.isNPC ? 'text-blue-300' : 'text-purple-300'
+                            }`}>
+                              {message.senderName || '匿名'}
+                            </span>
+                            <span className="text-xs text-slate-400">
+                              {new Date(message.timestamp).toLocaleTimeString()}
+                            </span>
+                          </div>
+                          <div className="text-white text-sm">{message.content}</div>
+                        </div>
+                      ))}
                     </div>
-                    <div className="text-white text-sm">{message.content}</div>
-                  </div>
-                ))}
-                {chatMessages.length === 0 && (
-                  <div className="text-center text-slate-400 py-8">
-                    暂无讨论内容，开始你的推理吧！
-                  </div>
-                )}
+                  ));
+                })()}
               </div>
             </div>
+            
+            {/* 回到底部按钮 - 只在用户向上滚动时显示 */}
+            {userScrolledUp && (
+              <div className="absolute bottom-20 right-6 z-10">
+                <button
+                  onClick={() => {
+                    setUserScrolledUp(false);
+                    setShouldAutoScroll(true);
+                    if (chatContainerRef.current) {
+                      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+                    }
+                  }}
+                  className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg transition-all duration-200 flex items-center space-x-2"
+                >
+                  <span className="text-sm">回到底部</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </button>
+              </div>
+            )}
+            
             {/* 消息输入 */}
             <div className="p-6 pt-4 border-t border-purple-500/20 flex-shrink-0">
               <div className="flex space-x-3">
+                {/* 语音转文字控制 */}
+                <button
+                  onClick={sttOn ? endSTT : beginSTT}
+                  className={`px-3 py-2 rounded-lg text-white ${sttOn ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'}`}
+                  title={sttOn ? '已说完' : '点我开麦' }
+                >
+                  {sttOn ? '已说完' : '语音'}
+                </button>
+                {/* 临时Key输入已移除（改为配置 .env.local） */}
                 <input
                   type="text"
                   value={newMessage}
@@ -675,6 +969,7 @@ export default function RoomPage() {
                   发送
                 </button>
               </div>
+              {sttError && <div className="text-red-400 text-xs mt-2">{sttError}</div>}
             </div>
           </div>
         </div>
@@ -715,7 +1010,7 @@ export default function RoomPage() {
           </div>
 
           {/* 私人线索 */}
-          <div className="p-6 flex-1 overflow-y-auto">
+          <div className="p-6 flex-1 overflow-y-auto relative">
             <h3 className="text-lg font-bold text-white mb-4">🔍 私人信息</h3>
             
             {(() => {
@@ -751,56 +1046,83 @@ export default function RoomPage() {
               }
 
               return (
-                <div className="max-h-full overflow-y-auto space-y-4">
-                  {allClues.map((clueData) => (
-                    <div 
-                      key={clueData.round}
-                      className={`rounded-xl border transition-all ${
-                        clueData.isCurrentRound 
-                          ? 'bg-slate-800/70 border-purple-500/50 ring-1 ring-purple-500/30' 
-                          : 'bg-slate-800/30 border-slate-600/50'
-                      }`}
-                    >
-                      {/* 轮次标题 */}
-                      <div className={`px-4 py-2 border-b ${
-                        clueData.isCurrentRound 
-                          ? 'border-purple-500/30 text-purple-300' 
-                          : 'border-slate-600/30 text-slate-400'
-                      } text-sm font-semibold flex items-center justify-between`}>
-                        <span>第 {clueData.round} 轮线索</span>
-                        {clueData.isCurrentRound && (
-                          <span className="text-xs bg-purple-600 px-2 py-1 rounded">当前</span>
-                        )}
-                      </div>
-                      
-                      {/* 线索内容 */}
-                      <div className="p-4 space-y-3">
-                        {/* 剧情线索 */}
-                        {clueData.userClue && (
-                          <div className="bg-yellow-900/20 rounded-lg p-3 border border-yellow-500/30">
-                            <div className="text-yellow-300 text-xs font-semibold mb-2">📋 剧情线索</div>
-                            <div className={`text-sm leading-relaxed ${
-                              clueData.isCurrentRound ? 'text-yellow-100' : 'text-yellow-200/70'
-                            }`}>
-                              {clueData.userClue}
-                            </div>
-                          </div>
-                        )}
+                <div className="relative">
+                  <div 
+                    ref={cluesContainerRef}
+                    className="max-h-full overflow-y-auto space-y-4"
+                    style={{ scrollBehavior: 'smooth' }}
+                  >
+          {allClues.map((clueData) => (
+                      <div 
+            key={clueData.round}
+            id={`clue-round-${clueData.round}`}
+                        className={`rounded-xl border transition-all ${
+                          clueData.isCurrentRound 
+                            ? 'bg-slate-800/70 border-purple-500/50 ring-1 ring-purple-500/30' 
+                            : 'bg-slate-800/30 border-slate-600/50'
+                        }`}
+                      >
+                        {/* 轮次标题 */}
+                        <div className={`px-4 py-2 border-b ${
+                          clueData.isCurrentRound 
+                            ? 'border-purple-500/30 text-purple-300' 
+                            : 'border-slate-600/30 text-slate-400'
+                        } text-sm font-semibold flex items-center justify-between`}>
+                          <span>第 {clueData.round} 轮线索</span>
+                          {clueData.isCurrentRound && (
+                            <span className="text-xs bg-purple-600 px-2 py-1 rounded">当前</span>
+                          )}
+                        </div>
                         
-                        {/* 隐藏信息 */}
-                        {clueData.hiddenInfo && (
-                          <div className="bg-red-900/20 rounded-lg p-3 border border-red-500/30">
-                            <div className="text-red-300 text-xs font-semibold mb-2">🤫 秘密信息</div>
-                            <div className={`text-sm leading-relaxed ${
-                              clueData.isCurrentRound ? 'text-red-100' : 'text-red-200/70'
-                            }`}>
-                              {clueData.hiddenInfo}
+                        {/* 线索内容 */}
+                        <div className="p-4 space-y-3">
+                          {/* 剧情线索 */}
+                          {clueData.userClue && (
+                            <div className="bg-yellow-900/20 rounded-lg p-3 border border-yellow-500/30">
+                              <div className="text-yellow-300 text-xs font-semibold mb-2">📋 剧情线索</div>
+                              <div className={`text-sm leading-relaxed ${
+                                clueData.isCurrentRound ? 'text-yellow-100' : 'text-yellow-200/70'
+                              }`}>
+                                {clueData.userClue}
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          )}
+                          
+                          {/* 隐藏信息 */}
+                          {clueData.hiddenInfo && (
+                            <div className="bg-red-900/20 rounded-lg p-3 border border-red-500/30">
+                              <div className="text-red-300 text-xs font-semibold mb-2">🤫 秘密信息</div>
+                              <div className={`text-sm leading-relaxed ${
+                                clueData.isCurrentRound ? 'text-red-100' : 'text-red-200/70'
+                              }`}>
+                                {clueData.hiddenInfo}
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </div>
+                    ))}
+                  </div>
+                  
+                  {/* 线索回到底部按钮 */}
+                  {userScrolledUpClues && (
+                    <div className="absolute bottom-2 right-2 z-10">
+                      <button
+                        onClick={() => {
+                          setUserScrolledUpClues(false);
+                          if (cluesContainerRef.current) {
+                            cluesContainerRef.current.scrollTop = cluesContainerRef.current.scrollHeight;
+                          }
+                        }}
+                        className="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg transition-all duration-200 flex items-center space-x-1 text-xs"
+                      >
+                        <span>最新</span>
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                        </svg>
+                      </button>
                     </div>
-                  ))}
+                  )}
                 </div>
               );
             })()}
@@ -965,11 +1287,20 @@ export default function RoomPage() {
       if (response.ok) {
         const result = await response.json();
         if (result.success && result.message) {
-          setChatMessages([...chatMessages, result.message]);
+          // 为新消息添加轮次信息
+          const messageWithRound = {
+            ...result.message,
+            roundNumber: gameData?.roundRecords?.length || 1
+          };
+          setChatMessages([...chatMessages, messageWithRound]);
           setNewMessage('');
           
+          // 用户发送消息后，重新启用自动滚动
+          setUserScrolledUp(false);
+          setShouldAutoScroll(true);
+          
           // 触发AI NPC轮询回复
-          triggerAIPollingResponse(result.message);
+          triggerAIPollingResponse(messageWithRound);
         }
       }
     } catch (error) {
@@ -1008,6 +1339,10 @@ export default function RoomPage() {
           const aiResult = await response.json();
           if (aiResult.success && aiResult.shouldSpeak && aiResult.message) {
             setChatMessages(prev => [...prev, aiResult.message]);
+            // AI回复时也启用自动滚动（如果用户没有向上滚动）
+            if (!userScrolledUp) {
+              setShouldAutoScroll(true);
+            }
             // 给AI之间一点响应间隔，避免同时说话
             await new Promise(resolve => setTimeout(resolve, 1500));
           }
@@ -1424,6 +1759,9 @@ export default function RoomPage() {
                         );
                       })}
                     </div>
+
+                    {/* 好友风格 AINPC 选择 */}
+                    <FriendStylePicker currentUser={currentUser} onChange={(list) => setSelectedFriendStyles(list)} />
                   </div>
                 )}
               </div>
@@ -1459,12 +1797,11 @@ export default function RoomPage() {
                       <input
                         type="number"
                         min="1"
-                        max="20"
+                        max="30"
                         value={rounds}
                         onChange={(e) => setRounds(e.target.value)}
-                        onFocus={(e) => console.log('Input focused')}
-                        className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-text"
-                        placeholder="输入游戏轮数（1-20）"
+                        className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        placeholder="输入游戏轮数（1-30）"
                         autoComplete="off"
                         disabled={!!room.collectedScript}
                       />
@@ -1478,9 +1815,7 @@ export default function RoomPage() {
                       <textarea
                         value={plotRequirement}
                         onChange={(e) => setPlotRequirement(e.target.value)}
-                        onFocus={(e) => console.log('Textarea focused')}
-                        onClick={(e) => e.target.focus()}
-                        className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none cursor-text"
+                        className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
                         style={{
                           minHeight: '120px',
                           fontFamily: 'inherit',
@@ -1498,7 +1833,7 @@ export default function RoomPage() {
                     {/* 开始游戏按钮 */}
                     <button
                       onClick={startGame}
-                      disabled={!plotRequirement.trim() || parseInt(rounds) < 1 || startingGame}
+                      disabled={startingGame || (!room.collectedScript && (!plotRequirement.trim() || parseInt(rounds) < 1))}
                       className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:from-gray-600 disabled:to-gray-600 text-white font-bold rounded-lg transition-all disabled:cursor-not-allowed flex items-center justify-center"
                     >
                       {startingGame ? (
@@ -1539,6 +1874,78 @@ export default function RoomPage() {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+// 简易的好友风格选择器
+function FriendStylePicker({ currentUser, onChange }) {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const load = async () => {
+      if (!currentUser) return;
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/users/${currentUser.id}/friend-styles`);
+        const data = await res.json();
+        if (data.success) setItems(data.friendStyles || []);
+      } catch (e) {
+        setError('加载好友风格失败');
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [currentUser?.id]);
+
+  const [selected, setSelected] = useState([]);
+
+  useEffect(() => { onChange(selected); }, [selected]);
+
+  const toggle = (fs) => {
+    const exists = selected.find((s) => s.userId === fs.userId);
+    if (exists) {
+      setSelected(selected.filter((s) => s.userId !== fs.userId));
+    } else {
+      setSelected([...selected, { userId: fs.userId, username: fs.username, styleText: fs.recentStyleSample }]);
+    }
+  };
+
+  return (
+    <div className="mt-6">
+      <div className="flex items-center justify-between mb-2">
+        <div className="text-white font-medium">好友风格 AINPC（可选）</div>
+        <div className="text-xs text-slate-400">选择被授权给你的好友风格</div>
+      </div>
+      {loading ? (
+        <div className="text-slate-300 text-sm">加载中...</div>
+      ) : error ? (
+        <div className="text-red-400 text-sm">{error}</div>
+      ) : items.length === 0 ? (
+        <div className="text-slate-400 text-sm">暂无可用好友风格</div>
+      ) : (
+        <div className="space-y-2">
+          {items.map((fs) => {
+            const checked = !!selected.find((s) => s.userId === fs.userId);
+            return (
+              <label key={fs.userId} className={`block p-3 rounded border ${checked ? 'border-purple-400 bg-purple-600/20' : 'border-slate-600 bg-slate-700/40'}`}>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-white text-sm">{fs.username} 的风格</div>
+                    {fs.recentStyleSample && (
+                      <div className="text-slate-300 text-xs mt-1 line-clamp-2">{fs.recentStyleSample}</div>
+                    )}
+                  </div>
+                  <input type="checkbox" className="w-4 h-4" checked={checked} onChange={() => toggle(fs)} />
+                </div>
+              </label>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

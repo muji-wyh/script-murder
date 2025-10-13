@@ -9,6 +9,10 @@ export interface User {
   collectedScripts?: CollectedScript[]; // 收藏的游戏剧本
   chatHistory: { [friendId: string]: ChatMessage[] };
   gameHistory: GameRecord[];
+  // 我将自己的发言风格授权给哪些好友（可用于好友在其游戏中添加“我的风格”的AINPC）
+  styleGrantsTo?: string[];
+  purchasedScripts?: string[]; // 购买的剧本ID列表（可与savedScripts共存）
+  balance?: number; // 账户余额（剧本商店模拟）
 }
 
 // 收藏剧本类型
@@ -25,6 +29,21 @@ export interface CollectedScript {
   personalScripts?: { [characterId: string]: PersonalScript }; // 个人剧本数据
   collectedAt: number;
   collectedBy: string;
+  // 二次创作链路（用于判断是否原创）
+  rootOriginalScriptId?: string; // 初始原创脚本ID（若本身原创则等于originalScriptId）
+  originalAuthorId?: string; // 初始原创作者ID
+  derivativeOfScriptId?: string; // 直接来源的脚本ID（上一代）
+  // 二次创作历史（只存增量元数据，不重复全文）
+  remixHistory?: RemixHistoryEntry[];
+}
+
+export interface RemixHistoryEntry {
+  at: number; // 时间戳
+  instructions: string; // 用户指令
+  changedRounds?: number[]; // 修改到的轮次编号
+  changedCharacters?: string[]; // 修改到的角色ID集合
+  titleChanged?: boolean;
+  backgroundChanged?: boolean;
 }
 
 // AI NPC 角色类型
@@ -69,8 +88,31 @@ export interface Script {
   background: string;
   characters: Character[]; // 角色列表
   roundContents: RoundContent[];
+  rawImportedText?: string; // 原始导入合并文本（供再次加工或再生成）
+  plotRequirement?: string; // 导入阶段若有
+  // 可选的扩展字段（外部聚合导入生成）
+  finalResolution?: string;
+  mechanics?: string;
+  recommendedPlayerCount?: number; // 推荐真人玩家数量
+  allowNPCFill?: boolean; // 是否允许AI补位
+  npcSuggestion?: {
+    needNPC: boolean;
+    minHumanPlayers: number;
+    maxNPC: number;
+    reason?: string;
+  } | null;
   createdAt: number;
   createdBy: string; // 创建者ID
+  // 二次创作相关
+  rootOriginalScriptId?: string; // 最初原创剧本ID（自身或最初源）
+  originalAuthorId?: string; // 最初原创作者ID
+  derivativeOfScriptId?: string; // 直接来源脚本ID（如果是二次创作）
+  // 评分聚合（可即时计算，但存缓存减少遍历）
+  averageRating?: number;
+  ratingCount?: number;
+  // 商店相关
+  isListedForSale?: boolean;
+  price?: number; // 价格（仅原始作者可设置）
 }
 
 // 角色信息
@@ -87,8 +129,7 @@ export interface RoundContent {
   plot: string; // 本轮剧情
   privateClues: { [characterId: string]: string }; // 每个角色的私人线索
 }
-
-// AI NPC配置
+// AINPC配置
 export interface AINPCConfig {
   id: string;
   name: string;
@@ -98,6 +139,16 @@ export interface AINPCConfig {
   type?: string; // AI类型
   characterId?: string; // 分配的角色ID
   characterName?: string; // 分配的角色名
+  friendStyleOfUserId?: string; // 若为好友风格AI，标记来源好友
+}
+
+// 剧本评分记录
+export interface ScriptRatingRecord {
+  id: string; // rating_${scriptId}_${userId}
+  scriptId: string;
+  userId: string;
+  rating: number; // 0-5
+  ratedAt: number;
 }
 
 // 个人剧本内容

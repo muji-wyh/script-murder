@@ -1,7 +1,70 @@
 import { LLMRequest, LLMResponse, LLMContext, GameRecord, Script, AINPCConfig } from '@/types';
 
-const GEMINI_API_KEY = 'AIzaSyBurtcL5QVBYKi1FmJBIzBa7nlasUvt5To';
-const GEMINI_2_5_PRO_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+// --- Utility helpers for text constraints & self-reference sanitization ---
+function charLen(str: string): number { return Array.from(str || '').length; }
+function clampChinese(str: string, max: number): string {
+  if (!str) return str;
+  const arr = Array.from(str.trim());
+  return arr.length <= max ? str.trim() : arr.slice(0, max).join('').replace(/[，。；,.!?！？]*$/, '');
+}
+function sanitizeSelfReference(raw: string, npc: AINPCConfig): string {
+  if (!raw) return raw;
+  const displayName = npc.characterName || npc.name;
+  // Extract possible tokens: Chinese part, English part in parenthesis, full name sans spaces
+  const tokens = new Set<string>();
+  const chinesePartMatch = displayName.split(/[(（]/)[0].trim();
+  if (chinesePartMatch) tokens.add(chinesePartMatch);
+  const parenMatch = /[(（]([^()（）]+)[)）]/.exec(displayName);
+  if (parenMatch) tokens.add(parenMatch[1]);
+  tokens.add(displayName.replace(/[()（）]/g,'').trim());
+  // If name originally was style label (for friend style AI) include original style label too
+  if (npc.friendStyleOfUserId && npc.name !== displayName) tokens.add(npc.name);
+  const honorific = '(?:先生|女士|小姐|同学|队长|老师)?';
+  let t = raw;
+  tokens.forEach(tok => {
+    if (!tok) return;
+    const safe = tok.replace(/[.*+?^${}()|[\]\\]/g, r => `\\${r}`);
+    const reg = new RegExp(safe + honorific, 'g');
+    t = t.replace(reg, '我');
+  });
+  // If still no first person, prepend one
+  if (!t.includes('我')) t = '我' + t;
+  // Reduce duplicated patterns
+  t = t.replace(/我觉得我/g,'我觉得').replace(/我认为我/g,'我认为');
+  return t;
+}
+
+// Ensure minimum Chinese character length by appending filler segments
+function ensureMinChineseLength(text: string, min: number): string {
+  if (!text) return text;
+  const filler = '【补充描写】细节层层铺陈，环境与人物状态被进一步具象化，新的心理暗流与潜在线索在字里行间被埋入，为后续推理奠定铺垫。';
+  let t = text.trim();
+  while (charLen(t) < min) {
+    t += filler;
+    if (charLen(t) > min + 400) break; // 上限保护，避免过度膨胀
+  }
+  return t;
+}
+
+// 动态获取 Gemini Key: 优先 .env，其次运行时设置的内存 key，可用调试端点 POST 设置
+function getGeminiApiKey(): string {
+  const envKey = (process.env.GEMINI_API_KEY || '').replace(/"/g,'').trim();
+  // @ts-ignore
+  const runtimeKey = (globalThis as any).__GEMINI_RUNTIME_KEY || '';
+  const key = envKey || runtimeKey || '';
+  if (!key) {
+    // 仅第一次提示
+    // @ts-ignore
+    if (!(globalThis as any).__GEMINI_KEY_WARNED) {
+      console.warn('[LLM] 未检测到 GEMINI_API_KEY（可在 .env.local 设置，或调用 /api/debug/gemini-set 运行时注入）');
+      // @ts-ignore
+      (globalThis as any).__GEMINI_KEY_WARNED = true;
+    }
+  }
+  return key;
+}
+// Correct model endpoints
+const GEMINI_2_5_PRO_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent';
 const GEMINI_2_0_FLASH_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 // 开发模式下的模拟响应
@@ -9,80 +72,78 @@ const ENABLE_MOCK_MODE = false;
 
 // 模拟LLM响应函数
 function getMockResponse(prompt: string): string {
-  if (prompt.includes('生成剧本')) {
+  // 智能提取剧情主题与轮数
+  const themeMatch = /剧情要求[:：]\s*([^\n]+)|剧情主题[:：]\s*([^\n]+)/.exec(prompt);
+  const theme = (themeMatch && (themeMatch[1] || themeMatch[2]))?.trim().slice(0,60) || '临时主题';
+  const roundsMatch = /游戏轮数[:：]\s*(\d+)|总轮数[:：]\s*(\d+)/.exec(prompt);
+  const rounds = roundsMatch ? parseInt(roundsMatch[1] || roundsMatch[2], 10) : 3;
+  const playersMatch = /真人玩家数量[:：]\s*(\d+)/.exec(prompt);
+  const aiMatch = /AI NPC数量[:：]\s*(\d+)/.exec(prompt);
+  const playerCount = playersMatch ? parseInt(playersMatch[1],10) : 2;
+  const aiCount = aiMatch ? parseInt(aiMatch[1],10) : 1;
+  const total = playerCount + aiCount;
+  const chars = Array.from({length: total}).map((_,i)=>({
+    id: `char_${i+1}`,
+    name: `角色${i+1}`,
+    identity: i < playerCount ? `核心身份${i+1}` : `配角身份${i+1}`,
+    personality: i < playerCount ? '积极推理' : '观察谨慎',
+    isMainCharacter: i < playerCount
+  }));
+  const background = `【背景】本剧本主题：${theme}。玩家被卷入一场逐步揭开的事件中。请围绕主题进行推理，隐藏动机、冲突与伏笔会在后续轮次逐步浮现。`;
+
+  // 生成接近1000字的占位剧情（在服务端降级时提升体验）
+  function buildRoundPlot(roundIndex: number): string {
+    const baseSegments = [
+      `【场景切入】时间推进到新的节点，环境细节被进一步描摹：空气里残留的气味、窗外的光线变化与细微噪声共同营造出紧张的氛围。`,
+      `【事件推进】与“${theme}”核心冲突相关的一个关键现象出现，引发所有角色短暂沉默；有人试探性提出假设，有人否认，有人刻意回避。`,
+      `【人物交锋】两名主要角色围绕线索真伪展开针锋相对的追问，措辞保持克制却暗含火药味；一名配角突然插入补充旁观视角，使推理分支被迫拆解重组。`,
+      `【线索揭示】新的线索被曝光：它表面指向显而易见的方向，但细节层面存在自相矛盾；角色们各自挑选符合自身立场的碎片进行拼接，形成多条暂时并存的解释路径。`,
+      `【心理与伏笔】一位角色在短暂沉默后给出貌似配合的回应，却在措辞中留下不自然的修饰；另一位角色表情或语气的细节被敏锐者记录下，成为下一轮潜在爆点。`,
+      `【未解悬念】本轮末尾出现一个无法立即验证的小型反常现象：它既可能是他人布置的障眼物，也可能是更深层结构的接口，迫使所有人改变原先的推理优先级。`
+    ];
+    // 根据轮次稍作差异
+    if (roundIndex === 0) baseSegments.unshift(`【轮次引导】第${roundIndex+1}轮正式开始，角色们在初步交换认知后进入更具针对性的排查阶段，仍存在对主题“${theme}”本质误读的空间。`);
+    if (roundIndex === rounds - 1) baseSegments.push(`【逼近真相】随着前序矛盾被压缩，隐藏结构轮廓逐渐清晰，然而仍有一处核心动机缺口无人能自洽填补，为最终揭示蓄势。`);
+
+    let text = `第${roundIndex+1}轮剧情展开：` + baseSegments.join('');
+    // 字数（中文字符）不足则填充分析性补述
+    const targetMin = 900; // 允许 900 - 1100 区间
+    const filler = `【细节补述】角色之间的呼吸节奏、语速变化与视线停顿都被记录进集体记忆；这些微妙标记将在后续被重新比对，构成推翻或巩固某条推理链的证据。`;
+    while ([...text].length < targetMin) {
+      text += filler;
+      if ([...text].length > 1120) break; // 上限保护
+    }
+    return text;
+  }
+
+  const roundContents = Array.from({length: rounds}).map((_,i)=>{
+    return {
+      round: i+1,
+      plot: buildRoundPlot(i),
+      privateClues: Object.fromEntries(chars.map(c=>[c.id,`线索${i+1}-${c.id}：与“${theme}”相关的个性化提示，暗示其立场或潜在误导点。`]))
+    };
+  });
+
+  if (prompt.includes('生成剧本') || prompt.includes('剧本')) {
     return JSON.stringify({
-      title: "神秘的古堡谜案",
-      background: "在一个暴风雨的夜晚，几位客人被邀请到古老的维多利亚庄园过夜。然而，当第二天早晨到来时，庄园的主人却离奇死亡。每个人都有动机，每个人都有秘密。真相究竟是什么？",
-      characters: [
-        {
-          id: "char_001",
-          name: "爱丽丝·维多利亚",
-          identity: "庄园继承人",
-          personality: "优雅但隐藏着不为人知的秘密",
-          isMainCharacter: true
-        },
-        {
-          id: "char_002", 
-          name: "詹姆斯·布朗",
-          identity: "律师",
-          personality: "严谨理性，擅长分析",
-          isMainCharacter: true
-        },
-        {
-          id: "char_003",
-          name: "莎拉·琼斯",
-          identity: "管家",
-          personality: "忠诚但神秘莫测",
-          isMainCharacter: false
-        }
-      ],
-      roundContents: [
-        {
-          round: 1,
-          plot: "第一轮：发现尸体。庄园主人被发现死在书房中，现场一片狼藉。"
-        },
-        {
-          round: 2,
-          plot: "第二轮：初步调查。警察到达现场，开始询问各位客人的不在场证明。"
-        },
-        {
-          round: 3,
-          plot: "第三轮：深入调查。更多的线索被发现，每个人的动机逐渐浮出水面。"
-        }
-      ]
+      title: `${theme}·推理剧本`,
+      background,
+      characters: chars,
+      roundContents
     });
   } else if (prompt.includes('个人剧本')) {
     return JSON.stringify({
-      personalBackground: "你是这个故事中的关键人物，有着不为人知的秘密。",
+      personalBackground: `你与“${theme}”事件存在隐秘关联，这段个人背景用于帮助你制定推理策略。`,
       personalRoundContents: [
-        {
-          round: 1,
-          personalPlot: "你发现了尸体，心中充满了恐惧和疑虑。",
-          hiddenInfo: "你知道一些其他人不知道的秘密..."
-        }
+        { round: 1, personalPlot: `个人视角：第一轮中你注意到他人忽视的细节，涉及“${theme}”的隐藏线索。`, hiddenInfo: '你掌握的隐藏动机碎片。' }
       ]
     });
   } else if (prompt.includes('AI角色是否要说话')) {
-    return Math.random() > 0.7 ? "是" : "否";
-  } else if (prompt.includes('AI角色发言')) {
-    const responses = [
-      "我觉得这件事很可疑...",
-      "让我们仔细分析一下线索",
-      "这个说法有矛盾之处",
-      "我想起了一个重要的细节"
-    ];
-    return responses[Math.floor(Math.random() * responses.length)];
-  } else if (prompt.includes('故事复盘') || prompt.includes('回忆这次游戏')) {
-    return "这是一次精彩的剧本杀体验！在这个神秘的故事中，我们一起探索了人性的复杂与真相的曲折。每个角色都有自己的秘密，每个线索都指向不同的方向。通过层层推理和激烈讨论，我们最终揭开了事件的真相。这个故事让我们看到了在关键时刻，人性的选择往往决定了命运的走向。整个游戏过程充满了悬疑和惊喜，每一次的发言都可能改变我们对真相的认知。";
-  } else if (prompt.includes('精彩点解密') || prompt.includes('精彩的推理')) {
-    return "游戏中最精彩的时刻是当关键线索被发现的那一瞬间，所有人的表情都发生了微妙的变化。每个玩家的推理都展现了独特的逻辑思维，特别是在分析证据时的严谨态度令人印象深刻。AI角色的参与为游戏增添了更多的不确定性，它们的发言往往在关键时刻提供了重要的线索或者制造了有趣的误导。整个讨论过程中，玩家们的互动自然流畅，展现了良好的游戏素养。";
-  } else if (prompt.includes('故事升华') || prompt.includes('深层含义')) {
-    return "这个故事让我们思考了人性中善与恶的界限。在复杂的人际关系中，每个人都有自己的立场和难处。真相往往比表面看起来更加复杂，正如生活中的许多选择一样，没有绝对的对错。这次游戏体验提醒我们要用包容的心态去理解他人，同时也要保持独立思考的能力。";
-  } else if (prompt.includes('观点总结') || prompt.includes('剧情贡献') || prompt.includes('发言风格')) {
-    return "观点总结: 该玩家在游戏中展现了敏锐的观察力和逻辑推理能力，能够抓住关键线索进行深入分析。\n剧情贡献: 通过积极的参与和精彩的发言，为游戏的推进和氛围营造做出了重要贡献。\n发言风格: 发言条理清晰，语言生动有趣，既能保持游戏的紧张感又不失幽默风趣。";
-  } else {
-    return "这是一个模拟响应，用于开发测试。";
+    return JSON.stringify({ shouldSpeak: true, content: '我觉得这里的矛盾点还没解释清楚。' });
   }
+
+  // 其他通用占位
+  return '这是一个模拟响应，用于开发测试。';
 }
 
 // 通用LLM调用函数，带有重试机制
@@ -94,7 +155,7 @@ export async function callLLM(prompt: string, useProModel = false, retries = 3):
     return getMockResponse(prompt);
   }
   
-  const url = useProModel ? GEMINI_2_5_PRO_URL : GEMINI_2_0_FLASH_URL;
+  const primaryUrl = useProModel ? GEMINI_2_5_PRO_URL : GEMINI_2_0_FLASH_URL;
   
   const request: LLMRequest = {
     contents: [
@@ -112,20 +173,44 @@ export async function callLLM(prompt: string, useProModel = false, retries = 3):
     try {
       console.log(`LLM API调用尝试 ${attempt}/${retries}...`);
       
-      const response = await fetch(url, {
+  let response = await fetch(primaryUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-goog-api-key': GEMINI_API_KEY,
+      'X-goog-api-key': getGeminiApiKey(),
         },
-        body: JSON.stringify(request),
-        // 增加超时时间
-        signal: AbortSignal.timeout(60000) // 60秒超时
+    body: JSON.stringify(request)
       });
 
       if (!response.ok) {
         const errorText = await response.text();
         console.error(`LLM API错误 (尝试 ${attempt}): ${response.status} ${response.statusText}`, errorText);
+
+        // 如果是 503 / 502 / 504 并且当前使用的是 Pro 模型，则立即尝试降级到 Flash 模型一次（同一 attempt 内）
+        if (useProModel && (response.status === 503 || response.status === 502 || response.status === 504)) {
+          console.log('Pro 模型过载，尝试降级到 Flash 模型...');
+          try {
+            response = await fetch(GEMINI_2_0_FLASH_URL, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-goog-api-key': getGeminiApiKey(),
+              },
+              body: JSON.stringify(request)
+            });
+            if (response.ok) {
+              const data: LLMResponse = await response.json();
+              if (data.candidates?.length) {
+                console.log(`降级到 Flash 成功 (尝试 ${attempt})`);
+                return data.candidates[0].content.parts[0].text;
+              }
+            } else {
+              console.warn('降级到 Flash 仍失败:', response.status, response.statusText);
+            }
+          } catch (downgradeErr) {
+            console.warn('降级调用异常:', downgradeErr);
+          }
+        }
         
         // 如果是服务器错误（5xx）且还有重试次数，则继续重试
         if (response.status >= 500 && attempt < retries) {
@@ -179,6 +264,28 @@ export async function callLLM(prompt: string, useProModel = false, retries = 3):
   return getMockResponse(prompt);
 }
 
+// 通用宽松 JSON 提取（去除 markdown 包裹、截取第一个 { 到最后一个 }、清理 BOM / 多余前缀）
+function extractJSONFlexible(raw: string): any | null {
+  if (!raw) return null;
+  let t = raw.trim();
+  // 去掉可能的中文前言，找到第一个 '{'
+  const firstBrace = t.indexOf('{');
+  if (firstBrace > 0) {
+    t = t.slice(firstBrace);
+  }
+  if (t.startsWith('```json')) t = t.slice(7);
+  else if (t.startsWith('```')) t = t.slice(3);
+  if (t.endsWith('```')) t = t.slice(0, -3);
+  t = t.replace(/^[\uFEFF\s]+/, '').trim();
+  const first = t.indexOf('{');
+  const last = t.lastIndexOf('}');
+  if (first !== -1 && last !== -1 && last > first) {
+    const candidate = t.slice(first, last + 1);
+    try { return JSON.parse(candidate); } catch { /* ignore */ }
+  }
+  try { return JSON.parse(t); } catch { return null; }
+}
+
 // 1. 生成剧本 - 使用2.5 Pro
 export async function generateScript(
   plotRequirement: string, 
@@ -197,12 +304,12 @@ AI NPC数量：${aiNPCCount}（需要分配次要角色）
 总角色数量：${totalCharacters}
 
 请创建一个包含以下内容的剧本：
-1. 引人入胜的故事背景（200-300字）
+1. 引人入胜的故事背景（300-400字）
 2. ${totalCharacters}个角色（包含姓名、身份、性格特点）
    - 前${playerCount}个角色是重要角色（给真人玩家）
    - 后${aiNPCCount}个角色是次要角色（给AI NPC）
-3. 每轮的剧情发展（每轮100-150字）
-4. 每轮每个角色的私人线索（每个50-80字，要有差异性和关联性）
+3. 每轮的剧情发展（每轮约2000字左右，必须不少于1900字；建议控制在1900-2100字；需包含关键情节推进、核心冲突、必要的环境/人物/伏笔要素，信息密度高且节奏紧凑，避免水分）
+4. 每轮每个角色的私人线索（每条30-45字，删去无效铺陈，不复述公共剧情，信息密度高，彼此互补）
 
 输出格式必须是严格的JSON格式：
 {
@@ -235,49 +342,101 @@ AI NPC数量：${aiNPCCount}（需要分配次要角色）
 - 后${aiNPCCount}个角色是配角或旁观者（次要角色）
 - 私人线索之间有关联但又各不相同
 - 角色姓名要符合剧情背景
+- **重要：每轮剧情控制在约1000字（900-1100字之间），保持信息密度与推进节奏，避免冗长堆砌或无效对白**
 `;
+  const raw = await callLLM(prompt, true);
 
-  const response = await callLLM(prompt, true);
-  
-  try {
-    // 清理响应中的markdown代码块标记
-    let cleanedResponse = response.trim();
-    
-    // 移除开头的```json或```
-    if (cleanedResponse.startsWith('```json')) {
-      cleanedResponse = cleanedResponse.slice(7);
-    } else if (cleanedResponse.startsWith('```')) {
-      cleanedResponse = cleanedResponse.slice(3);
+  function tryExtractJSON(text: string): any | null {
+    let t = text.trim();
+    if (t.startsWith('```json')) t = t.slice(7);
+    else if (t.startsWith('```')) t = t.slice(3);
+    if (t.endsWith('```')) t = t.slice(0, -3);
+    t = t.trim();
+    // 尝试截取第一个 { 到最后一个 }
+    const first = t.indexOf('{');
+    const last = t.lastIndexOf('}');
+    if (first !== -1 && last !== -1 && last > first) {
+      const candidate = t.slice(first, last + 1);
+      try { return JSON.parse(candidate); } catch { /* ignore */ }
     }
-    
-    // 移除结尾的```
-    if (cleanedResponse.endsWith('```')) {
-      cleanedResponse = cleanedResponse.slice(0, -3);
-    }
-    
-    // 去除首尾空白字符
-    cleanedResponse = cleanedResponse.trim();
-    
-    console.log('Cleaned LLM response:', cleanedResponse.substring(0, 200) + '...');
-    
-    const scriptData = JSON.parse(cleanedResponse);
-    
-    const script: Script = {
+    try { return JSON.parse(t); } catch { return null; }
+  }
+
+  const primaryData = tryExtractJSON(raw);
+  if (primaryData && primaryData.title && Array.isArray(primaryData.characters) && Array.isArray(primaryData.roundContents)) {
+    // 线索长度与格式 & 剧情长度后处理
+    primaryData.roundContents = primaryData.roundContents.map((rc: any) => {
+      if (rc && rc.privateClues && typeof rc.privateClues === 'object') {
+        Object.keys(rc.privateClues).forEach(k => {
+          let clue = (rc.privateClues[k] || '').toString().replace(/^(线索|提示)[:：]/,'').trim();
+            clue = clampChinese(clue, 45);
+            if (charLen(clue) < 25) clue = clue + '。';
+            rc.privateClues[k] = clue;
+        });
+      }
+      if (rc && typeof rc.plot === 'string') {
+        rc.plot = ensureMinChineseLength(rc.plot, 1900);
+      }
+      return rc;
+    });
+    return {
       id: `script_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      title: scriptData.title,
-      rounds: rounds,
-      background: scriptData.background,
-      characters: scriptData.characters || [],
-      roundContents: scriptData.roundContents,
+      title: primaryData.title,
+      rounds,
+      background: primaryData.background,
+      characters: primaryData.characters,
+      roundContents: primaryData.roundContents,
       createdAt: Date.now(),
       createdBy: 'system'
     };
-    
-    return script;
-  } catch (error) {
-    console.error('Failed to parse script JSON:', error);
-    throw new Error('Failed to generate valid script');
   }
+
+  console.warn('[generateScript] 主体一次性生成失败，进入增量模式');
+
+  // -------- 增量模式 --------
+  // Step1: 骨架
+  const skeletonPrompt = `请仅输出 JSON，不要任何多余文字：\n{\n  "title": "标题",\n  "background": "250-300字背景",\n  "characters": [ { "id": "char_1", "name": "角色1", "identity": "身份", "personality": "性格", "isMainCharacter": true } ]\n}\n要求：共 ${totalCharacters} 个角色，前 ${playerCount} 主角 isMainCharacter=true，后 ${aiNPCCount} 为配角。剧情主题：${plotRequirement}`;
+  const skeletonRaw = await callLLM(skeletonPrompt, true);
+  const skeleton = tryExtractJSON(skeletonRaw) || {};
+  const characters = Array.isArray(skeleton.characters) && skeleton.characters.length === totalCharacters
+    ? skeleton.characters
+    : Array.from({ length: totalCharacters }).map((_, i) => ({
+        id: `char_${i+1}`,
+        name: `角色${i+1}`,
+        identity: `身份${i+1}`,
+        personality: `性格${i+1}`,
+        isMainCharacter: i < playerCount
+      }));
+
+  // Step2: 每轮内容
+  const roundContents: any[] = [];
+  for (let r = 1; r <= rounds; r++) {
+  const perRoundPrompt = `仅输出本轮 JSON：{\n "round": ${r},\n "plot": "第${r}轮 2000字剧情(目标1900-2100字; 不得低于1900字; 包含事件进展/角色心理/冲突或伏笔1-2处; 需自然连贯, 信息密度高)",\n "privateClues": { "角色ID": "该角色30-45字高信息密度线索(不写无意义铺陈, 不复述公共剧情)" }\n}\n角色ID列表: ${characters.map(c=>c.id).join(', ')}\n剧情主题：${plotRequirement}`;
+    const roundRaw = await callLLM(perRoundPrompt, false);
+    const rd = tryExtractJSON(roundRaw) || {};
+    const clues: Record<string,string> = {};
+    characters.forEach(c => {
+      const rawClue = (rd.privateClues && rd.privateClues[c.id]) || `${plotRequirement} 独有线索片段`;
+      let clue = rawClue.replace(/^(线索|提示)[:：]/,'').trim();
+      clue = clampChinese(clue, 45);
+      if (charLen(clue) < 25) { clue = clue + '。'; }
+      clues[c.id] = clue;
+    });
+  let plotText = rd.plot || `第${r}轮剧情：${plotRequirement} 发展...`;
+  plotText = ensureMinChineseLength(plotText, 1900);
+  roundContents.push({ round: r, plot: plotText, privateClues: clues });
+  }
+
+  return {
+    id: `script_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    title: skeleton.title || `临时剧本：${plotRequirement.slice(0,20)}`,
+    rounds,
+    background: skeleton.background || `背景：${plotRequirement} 的故事设定。`,
+    characters,
+    roundContents,
+    createdAt: Date.now(),
+    createdBy: 'incremental'
+  };
 }
 
 // 2. AI NPC发言决策 - 使用2.0 Flash
@@ -290,6 +449,7 @@ export async function getNPCAction(
   const recentMessages = currentRoundRecord.messages.slice(-10); // 最近10条消息
   const lastMessage = recentMessages[recentMessages.length - 1]; // 最后一条消息
   
+  const friendStyleHint = npc.friendStyleOfUserId ? `\n- 该AI基于一位好友的发言风格进行表达（更贴近日常聊天口吻、语气、句式），但内容需与当前剧情紧密相关。` : '';
   const prompt = `
 你正在扮演一个AI NPC角色，需要决定是否在当前讨论中发言。
 
@@ -297,6 +457,7 @@ NPC信息：
 - 姓名：${npc.name}
 - 风格：${npc.style}
 - 性格：${npc.personality}
+${friendStyleHint}
 
 故事背景：${gameRecord.scriptBackground}
 
@@ -304,17 +465,19 @@ NPC信息：
 当前剧情：${currentRoundRecord.plot}
 你的私人线索：${currentRoundRecord.privateClues[npc.id] || '无特殊线索'}
 
-最近的讨论记录：
+最近的讨论记录（按时间顺序，最后一条是最新的）：
 ${recentMessages.map(msg => `${msg.senderName}: ${msg.content}`).join('\n')}
 
-${lastMessage ? `
-最新发言是 ${lastMessage.senderName} 说的："${lastMessage.content}"
-请特别考虑是否要回应这条最新发言。
-` : ''}
+${lastMessage ? `最新发言 => ${lastMessage.senderName}: ${lastMessage.content}` : ''}
 
 请决定：
 1. 是否需要发言（重点考虑是否要回应最新发言、讨论热度、是否有新信息、角色性格等）
-2. 如果发言，说什么内容（符合角色性格，最好能回应最新发言的内容，推进讨论，不要重复已说过的内容）
+2. 如果发言，说什么内容：
+  - 必须使用第一人称“我”，绝不能出现自己的姓名或姓名片段（例如把“${npc.name.split(/[·•]/)[0]}”写出来指代自己）
+  - 不得使用旁白/叙述者语气，不要描述自己的表情、语气、动作（除非极简且与推理相关）
+  - 回应最新发言并推进讨论，不复述已知信息，不空洞评价
+  - 不要说“我觉得我...”“我认为我...”，避免重复“我”结构
+  - 限制 1-2 句，总字数不超过60字
 
 输出格式必须是JSON：
 {
@@ -353,9 +516,24 @@ ${lastMessage ? `
     cleanedResponse = cleanedResponse.trim();
     
     const decision = JSON.parse(cleanedResponse);
+    const directAddressed = !!(lastMessage && lastMessage.content && (lastMessage.content.includes(npc.name) || /[?？]$/.test(lastMessage.content) ));
+    let content: string | undefined = undefined;
+    if (decision.shouldSpeak && typeof decision.content === 'string') {
+      let t = decision.content.trim();
+      t = t.replace(/^["“”']+|["“”']+$/g, '');
+      t = sanitizeSelfReference(t, npc);
+      if (t.length > 60) t = t.slice(0,60);
+      content = t;
+    } else if (!decision.shouldSpeak && directAddressed) {
+      // 如果被直接点名或问号结尾却不想说，强制给一句回应
+      let t = lastMessage?.content.includes('去哪') ? '我昨天去了别的地方办点事，现在可以说明。' : '我在，刚才在整理线索，我的看法稍后说。';
+      if (t.length > 60) t = t.slice(0,60);
+      content = t;
+      decision.shouldSpeak = true;
+    }
     return {
-      shouldSpeak: decision.shouldSpeak,
-      content: decision.shouldSpeak ? decision.content : undefined
+      shouldSpeak: !!decision.shouldSpeak,
+      content
     };
   } catch (error) {
     console.error('Failed to parse NPC decision JSON:', error);
@@ -422,11 +600,18 @@ export async function generateGameSummary(
   
   const allMessages = gameRecord.roundRecords
     .flatMap(round => round.messages);
+  const realPlayers = Array.from(new Set(gameRecord.players)).map(pid => {
+    const name = allMessages.find(m => m.senderId === pid)?.senderName || pid;
+    return { id: pid, name };
+  });
   
   const prompt = `
-请为剧本杀游戏生成详细的复盘总结。
+请为剧本杀游戏生成客观理性的复盘总结，避免夸张与情绪化语气，像资深法医式记录员：
 
 故事背景：${gameRecord.scriptBackground}
+
+真人玩家列表（仅对下列玩家进行点评，忽略AI NPC）：
+${realPlayers.map(p => `- ${p.id}（${p.name}）`).join('\n')}
 
 完整游戏记录：
 ${gameRecord.roundRecords.map(round => 
@@ -437,28 +622,28 @@ ${gameRecord.roundRecords.map(round =>
 目标玩家发言记录：
 ${playerMessages.map(msg => `${msg.senderName}: ${msg.content}`).join('\n')}
 
-请生成以下内容：
+请生成以下内容（务必理性、克制、专业）：
 
-1. 故事复盘（200-300字）：整个故事的发展脉络和关键转折点
-2. 精彩点解密（150-200字）：游戏中的高光时刻和巧妙设计
-3. 故事升华（100-150字）：这个故事的深层含义和启发
+1. 故事复盘（200-300字）：按时间线概述主要事件、关键线索与转折，避免主观评价。
+2. 精彩点解密（150-200字）：指出逻辑巧点与有效推理片段，引用具体证据或发言，不夸饰。
+3. 故事总结（100-150字）：对本局结构与机制的理性总结（不使用煽情词汇）。
 
-4. 每个玩家的分析：
-   - 观点总结：该玩家在游戏中的主要观点和立场
-   - 剧情相关点评：该玩家对剧情推进的贡献
-   - 风格点评：该玩家的发言风格特点，要夸奖和鼓励
+4. 每个玩家的分析（逐个玩家，仅包含上述真人玩家；playerAnalysis的key用玩家ID）：
+   - 观点总结：该玩家的核心主张或怀疑对象（基于其发言）。
+   - 剧情相关点评：该玩家对推进调查、串联线索或证伪的具体贡献。
+   - 发言风格：简要描述其表达风格与沟通特点，保持中性、建设性，不夸大不贬损。
 
 输出格式必须是JSON：
 {
   "storyReview": "故事复盘",
   "plotAnalysis": "精彩点解密", 
-  "storyElevation": "故事升华",
+  "storyElevation": "故事总结",
   "playerAnalysis": {
     "玩家ID": {
       "playerName": "玩家名称",
       "viewpointSummary": "观点总结",
       "plotRelatedComment": "剧情相关点评",
-      "styleComment": "风格点评（要夸奖）"
+    "styleComment": "发言风格"
     }
   }
 }
@@ -488,7 +673,7 @@ export async function generateNPCResponse(context: {
 }): Promise<string> {
   const { userMessage, aiNPC, gameContext, gameRecord } = context;
   
-  const prompt = `你是一个剧本杀游戏中的AI NPC，名为"${aiNPC.name}"，性格特点是：${aiNPC.personality}。
+  const prompt = `你是一个剧本杀游戏中的AI NPC，名为"${aiNPC.name}"，性格特点：${aiNPC.personality}。
 
 游戏背景：
 ${gameContext.background}
@@ -498,27 +683,31 @@ ${gameContext.background}
 最近的聊天记录：
 ${gameContext.recentMessages.map(msg => `${msg.senderName}: ${msg.content}`).join('\n')}
 
-请根据你的性格特点，对这个发言做出1-2句简短的回应。回应要：
-1. 符合你的性格特点（${aiNPC.personality}）
-2. 与游戏剧情相关
-3. 推动剧情发展或引发思考
-4. 语言自然，不要过于正式
-5. 不要暴露你是AI的身份
+请根据你的性格特点，对这个发言做出1-2句简短回应。必须严格遵守：
+1. 只能用第一人称“我”指代自己，绝不能出现自己的姓名或姓名片段替代“我”。
+2. 不使用旁白/解说/舞台提示语，不描述自己长篇动作，仅在必要时用一个动词（如“我注意到”）。
+3. 必须直接回应玩家内容，推动推理或提出疑问，不复述对方原句。
+4. 避免模板化：不要连续使用“我觉得”“我认为”开头；如出现，尽量只保留一个。
+5. 长度不超过60字，不暴露系统或AI身份。
 
-直接输出回复内容，不要JSON格式：`;
+直接输出文本内容（不要JSON、不要引号、不要前后缀）：`;
 
   try {
     const response = await callLLM(prompt, false);
-    return response.trim();
+  let t = response.trim();
+  t = t.replace(/^["“”']+|["“”']+$/g, '');
+  t = sanitizeSelfReference(t, aiNPC);
+  if (t.length > 60) t = t.slice(0,60);
+  return t;
   } catch (error) {
     console.error('Failed to generate NPC response:', error);
     // 返回备用回复
     const fallbackResponses = [
-      "有意思的观点...",
-      "这让我想到了什么...",
-      "确实值得深思。",
-      "或许事情没那么简单。",
-      "继续说说你的想法。"
+      "我觉得这个点有意思。",
+      "我有个想法，先听我说。",
+      "我有点怀疑这里不对劲。",
+      "我更倾向于另一种解释。",
+      "我想再确认一个细节。"
     ];
     return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
   }
@@ -564,9 +753,10 @@ ${allCharacters.map(c => `${c.name}（${c.identity}）`).join('、')}
    - 突出与该角色相关的信息
    - 适当增加该角色的个人动机和秘密
 
-2. 每轮的个人剧情内容（每轮80-120字）
-   - 从该角色视角描述剧情发展
-   - 包含该角色独有的观察和感受
+2. 每轮的个人剧情内容（每轮必须400-500字）
+   - 从该角色视角详细描述剧情发展
+   - 包含该角色独有的观察、感受和内心活动
+   - 添加环境细节和情感描述
 
 基础轮次剧情参考：
 ${baseScript.roundContents.map(rc => `第${rc.round}轮：${rc.plot}`).join('\n')}
@@ -588,35 +778,40 @@ ${baseScript.roundContents.map(rc => `第${rc.round}轮：${rc.plot}`).join('\n'
 - 主角应该获得更多关键信息
 - 配角应该有辅助性的信息和视角
 - 保持与基础剧情的一致性，但增加个人特色
+- **重要：每轮个人剧情必须达到400-500字，要有丰富的细节和情感描述**
 `;
 
   try {
-    const response = await callLLM(prompt, true);
-    
-    // 清理响应
-    let cleanedResponse = response.trim();
-    if (cleanedResponse.startsWith('```json')) {
-      cleanedResponse = cleanedResponse.slice(7);
-    } else if (cleanedResponse.startsWith('```')) {
-      cleanedResponse = cleanedResponse.slice(3);
+    const response = await callLLM(prompt, true); // 优先 Pro
+    let parsed = extractJSONFlexible(response);
+
+    // 如果第一次解析失败，尝试再提示模型只输出 JSON（闪回重试一次，使用较小模型）
+    if (!parsed) {
+      console.warn('[generatePersonalScript] 初次解析失败，尝试二次约束 JSON');
+      const enforcePrompt = `只输出严格 JSON，不要额外说明：\n${prompt}\n\n（再次提醒：只输出 JSON）`;
+      const secondRaw = await callLLM(enforcePrompt, false); // 用 flash 降低过载概率
+      parsed = extractJSONFlexible(secondRaw);
     }
-    if (cleanedResponse.endsWith('```')) {
-      cleanedResponse = cleanedResponse.slice(0, -3);
+
+    if (parsed && parsed.personalBackground && Array.isArray(parsed.personalRoundContents)) {
+      // 结构与长度修正：确保每轮字段完整
+      parsed.personalRoundContents = parsed.personalRoundContents.map((r: any, idx: number) => ({
+        round: r.round || (idx + 1),
+        personalPlot: r.personalPlot || r.plot || `第${idx + 1}轮：${baseScript.roundContents[idx]?.plot || '剧情待补充'}`,
+  hiddenInfo: clampChinese(r.hiddenInfo || r.secret || '你掌握着一些暂时不便透露的线索', 80)
+      }));
+      return parsed;
     }
-    cleanedResponse = cleanedResponse.trim();
-    
-    const personalScript = JSON.parse(cleanedResponse);
-    return personalScript;
+    throw new Error('Parsed result missing required fields');
   } catch (error) {
     console.error('Failed to generate personal script:', error);
-    
-    // 返回默认的个人剧本
+    // 返回可用的降级版本
     return {
-      personalBackground: `作为${character.name}，你发现自己卷入了这个复杂的事件中。${baseScript.background}`,
+      personalBackground: `作为${character.name}，你发现自己卷入了事件。${baseScript.background}`,
       personalRoundContents: baseScript.roundContents.map(rc => ({
         round: rc.round,
-        personalPlot: `第${rc.round}轮：${rc.plot}`,
-        hiddenInfo: "你有一些其他人不知道的信息..."
+        personalPlot: `【个人视角】第${rc.round}轮：${rc.plot}`,
+        hiddenInfo: '暂无额外隐藏信息'
       }))
     };
   }

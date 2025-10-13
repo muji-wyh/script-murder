@@ -55,7 +55,7 @@ function generateFallbackScript(plotRequirement: string, rounds: number, playerC
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { rounds, plotRequirement, aiNPCTypes } = await request.json();
+  const { rounds, plotRequirement, aiNPCTypes, friendStyleNPCs } = await request.json();
     const { id: roomId } = await params;
     
     const room = getRoomById(roomId);
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     let personalScripts: { [characterId: string]: any } = {};
 
     // 检查是否是收藏剧本
-    if ((room as any).collectedScript) {
+  if ((room as any).collectedScript) {
       // 使用收藏剧本
       const collectedScript = (room as any).collectedScript;
       script = {
@@ -80,7 +80,8 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
         characters: collectedScript.characters,
         roundContents: collectedScript.roundContents,
         createdAt: Date.now(),
-        createdBy: 'collected'
+    createdBy: 'collected',
+    rawImportedText: collectedScript.rawImportedText || undefined
       };
 
       // 使用原有的个人剧本
@@ -89,7 +90,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
           personalScripts[char.id] = collectedScript.personalScripts[char.id];
         }
       });
-    } else {
+  } else {
       // 生成新剧本
       try {
         console.log('开始生成剧本...');
@@ -169,16 +170,18 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     ];
 
     const playerCount = room.players.length;
-    const aiNPCCount = aiNPCTypes ? aiNPCTypes.length : 0;
+  const aiNPCCount = (aiNPCTypes ? aiNPCTypes.length : 0) + (friendStyleNPCs ? friendStyleNPCs.length : 0);
 
-    const aiNPCs = (aiNPCTypes || []).map((typeId: string, index: number) => {
+    const aiNPCs: any[] = [];
+
+    // 1) 传统类型AI
+    (aiNPCTypes || []).forEach((typeId: string, index: number) => {
       const characterType = AI_CHARACTER_TYPES.find(type => type.id === typeId);
-      if (!characterType) return null;
+      if (!characterType) return;
       
       // 分配给AI的角色（次要角色）
-      const aiCharacter = script.characters[playerCount + index];
-      
-      return {
+      const aiCharacter = script.characters[playerCount + aiNPCs.length];
+      aiNPCs.push({
         id: `ai_${typeId}_${index}`,
         name: characterType.name,
         personality: characterType.personality,
@@ -187,8 +190,24 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
         style: characterType.personality,
         characterId: aiCharacter?.id,
         characterName: aiCharacter?.name
-      };
-    }).filter(Boolean);
+      });
+    });
+
+    // 2) 好友风格AI：[{ userId, username, styleText }]
+    (friendStyleNPCs || []).forEach((f: any, idx: number) => {
+      const aiCharacter = script.characters[playerCount + aiNPCs.length];
+      aiNPCs.push({
+        id: `ai_friend_${f.userId}_${idx}`,
+        name: `${f.username}风格AI`,
+        personality: '基于好友历史发言的说话风格',
+        type: 'friend_style',
+        isActive: true,
+        style: f.styleText || f.recentStyleSample || '简洁、直接、逻辑清晰',
+        characterId: aiCharacter?.id,
+        characterName: aiCharacter?.name,
+        friendStyleOfUserId: f.userId
+      });
+    });
 
     // 创建玩家角色分配映射
     const playerCharacters: { [playerId: string]: string } = {};
