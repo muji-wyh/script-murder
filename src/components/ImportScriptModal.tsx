@@ -24,12 +24,12 @@ export default function ImportScriptModal({ isOpen, onClose, onSuccess, currentU
 
   const handleUpload = async () => {
     if (!files || files.length === 0) {
-      setUploadStatus('请选择至少一个PDF文件');
+      setUploadStatus('Please select at least one PDF file');
       return;
     }
 
     setIsUploading(true);
-    setUploadStatus('正在分析PDF文件...');
+    setUploadStatus('Analyzing PDF files...');
 
     try {
       const formData = new FormData();
@@ -47,7 +47,7 @@ export default function ImportScriptModal({ isOpen, onClose, onSuccess, currentU
       const result = await response.json();
 
       if (result.success) {
-        setUploadStatus(`成功导入剧本：${result.script.title}`);
+        setUploadStatus(`Successfully imported script: ${result.script.title}`);
         setTimeout(() => {
           onSuccess();
           onClose();
@@ -55,11 +55,11 @@ export default function ImportScriptModal({ isOpen, onClose, onSuccess, currentU
           setUploadStatus('');
         }, 2000);
       } else {
-        setUploadStatus(`导入失败：${result.error}`);
+        setUploadStatus(`Import failed: ${result.error}`);
       }
     } catch (error) {
-      console.error('上传失败:', error);
-      setUploadStatus('上传失败，请重试');
+      console.error('Upload failed:', error);
+      setUploadStatus('Upload failed, please try again');
     } finally {
       setIsUploading(false);
     }
@@ -77,7 +77,7 @@ export default function ImportScriptModal({ isOpen, onClose, onSuccess, currentU
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-game-card rounded-lg p-6 w-full max-w-md mx-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-white">导入外部剧本</h2>
+          <h2 className="text-xl font-semibold text-white">Import External Script</h2>
           <button
             onClick={handleClose}
             disabled={isUploading}
@@ -90,7 +90,7 @@ export default function ImportScriptModal({ isOpen, onClose, onSuccess, currentU
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">
-              选择PDF文件
+              Select PDF Files
             </label>
             <input
               type="file"
@@ -101,13 +101,13 @@ export default function ImportScriptModal({ isOpen, onClose, onSuccess, currentU
               className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white file:mr-4 file:py-1 file:px-4 file:rounded file:border-0 file:text-sm file:bg-game-accent file:text-white hover:file:bg-opacity-80 disabled:opacity-50"
             />
             <p className="text-xs text-gray-400 mt-1">
-              支持多个PDF文件，LLM将分析内容并生成可玩的剧本
+              Supports multiple PDF files, LLM will analyze content and generate playable scripts
             </p>
           </div>
 
           {files && files.length > 0 && (
             <div className="text-sm text-gray-300">
-              <p className="font-medium mb-1">已选择文件：</p>
+              <p className="font-medium mb-1">Selected files:</p>
               <ul className="space-y-1">
                 {Array.from(files).map((file, index) => (
                   <li key={index} className="truncate">
@@ -120,7 +120,7 @@ export default function ImportScriptModal({ isOpen, onClose, onSuccess, currentU
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-gray-400 mb-1">玩家人数(可选覆盖)</label>
+              <label className="block text-xs text-gray-400 mb-1">Player Count (Optional Override)</label>
               <input
                 type="number"
                 min={3}
@@ -128,11 +128,11 @@ export default function ImportScriptModal({ isOpen, onClose, onSuccess, currentU
                 value={overridePlayers}
                 onChange={e => setOverridePlayers(e.target.value)}
                 className="w-full px-2 py-1 bg-gray-700 border border-gray-600 rounded text-sm text-white"
-                placeholder="自动"
+                placeholder="Auto"
               />
             </div>
             <div>
-              <label className="block text-xs text-gray-400 mb-1">轮数(1-25)</label>
+              <label className="block text-xs text-gray-400 mb-1">Rounds (1-25)</label>
               <input
                 type="number"
                 min={1}
@@ -140,34 +140,34 @@ export default function ImportScriptModal({ isOpen, onClose, onSuccess, currentU
                 value={overrideRounds}
                 onChange={e => setOverrideRounds(e.target.value)}
                 className="w-full px-2 py-1 bg-gray-700 border border-gray-600 rounded text-sm text-white"
-                placeholder="自动"
+                placeholder="Auto"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs text-gray-400 mb-1">临时 AppCode (仅本地调试)</label>
+            <label className="block text-xs text-gray-400 mb-1">Temporary AppCode (Local Debug Only)</label>
             <input
               type="text"
               value={appcode}
               onChange={e=>setAppcode(e.target.value)}
               className="w-full px-2 py-1 bg-gray-700 border border-gray-600 rounded text-sm text-white"
-              placeholder="可留空，优先使用环境变量"
+              placeholder="Can be left empty, prioritizes environment variables"
             />
           </div>
 
           <div className="text-xs text-gray-400 leading-relaxed space-y-1">
-            <p>说明：LLM 会自动融合多个PDF为一个剧本，智能决定轮数(1-25)与玩家人数。</p>
-            <p>OCR若环境变量未生效，可在上方填写临时 AppCode 测试（不会保存）。</p>
-            <p>若你的真人好友少于推荐人数，创建房间时可添加 AI NPC 补齐。</p>
+            <p>Note: LLM will automatically merge multiple PDFs into one script, intelligently determining rounds (1-25) and player count.</p>
+            <p>If OCR environment variables are not effective, you can fill in temporary AppCode above for testing (will not be saved).</p>
+            <p>If you have fewer real friends than the recommended player count, you can add AI NPCs when creating a room.</p>
           </div>
 
           {uploadStatus && (
             <div
               className={`p-3 rounded-md whitespace-pre-wrap text-sm ${
-                uploadStatus.includes('成功')
+                uploadStatus.includes('Successfully')
                   ? 'bg-green-900 text-green-300'
-                  : uploadStatus.includes('失败')
+                  : uploadStatus.includes('failed')
                     ? 'bg-red-900 text-red-300'
                     : 'bg-blue-900 text-blue-300'
               }`}
@@ -182,7 +182,7 @@ export default function ImportScriptModal({ isOpen, onClose, onSuccess, currentU
               disabled={isUploading}
               className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 disabled:opacity-50"
             >
-              取消
+              Cancel
             </button>
             <button
               onClick={handleUpload}
@@ -192,10 +192,10 @@ export default function ImportScriptModal({ isOpen, onClose, onSuccess, currentU
               {isUploading ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
-                  分析中...
+                  Analyzing...
                 </>
               ) : (
-                '导入剧本'
+                'Import Script'
               )}
             </button>
           </div>

@@ -32,10 +32,10 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
       if (data.success) {
         onLogin(data.user);
       } else {
-        setError(data.error || '登录失败');
+        setError(data.error || 'Login failed');
       }
     } catch (err) {
-      setError('网络错误，请重试');
+      setError('Network error, please try again');
     } finally {
       setLoading(false);
     }
@@ -45,28 +45,28 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">
-          用户名
+          Username
         </label>
         <input
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="input-field w-full"
-          placeholder="请输入用户名"
+          placeholder="Enter username"
           required
         />
       </div>
       
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">
-          密码
+          Password
         </label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="input-field w-full"
-          placeholder="请输入密码"
+          placeholder="Enter password"
           required
         />
       </div>
@@ -82,13 +82,13 @@ export default function LoginForm({ onLogin }: LoginFormProps) {
         disabled={loading}
         className="btn-primary w-full text-lg py-3 mt-6 disabled:opacity-50"
       >
-        {loading ? (mode==='login'?'登录中...':'注册中...') : (mode==='login'?'登录游戏':'注册并登录')}
+        {loading ? (mode==='login'?'Logging in...':'Registering...') : (mode==='login'?'Login Game':'Register and Login')}
       </button>
       <div className="text-center text-xs text-gray-400 mt-2">
         {mode==='login' ? (
-          <span>没有账号？ <button type="button" onClick={()=> setMode('register')} className="text-blue-400 hover:underline">去注册</button></span>
+          <span>No account? <button type="button" onClick={()=> setMode('register')} className="text-blue-400 hover:underline">Register</button></span>
         ) : (
-          <span>已有账号？ <button type="button" onClick={()=> setMode('login')} className="text-blue-400 hover:underline">去登录</button></span>
+          <span>Have an account? <button type="button" onClick={()=> setMode('login')} className="text-blue-400 hover:underline">Login</button></span>
         )}
       </div>
     </form>

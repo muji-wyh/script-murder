@@ -5,7 +5,7 @@ import { useState } from 'react';
 interface CreateRoomModalProps {
   onClose: () => void;
   onSubmit: (roomData: any) => void;
-  collectedScript?: any; // 可选的收藏剧本
+  collectedScript?: any; // Optional collected script
 }
 
 export default function CreateRoomModal({ onClose, onSubmit, collectedScript }: CreateRoomModalProps) {
@@ -24,7 +24,7 @@ export default function CreateRoomModal({ onClose, onSubmit, collectedScript }: 
       name: roomName.trim()
     };
 
-    // 如果是从收藏剧本创建，添加剧本信息
+    // If creating from collected script, add script info
     if (collectedScript) {
       (roomData as any).collectedScript = collectedScript;
     }
@@ -37,7 +37,7 @@ export default function CreateRoomModal({ onClose, onSubmit, collectedScript }: 
       <div className="bg-game-card rounded-xl p-6 w-full max-w-md mx-4 relative z-60" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-semibold text-white">
-            {collectedScript ? '从收藏剧本创建房间' : '创建游戏房间'}
+            {collectedScript ? 'Create Room from Collected Script' : 'Create Game Room'}
           </h2>
           <button
             onClick={onClose}
@@ -47,11 +47,11 @@ export default function CreateRoomModal({ onClose, onSubmit, collectedScript }: 
           </button>
         </div>
 
-        {/* 如果是从收藏剧本创建，显示剧本信息 */}
+        {/* If creating from collected script, display script info */}
         {collectedScript && (
           <div className="mb-6 p-4 bg-purple-600/20 border border-purple-500/30 rounded-lg">
             <h3 className="text-white font-medium mb-2">📚 {collectedScript.title}</h3>
-            <p className="text-purple-200 text-sm mb-2">{collectedScript.rounds}轮游戏</p>
+            <p className="text-purple-200 text-sm mb-2">{collectedScript.rounds} rounds game</p>
             <p className="text-purple-300 text-xs line-clamp-3">
               {collectedScript.background}
             </p>
@@ -65,7 +65,7 @@ export default function CreateRoomModal({ onClose, onSubmit, collectedScript }: 
                       : 'bg-blue-600/30 text-blue-200'
                   }`}
                 >
-                  {char.name} {char.isMainCharacter ? '(真人)' : '(AI)'}
+                  {char.name} {char.isMainCharacter ? '(Human)' : '(AI)'}
                 </span>
               ))}
             </div>
@@ -75,7 +75,7 @@ export default function CreateRoomModal({ onClose, onSubmit, collectedScript }: 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">
-              房间名称
+              Room Name
             </label>
             <input
               type="text"
@@ -84,7 +84,7 @@ export default function CreateRoomModal({ onClose, onSubmit, collectedScript }: 
               onFocus={(e) => console.log('Input focused')}
               onClick={(e) => console.log('Input clicked')}
               className="input-field w-full cursor-text"
-              placeholder="请输入房间名称"
+              placeholder="Please enter room name"
               autoComplete="off"
               autoFocus
               style={{
@@ -101,7 +101,7 @@ export default function CreateRoomModal({ onClose, onSubmit, collectedScript }: 
             <p className="text-gray-300 text-sm">
               {collectedScript ? (
                 <>
-                  ⚡ 基于收藏剧本创建房间，进入房间后将自动配置剧本信息。
+                  ⚡ Creating room based on collected script. Script information will be automatically configured after entering the room.
                   <br />
                   真人玩家数量和AI数量会根据原剧本设定。
                 </>
