@@ -1,21 +1,21 @@
-// 用户数据类型
+// User data type
 export interface User {
   id: string;
   username: string;
   password: string;
   isOnline: boolean;
-  friends: string[]; // 好友ID列表
-  savedScripts: string[]; // 收藏的剧本ID列表
-  collectedScripts?: CollectedScript[]; // 收藏的游戏剧本
+  friends: string[]; // List of friend IDs
+  savedScripts: string[]; // List of saved script IDs
+  collectedScripts?: CollectedScript[]; // Collected game scripts
   chatHistory: { [friendId: string]: ChatMessage[] };
   gameHistory: GameRecord[];
-  // 我将自己的发言风格授权给哪些好友（可用于好友在其游戏中添加“我的风格”的AINPC）
+  // Friends to whom I grant my speaking style authorization (for use as "my style" AI NPCs in their games)
   styleGrantsTo?: string[];
-  purchasedScripts?: string[]; // 购买的剧本ID列表（可与savedScripts共存）
-  balance?: number; // 账户余额（剧本商店模拟）
+  purchasedScripts?: string[]; // List of purchased script IDs (can coexist with savedScripts)
+  balance?: number; // Account balance (script store simulation)
 }
 
-// 收藏剧本类型
+// Collected script type
 export interface CollectedScript {
   id: string;
   originalScriptId: string;
@@ -26,75 +26,75 @@ export interface CollectedScript {
   characters: Character[];
   roundContents: RoundContent[];
   plotRequirement: string;
-  personalScripts?: { [characterId: string]: PersonalScript }; // 个人剧本数据
+  personalScripts?: { [characterId: string]: PersonalScript }; // Personal script data
   collectedAt: number;
   collectedBy: string;
-  // 二次创作链路（用于判断是否原创）
-  rootOriginalScriptId?: string; // 初始原创脚本ID（若本身原创则等于originalScriptId）
-  originalAuthorId?: string; // 初始原创作者ID
-  derivativeOfScriptId?: string; // 直接来源的脚本ID（上一代）
-  // 二次创作历史（只存增量元数据，不重复全文）
+  // Derivative creation chain (for determining originality)
+  rootOriginalScriptId?: string; // Initial original script ID (equals originalScriptId if self-original)
+  originalAuthorId?: string; // Initial original author ID
+  derivativeOfScriptId?: string; // Direct source script ID (previous generation)
+  // Derivative creation history (stores only incremental metadata, no full text duplication)
   remixHistory?: RemixHistoryEntry[];
 }
 
 export interface RemixHistoryEntry {
-  at: number; // 时间戳
-  instructions: string; // 用户指令
-  changedRounds?: number[]; // 修改到的轮次编号
-  changedCharacters?: string[]; // 修改到的角色ID集合
+  at: number; // Timestamp
+  instructions: string; // User instructions
+  changedRounds?: number[]; // Round numbers that were modified
+  changedCharacters?: string[]; // Set of character IDs that were modified
   titleChanged?: boolean;
   backgroundChanged?: boolean;
 }
 
-// AI NPC 角色类型
+// AI NPC character types
 export type AICharacterType = 
-  | 'logical'      // 逻辑分析型
-  | 'exploratory'  // 探索冒险型
-  | 'mysterious'   // 神秘莫测型
-  | 'social'       // 社交活跃型
-  | 'suspicious'   // 多疑谨慎型
-  | 'emotional'    // 情感丰富型
-  | 'calm';        // 冷静沉稳型
+  | 'logical'      // Logical analytical type
+  | 'exploratory'  // Exploratory adventurous type
+  | 'mysterious'   // Mysterious enigmatic type
+  | 'social'       // Socially active type
+  | 'suspicious'   // Suspicious cautious type
+  | 'emotional'    // Emotionally rich type
+  | 'calm';        // Calm composed type
 
-// 聊天消息
+// Chat message
 export interface ChatMessage {
   id: string;
   senderId: string;
   content: string;
   timestamp: number;
   type: 'text' | 'script_share';
-  scriptId?: string; // 如果是分享剧本
+  scriptId?: string; // If sharing a script
 }
 
-// 房间数据类型
+// Room data type
 export interface Room {
   id: string;
   name: string;
   hostId: string;
   isOnline: boolean;
-  players: string[]; // 玩家ID列表
+  players: string[]; // List of player IDs
   maxPlayers: number;
-  scriptId?: string; // 当前使用的剧本ID
-  gameId?: string; // 当前游戏ID
+  scriptId?: string; // Current script ID in use
+  gameId?: string; // Current game ID
   status: 'waiting' | 'playing' | 'finished';
   createdAt: number;
 }
 
-// 剧本数据类型
+// Script data type
 export interface Script {
   id: string;
   title: string;
   rounds: number;
   background: string;
-  characters: Character[]; // 角色列表
+  characters: Character[]; // Character list
   roundContents: RoundContent[];
-  rawImportedText?: string; // 原始导入合并文本（供再次加工或再生成）
-  plotRequirement?: string; // 导入阶段若有
-  // 可选的扩展字段（外部聚合导入生成）
+  rawImportedText?: string; // Original imported merged text (for further processing or regeneration)
+  plotRequirement?: string; // If present during import phase
+  // Optional extension fields (external aggregated import generation)
   finalResolution?: string;
   mechanics?: string;
-  recommendedPlayerCount?: number; // 推荐真人玩家数量
-  allowNPCFill?: boolean; // 是否允许AI补位
+  recommendedPlayerCount?: number; // Recommended number of human players
+  allowNPCFill?: boolean; // Whether AI substitution is allowed
   npcSuggestion?: {
     needNPC: boolean;
     minHumanPlayers: number;
@@ -102,47 +102,47 @@ export interface Script {
     reason?: string;
   } | null;
   createdAt: number;
-  createdBy: string; // 创建者ID
-  // 二次创作相关
-  rootOriginalScriptId?: string; // 最初原创剧本ID（自身或最初源）
-  originalAuthorId?: string; // 最初原创作者ID
-  derivativeOfScriptId?: string; // 直接来源脚本ID（如果是二次创作）
-  // 评分聚合（可即时计算，但存缓存减少遍历）
+  createdBy: string; // Creator ID
+  // Derivative creation related
+  rootOriginalScriptId?: string; // Initial original script ID (self or initial source)
+  originalAuthorId?: string; // Initial original author ID
+  derivativeOfScriptId?: string; // Direct source script ID (if derivative work)
+  // Rating aggregation (can be calculated in real-time, but stored as cache to reduce traversal)
   averageRating?: number;
   ratingCount?: number;
-  // 商店相关
+  // Store related
   isListedForSale?: boolean;
-  price?: number; // 价格（仅原始作者可设置）
+  price?: number; // Price (only original author can set)
 }
 
-// 角色信息
+// Character information
 export interface Character {
   id: string;
   name: string;
-  identity: string; // 身份/职业
-  personality: string; // 性格特点
-  isMainCharacter: boolean; // 是否为主要角色
+  identity: string; // Identity/profession
+  personality: string; // Personality traits
+  isMainCharacter: boolean; // Whether it's a main character
 }
 
 export interface RoundContent {
   round: number;
-  plot: string; // 本轮剧情
-  privateClues: { [characterId: string]: string }; // 每个角色的私人线索
+  plot: string; // Plot for this round
+  privateClues: { [characterId: string]: string }; // Private clues for each character
 }
-// AINPC配置
+// AI NPC configuration
 export interface AINPCConfig {
   id: string;
   name: string;
-  style: string; // NPC风格描述
-  personality: string; // 性格特点
+  style: string; // NPC style description
+  personality: string; // Personality traits
   isActive: boolean;
-  type?: string; // AI类型
-  characterId?: string; // 分配的角色ID
-  characterName?: string; // 分配的角色名
-  friendStyleOfUserId?: string; // 若为好友风格AI，标记来源好友
+  type?: string; // AI type
+  characterId?: string; // Assigned character ID
+  characterName?: string; // Assigned character name
+  friendStyleOfUserId?: string; // If friend-style AI, mark source friend
 }
 
-// 剧本评分记录
+// Script rating record
 export interface ScriptRatingRecord {
   id: string; // rating_${scriptId}_${userId}
   scriptId: string;
@@ -151,7 +151,7 @@ export interface ScriptRatingRecord {
   ratedAt: number;
 }
 
-// 个人剧本内容
+// Personal script content
 export interface PersonalScript {
   characterId: string;
   personalBackground: string;
@@ -164,27 +164,27 @@ export interface PersonalRoundContent {
   hiddenInfo: string;
 }
 
-// 游戏记录
+// Game record
 export interface GameRecord {
   id: string;
   roomId: string;
   scriptId: string;
   hostId: string;
-  players: string[]; // 真人玩家ID
-  aiNPCs: AINPCConfig[]; // AI NPC配置
-  playerCharacters: { [playerId: string]: string }; // 玩家角色分配 playerId -> characterId
-  aiCharacters: { [aiId: string]: string }; // AI角色分配 aiId -> characterId
-  personalScripts: { [characterId: string]: PersonalScript }; // 每个角色的个人剧本
-  readyPlayers?: string[]; // 已准备的玩家ID列表
-  plotRequirement: string; // 剧情指定
-  rounds: number; // 轮数
+  players: string[]; // Human player IDs
+  aiNPCs: AINPCConfig[]; // AI NPC configuration
+  playerCharacters: { [playerId: string]: string }; // Player character assignment playerId -> characterId
+  aiCharacters: { [aiId: string]: string }; // AI character assignment aiId -> characterId
+  personalScripts: { [characterId: string]: PersonalScript }; // Personal script for each character
+  readyPlayers?: string[]; // List of ready player IDs
+  plotRequirement: string; // Plot requirement
+  rounds: number; // Number of rounds
   scriptBackground: string;
   roundRecords: RoundRecord[];
   status: 'preparing' | 'story_reading' | 'round_playing' | 'finished';
   createdAt: number;
   finishedAt?: number;
   finalSummary?: { [playerId: string]: GameSummary };
-  endConfirmedPlayers?: string[]; // 确认结束游戏的玩家ID列表
+  endConfirmedPlayers?: string[]; // List of player IDs who confirmed game end
 }
 
 export interface RoundRecord {
@@ -198,31 +198,31 @@ export interface RoundRecord {
 
 export interface GameMessage {
   id: string;
-  senderId: string; // 玩家ID或NPC ID
+  senderId: string; // Player ID or NPC ID
   senderName: string;
   content: string;
   timestamp: number;
   isNPC: boolean;
 }
 
-// 游戏总结
+// Game summary
 export interface GameSummary {
   playerId: string;
-  storyReview: string; // 故事复盘
-  plotAnalysis: string; // 精彩点解密
-  storyElevation: string; // 故事升华
+  storyReview: string; // Story review
+  plotAnalysis: string; // Exciting plot analysis
+  storyElevation: string; // Story elevation
   playerAnalysis: { [playerId: string]: PlayerAnalysis };
 }
 
 export interface PlayerAnalysis {
   playerId: string;
   playerName: string;
-  viewpointSummary: string; // 观点总结
-  plotRelatedComment: string; // 剧情相关点评
-  styleComment: string; // 发言风格点评和夸奖
+  viewpointSummary: string; // Viewpoint summary
+  plotRelatedComment: string; // Plot-related commentary
+  styleComment: string; // Speaking style commentary and praise
 }
 
-// LLM API相关类型
+// LLM API related types
 export interface LLMRequest {
   contents: {
     parts: {
@@ -241,7 +241,7 @@ export interface LLMResponse {
   }[];
 }
 
-// LLM调用上下文
+// LLM invocation context
 export interface LLMContext {
   type: 'generate_script' | 'npc_decision' | 'round_decision' | 'final_summary';
   gameRecord?: GameRecord;
