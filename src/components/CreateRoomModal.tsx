@@ -103,10 +103,10 @@ export default function CreateRoomModal({ onClose, onSubmit, collectedScript }: 
                 <>
                   ⚡ Creating room based on collected script. Script information will be automatically configured after entering the room.
                   <br />
-                  真人玩家数量和AI数量会根据原剧本设定。
+                  Human player count and AI count will be set according to the original script.
                 </>
               ) : (
-                '💡 创建房间后，你可以在房间内设置剧情要求、游戏轮数，并邀请好友或添加AI NPC参与游戏。'
+                '💡 After creating the room, you can set story requirements, game rounds in the room, and invite friends or add AI NPCs to participate in the game.'
               )}
             </p>
           </div>
@@ -117,13 +117,13 @@ export default function CreateRoomModal({ onClose, onSubmit, collectedScript }: 
               onClick={onClose}
               className="btn-secondary flex-1 py-3"
             >
-              取消
+              Cancel
             </button>
             <button
               type="submit"
               className="btn-primary flex-1 py-3"
             >
-              创建房间
+              Create Room
             </button>
           </div>
         </form>

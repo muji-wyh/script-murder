@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getUsers, updateUser, getUserById, getGameRecords } from '@/lib/storage';
 
-// GET: 列出当前用户已授权的好友ID列表
+// GET: List friend IDs authorized by current user
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const user = getUserById(id);
@@ -9,9 +9,9 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
   return NextResponse.json({ success: true, grants: user.styleGrantsTo || [] });
 }
 
-// POST: 授权给好友 { friendId }
+// POST: Authorize friend { friendId }
 export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params; // 自己
+  const { id } = await params; // self
   const { friendId } = await req.json();
   const user = getUserById(id);
   if (!user) return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 });
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   return NextResponse.json({ success: true, grants: user.styleGrantsTo });
 }
 
-// DELETE: 取消授权 ?friendId=
+// DELETE: Revoke authorization ?friendId=
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const { searchParams } = new URL(req.url);

@@ -11,18 +11,18 @@ export async function GET(
   try {
     const { id: userId } = await params;
     
-    // 读取用户数据
+    // Read user data
     const usersData = JSON.parse(fs.readFileSync(USERS_FILE, 'utf8'));
     const user = usersData.find((u: any) => u.id === userId);
     
     if (!user) {
       return NextResponse.json({ 
         success: false, 
-        error: '用户不存在' 
+        error: 'User not found' 
       }, { status: 404 });
     }
 
-    // 返回用户资料（不包含密码）
+    // Return user profile (excluding password)
     const { password, ...userProfile } = user;
     
     return NextResponse.json({
@@ -30,10 +30,10 @@ export async function GET(
       user: userProfile
     });
   } catch (error) {
-    console.error('获取用户资料失败:', error);
+    console.error('Failed to get user profile:', error);
     return NextResponse.json({ 
       success: false, 
-      error: '服务器错误' 
+      error: 'Server error' 
     }, { status: 500 });
   }
 }

@@ -51,7 +51,7 @@ export default function RoomPage() {
   const cluesContainerRef = useRef(null); // Private clues container reference
 
   useEffect(() => {
-    // 使用sessionStorage而不是localStorage，避免多标签页冲突
+    // Use sessionStorage instead of localStorage to avoid multi-tab conflicts
     const userStr = sessionStorage.getItem('currentUser');
     if (userStr) {
       setCurrentUser(JSON.parse(userStr));
@@ -63,7 +63,7 @@ export default function RoomPage() {
     fetchRoomData();
   }, [params.id, router]);
 
-  // 若房间是收藏剧本，初始化轮数与剧情要求
+  // If room is collected script, initialize rounds and story requirements
   useEffect(() => {
     if (room && (room).collectedScript) {
       const cs = (room).collectedScript;
