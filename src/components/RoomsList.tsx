@@ -23,7 +23,7 @@ export default function RoomsList({ rooms, currentUser }: RoomsListProps) {
       
       const data = await response.json();
       if (data.success) {
-        // 跳转到游戏房间
+        // Navigate to game room
         router.push(`/room/${roomId}`);
       }
     } catch (error) {
@@ -32,7 +32,7 @@ export default function RoomsList({ rooms, currentUser }: RoomsListProps) {
   };
 
   const handleEnterRoom = (roomId: string) => {
-    // 直接进入房间（用户已在房间中）
+    // Enter room directly (user is already in the room)
     router.push(`/room/${roomId}`);
   };
 
@@ -40,8 +40,8 @@ export default function RoomsList({ rooms, currentUser }: RoomsListProps) {
     return (
       <div className="text-center py-12">
         <div className="text-6xl mb-4">🎮</div>
-        <h3 className="text-xl font-semibold text-white mb-2">暂无活跃房间</h3>
-        <p className="text-gray-400">创建一个房间开始游戏吧！</p>
+        <h3 className="text-xl font-semibold text-white mb-2">No Active Rooms</h3>
+        <p className="text-gray-400">Create a room to start playing!</p>
       </div>
     );
   }
@@ -59,22 +59,22 @@ export default function RoomsList({ rooms, currentUser }: RoomsListProps) {
                 ? 'bg-yellow-600 text-white'
                 : 'bg-gray-600 text-white'
             }`}>
-              {room.status === 'waiting' ? '等待中' : 
-               room.status === 'playing' ? '游戏中' : '已结束'}
+              {room.status === 'waiting' ? 'Waiting' : 
+               room.status === 'playing' ? 'Playing' : 'Finished'}
             </span>
           </div>
           
           <div className="space-y-2 mb-4">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-400">房主:</span>
+              <span className="text-gray-400">Host:</span>
               <span className="text-white">{room.hostId}</span>
             </div>
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-400">人数:</span>
+              <span className="text-gray-400">Players:</span>
               <span className="text-white">{room.players.length}/{room.maxPlayers}</span>
             </div>
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-400">创建时间:</span>
+              <span className="text-gray-400">Created:</span>
               <span className="text-white">
                 {new Date(room.createdAt).toLocaleDateString()}
               </span>
@@ -88,13 +88,13 @@ export default function RoomsList({ rooms, currentUser }: RoomsListProps) {
                 className="btn-primary flex-1"
                 disabled={room.players.includes(currentUser.id)}
               >
-                {room.players.includes(currentUser.id) ? '已加入' : '加入房间'}
+                {room.players.includes(currentUser.id) ? 'Joined' : 'Join Room'}
               </button>
             )}
             
             {room.status === 'playing' && (
               <button className="btn-secondary flex-1">
-                观战
+                Spectate
               </button>
             )}
             
@@ -103,7 +103,7 @@ export default function RoomsList({ rooms, currentUser }: RoomsListProps) {
                 onClick={() => handleEnterRoom(room.id)}
                 className="btn-primary flex-1"
               >
-                进入房间
+                Enter Room
               </button>
             )}
           </div>

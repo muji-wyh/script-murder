@@ -1,35 +1,35 @@
-剧本杀测试剧本：《神秘的餐厅》
+Script Murder Mystery Test Script: "The Mysterious Restaurant"
 
-背景故事：
-在一个雾雨朦胧的夜晚，著名的法式餐厅"银色玫瑰"正在举办一场私人聚会。这家餐厅以其精美的法式料理和优雅的环境而闻名，今晚邀请了几位特殊的客人共进晚餐。
+Background Story:
+On a foggy and rainy night, the famous French restaurant "Silver Rose" is hosting a private gathering. This restaurant is renowned for its exquisite French cuisine and elegant atmosphere, and tonight has invited several special guests for dinner.
 
-然而，就在晚餐进行到一半时，灯光突然熄灭，当灯光重新亮起时，餐厅老板安德烈被发现倒在酒窖中，已经没有了生命迹象。现场一片混乱，每个人都成了嫌疑人。
+However, halfway through the dinner, the lights suddenly went out. When they came back on, restaurant owner André was found collapsed in the wine cellar, already lifeless. The scene was in chaos, and everyone became a suspect.
 
-角色设定：
+Character Settings:
 
-1. 安妮（主厨）
-- 30岁，在这家餐厅工作了5年
-- 性格热情，对料理有着极致的追求
-- 最近和老板因为菜单创新问题产生了分歧
+1. Annie (Head Chef)
+- 30 years old, has worked at this restaurant for 5 years
+- Passionate personality, with an extreme pursuit of culinary perfection
+- Recently had disagreements with the owner about menu innovation
 
-2. 马克（侍酒师）
-- 28岁，酒类专家，对各种红酒了如指掌
-- 平时话不多，但观察力很强
-- 发现老板最近频繁进出酒窖，行为有些异常
+2. Mark (Sommelier)
+- 28 years old, wine expert who knows all kinds of red wines like the back of his hand
+- Usually quiet, but very observant
+- Noticed the owner frequently going in and out of the wine cellar recently, behaving somewhat strangely
 
-3. 苏菲（常客）
-- 45岁，富有的艺术收藏家
-- 是餐厅的VIP客户，经常在这里举办聚会
-- 传言她和安德烈有着特殊的关系
+3. Sophie (Regular Customer)
+- 45 years old, wealthy art collector
+- VIP customer of the restaurant, often hosts gatherings here
+- Rumored to have a special relationship with André
 
-剧情要求：
-玩家需要通过在餐厅中寻找线索，与其他角色对话，最终找出真正的凶手。每个角色都有自己的秘密和动机，真相往往隐藏在细节之中。
+Plot Requirements:
+Players need to find clues in the restaurant, talk to other characters, and ultimately identify the real killer. Each character has their own secrets and motives, and the truth is often hidden in the details.
 
-重要线索：
-- 酒窖中的一瓶红酒被打翻
-- 安德烈的口袋里有一张神秘的纸条
-- 厨房里的刀具少了一把
-- 苏菲的手提包里有一些奇怪的药片
+Important Clues:
+- A bottle of red wine was knocked over in the wine cellar
+- André had a mysterious note in his pocket
+- A knife is missing from the kitchen
+- Sophie's handbag contains some strange pills
 
-游戏目标：
-找出凶手，揭开"银色玫瑰"餐厅的秘密。
+Game Objective:
+Find the killer and uncover the secrets of the "Silver Rose" restaurant.

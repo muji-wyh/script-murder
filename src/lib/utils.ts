@@ -1,11 +1,11 @@
 import { User } from '@/types';
 
-// 初始化三个测试用户
+// Initialize three test users
 export function initializeTestUsers(): User[] {
   return [
     {
       id: 'user_xiaoming',
-      username: '小明',
+      username: 'XiaoMing',
       password: '123456',
       isOnline: false,
       friends: ['user_xiaolin', 'user_xiaobao'],
@@ -15,7 +15,7 @@ export function initializeTestUsers(): User[] {
     },
     {
       id: 'user_xiaolin',
-      username: '小林',
+      username: 'XiaoLin',
       password: '123456',
       isOnline: false,
       friends: ['user_xiaoming', 'user_xiaobao'],
@@ -25,7 +25,7 @@ export function initializeTestUsers(): User[] {
     },
     {
       id: 'user_xiaobao',
-      username: '小宝',
+      username: 'XiaoBao',
       password: '123456',
       isOnline: false,
       friends: ['user_xiaoming', 'user_xiaolin'],
@@ -36,12 +36,12 @@ export function initializeTestUsers(): User[] {
   ];
 }
 
-// 生成唯一ID
+// Generate unique ID
 export function generateId(prefix: string): string {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 }
 
-// 格式化时间
+// Format time
 export function formatTime(timestamp: number): string {
   const date = new Date(timestamp);
   return date.toLocaleString('zh-CN', {
@@ -53,17 +53,17 @@ export function formatTime(timestamp: number): string {
   });
 }
 
-// 获取在线状态显示
+// Get online status display
 export function getOnlineStatus(isOnline: boolean): string {
-  return isOnline ? '在线' : '离线';
+  return isOnline ? 'Online' : 'Offline';
 }
 
-// 验证密码
+// Validate password
 export function validatePassword(password: string): boolean {
   return password.length >= 6;
 }
 
-// 验证用户名
+// Validate username
 export function validateUsername(username: string): boolean {
   return username.length >= 2 && username.length <= 20;
 }

@@ -3,14 +3,14 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
-// AI NPC类型配置
+// AI NPC type configuration
 const AI_CHARACTER_TYPES = [
-  { id: 'logical', name: '逻辑分析型', description: '善于逻辑推理和细节分析' },
-  { id: 'exploratory', name: '探索冒险型', description: '勇于尝试新想法和假设' },
-  { id: 'mysterious', name: '神秘莫测型', description: '话语间常带有神秘色彩' },
-  { id: 'suspicious', name: '多疑谨慎型', description: '对一切都保持怀疑态度' },
-  { id: 'emotional', name: '情感丰富型', description: '情绪表达丰富生动' },
-  { id: 'calm', name: '冷静沉稳型', description: '始终保持冷静和理性' }
+  { id: 'logical', name: 'Logical Analytical', description: 'Good at logical reasoning and detail analysis' },
+  { id: 'exploratory', name: 'Exploratory Adventurous', description: 'Brave to try new ideas and hypotheses' },
+  { id: 'mysterious', name: 'Mysterious Enigmatic', description: 'Speech often carries mysterious overtones' },
+  { id: 'suspicious', name: 'Suspicious Cautious', description: 'Maintains a skeptical attitude towards everything' },
+  { id: 'emotional', name: 'Emotionally Rich', description: 'Rich and vivid emotional expression' },
+  { id: 'calm', name: 'Calm Composed', description: 'Always maintains calm and rationality' }
 ];
 
 export default function RoomPage() {
@@ -21,34 +21,34 @@ export default function RoomPage() {
   const [players, setPlayers] = useState([]);
   const [rounds, setRounds] = useState('3');
   const [plotRequirement, setPlotRequirement] = useState('');
-  const [selectedAITypes, setSelectedAITypes] = useState(new Map()); // 改为Map存储数量
+  const [selectedAITypes, setSelectedAITypes] = useState(new Map()); // Changed to Map to store quantities
   const [loading, setLoading] = useState(true);
   const [gameData, setGameData] = useState(null);
   const [chatMessages, setChatMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [sttOn, setSttOn] = useState(false); // 语音转文字是否进行中
+  const [sttOn, setSttOn] = useState(false); // Whether speech-to-text is in progress
   const [sttError, setSttError] = useState('');
   const sttRecognizerRef = useRef(null);
   const sttMediaRecorderRef = useRef(null);
   const sttChunksRef = useRef([]);
-  const [readyPlayers, setReadyPlayers] = useState(new Set()); // 已准备的玩家
-  const [showGameSummary, setShowGameSummary] = useState(false); // 显示游戏复盘
-  const [gameSummary, setGameSummary] = useState(null); // 游戏复盘数据
-  const [startingGame, setStartingGame] = useState(false); // 游戏开始加载状态
-  const [showCollectScript, setShowCollectScript] = useState(false); // 显示收藏剧本选项
-  const [isScriptCollected, setIsScriptCollected] = useState(false); // 是否已收藏剧本
-  const [pollingInterval, setPollingInterval] = useState(null); // 轮询定时器
-  const [shouldAutoScroll, setShouldAutoScroll] = useState(true); // 是否应该自动滚动到底部
-  const [userScrolledUp, setUserScrolledUp] = useState(false); // 用户是否主动向上滚动
-  const [previousChatCount, setPreviousChatCount] = useState(0); // 记录之前的聊天消息数量
-  const [previousRoundCount, setPreviousRoundCount] = useState(0); // 记录之前的轮次数量
-  const [userScrolledUpPlot, setUserScrolledUpPlot] = useState(false); // 用户是否在剧情区域向上滚动
-  const [userScrolledUpClues, setUserScrolledUpClues] = useState(false); // 用户是否在线索区域向上滚动
-  const [friendStyles, setFriendStyles] = useState([]); // 我可用的好友风格
-  const [selectedFriendStyles, setSelectedFriendStyles] = useState([]); // 选中的好友风格AI列表
-  const chatContainerRef = useRef(null); // 聊天容器引用
-  const plotContainerRef = useRef(null); // 剧情容器引用
-  const cluesContainerRef = useRef(null); // 私人线索容器引用
+  const [readyPlayers, setReadyPlayers] = useState(new Set()); // Ready players
+  const [showGameSummary, setShowGameSummary] = useState(false); // Show game summary
+  const [gameSummary, setGameSummary] = useState(null); // Game summary data
+  const [startingGame, setStartingGame] = useState(false); // Game start loading state
+  const [showCollectScript, setShowCollectScript] = useState(false); // Show collect script option
+  const [isScriptCollected, setIsScriptCollected] = useState(false); // Whether script is collected
+  const [pollingInterval, setPollingInterval] = useState(null); // Polling timer
+  const [shouldAutoScroll, setShouldAutoScroll] = useState(true); // Whether to auto-scroll to bottom
+  const [userScrolledUp, setUserScrolledUp] = useState(false); // Whether user manually scrolled up
+  const [previousChatCount, setPreviousChatCount] = useState(0); // Record previous chat message count
+  const [previousRoundCount, setPreviousRoundCount] = useState(0); // Record previous round count
+  const [userScrolledUpPlot, setUserScrolledUpPlot] = useState(false); // Whether user scrolled up in plot area
+  const [userScrolledUpClues, setUserScrolledUpClues] = useState(false); // Whether user scrolled up in clues area
+  const [friendStyles, setFriendStyles] = useState([]); // Available friend styles
+  const [selectedFriendStyles, setSelectedFriendStyles] = useState([]); // Selected friend style AI list
+  const chatContainerRef = useRef(null); // Chat container reference
+  const plotContainerRef = useRef(null); // Plot container reference
+  const cluesContainerRef = useRef(null); // Private clues container reference
 
   useEffect(() => {
     // 使用sessionStorage而不是localStorage，避免多标签页冲突
