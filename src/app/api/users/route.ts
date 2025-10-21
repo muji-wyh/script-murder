@@ -13,7 +13,7 @@ export async function GET() {
       testUsers.forEach(user => createUser(user));
       return NextResponse.json({ 
         success: true, 
-        message: '测试用户创建成功',
+        message: 'Test users created successfully',
         users: testUsers.map(u => ({ id: u.id, username: u.username }))
       });
     }
@@ -27,7 +27,7 @@ export async function GET() {
   }
 }
 
-// 用户登录
+// User login
 export async function POST(request: NextRequest) {
   try {
     const { username, password } = await request.json();
@@ -41,10 +41,10 @@ export async function POST(request: NextRequest) {
     
     if (!user) {
       console.log('Login failed: user not found');
-      return NextResponse.json({ success: false, error: '用户名或密码错误' }, { status: 401 });
+      return NextResponse.json({ success: false, error: 'Invalid username or password' }, { status: 401 });
     }
     
-    // 更新用户在线状态
+    // Update user online status
     user.isOnline = true;
     updateUser(user);
     

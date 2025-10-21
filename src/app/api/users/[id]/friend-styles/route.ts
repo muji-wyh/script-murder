@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getUsers, getUserById, getGameRecords } from '@/lib/storage';
 
-// 返回：当前用户能使用的“好友风格”列表及其简要描述
+// Return: List of "friend styles" that current user can use and their brief descriptions
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params; // 当前用户
+  const { id } = await params; // current user
   const users = getUsers();
   const me = users.find(u => u.id === id);
   if (!me) return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 });
 
-  // 能使用谁的风格：对方的 styleGrantsTo 包含我
+  // Whose style can be used: the other party's styleGrantsTo includes me
   const granters = users.filter(u => (u.styleGrantsTo || []).includes(id));
 
-  // 计算每个好友最近三局的发言风格摘要（简单版：连接最近三局文本，截断）
+  // Calculate speaking style summary for each friend's recent three games (simple version: concatenate recent three games text, truncate)
   const gameRecords = getGameRecords();
   const friendStyles = granters.map(friend => {
     // 找出该好友参与的最近三局

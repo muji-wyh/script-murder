@@ -78,10 +78,10 @@ export async function PUT(
       message: 'User profile updated successfully'
     });
   } catch (error) {
-    console.error('更新用户资料失败:', error);
+    console.error('Failed to update user profile:', error);
     return NextResponse.json({ 
       success: false, 
-      error: '服务器错误' 
+      error: 'Server error' 
     }, { status: 500 });
   }
 }

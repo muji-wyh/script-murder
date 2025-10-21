@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
       return s;
     });
 
-    // 若请求在售列表，则按评分排序（平均分降序 -> 评分次数降序 -> 创建时间降序）
+    // If requesting store list, sort by rating (average score descending -> rating count descending -> creation time descending)
     if (listed === '1') {
       scripts.sort((a,b) => {
         const aAvg = a.averageRating ?? 0;
@@ -36,10 +36,10 @@ export async function GET(request: NextRequest) {
   scripts: scripts
     });
   } catch (error) {
-    console.error('获取剧本列表失败:', error);
+    console.error('Failed to get script list:', error);
     return NextResponse.json({
       success: false,
-      error: '服务器错误'
+      error: 'Server error'
     }, { status: 500 });
   }
 }
