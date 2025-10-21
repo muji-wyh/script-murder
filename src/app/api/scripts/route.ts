@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     if (listed === '1') {
       scripts = scripts.filter(s => s.isListedForSale);
     }
-    // 附加评分聚合（若无缓存）
+    // Append rating aggregation (if not cached)
     scripts = scripts.map(s => {
       if (s.averageRating === undefined || s.ratingCount === undefined) {
         const agg = getScriptAggregateRating(s.id);

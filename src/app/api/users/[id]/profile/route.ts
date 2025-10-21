@@ -46,18 +46,18 @@ export async function PUT(
     const { id: userId } = await params;
     const updates = await request.json();
     
-    // 读取用户数据
+    // Read user data
     const usersData = JSON.parse(fs.readFileSync(USERS_FILE, 'utf8'));
     const userIndex = usersData.findIndex((u: any) => u.id === userId);
     
     if (userIndex === -1) {
       return NextResponse.json({ 
         success: false, 
-        error: '用户不存在' 
+        error: 'User not found' 
       }, { status: 404 });
     }
 
-    // 更新用户数据（只允许更新特定字段）
+    // Update user data (only allow updating specific fields)
     const allowedFields = ['username', 'friends', 'savedScripts', 'collectedScripts', 'gameHistory', 'chatHistory'];
     
     for (const field of allowedFields) {
@@ -66,16 +66,16 @@ export async function PUT(
       }
     }
 
-    // 保存更新后的数据
+    // Save updated data
     fs.writeFileSync(USERS_FILE, JSON.stringify(usersData, null, 2));
     
-    // 返回更新后的用户资料（不包含密码）
+    // Return updated user profile (excluding password)
     const { password, ...userProfile } = usersData[userIndex];
     
     return NextResponse.json({
       success: true,
       user: userProfile,
-      message: '用户资料更新成功'
+      message: 'User profile updated successfully'
     });
   } catch (error) {
     console.error('更新用户资料失败:', error);

@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getUsers, createUser, updateUser } from '@/lib/storage';
 import { initializeTestUsers } from '@/lib/utils';
 
-// 初始化用户数据
+// Initialize user data
 export async function GET() {
   try {
     const users = getUsers();
     
-    // 如果没有用户，创建测试用户
+    // If no users exist, create test users
     if (users.length === 0) {
       const testUsers = initializeTestUsers();
       testUsers.forEach(user => createUser(user));
