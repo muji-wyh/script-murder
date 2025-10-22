@@ -87,7 +87,7 @@ export default function Home() {
             <div className="mt-6 p-4 bg-gray-800 rounded-lg">
               <h3 className="text-sm font-medium text-gray-300 mb-2">Test Accounts:</h3>
               <div className="text-sm text-gray-400 space-y-1">
-                <p>Username: 小明、小林、小宝</p>
+                <p>Username: Sheldon、Leonard、Penny、Howard、小明、小林、小宝</p>
                 <p>Password: 123456</p>
               </div>
             </div>

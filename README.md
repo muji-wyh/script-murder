@@ -62,7 +62,7 @@ npm start
 ```
 
 ### 测试账号
-- 用户名: 小明、小林、小宝
+- 用户名: Sheldon、Leonard、Penny、Howard、小明、小林、小宝
 - 密码: 123456
 
 ## 项目结构

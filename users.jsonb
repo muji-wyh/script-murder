@@ -1,5 +1,81 @@
 [
   {
+    "id": "user_Sheldon",
+    "username": "Sheldon",
+    "password": "123456",
+    "isOnline": true,
+    "friends": [
+      "user_xiaolin",
+      "user_xiaobao",
+      "user_1756974647427_s99qgwimp",
+      "user_1757654096561_fgyd2ytf8"
+    ],
+    "savedScripts": [],
+    "chatHistory": {},
+    "gameHistory": [],
+    "collectedScripts": [],
+    "styleGrantsTo": [],
+    "balance": 1980,
+    "purchasedScripts": []
+  },
+  {
+    "id": "user_Leonard",
+    "username": "Leonard",
+    "password": "123456",
+    "isOnline": true,
+    "friends": [
+      "user_xiaolin",
+      "user_xiaobao",
+      "user_1756974647427_s99qgwimp",
+      "user_1757654096561_fgyd2ytf8"
+    ],
+    "savedScripts": [],
+    "chatHistory": {},
+    "gameHistory": [],
+    "collectedScripts": [],
+    "styleGrantsTo": [],
+    "balance": 1980,
+    "purchasedScripts": []
+  },
+  {
+    "id": "user_Penny",
+    "username": "Penny",
+    "password": "123456",
+    "isOnline": true,
+    "friends": [
+      "user_xiaolin",
+      "user_xiaobao",
+      "user_1756974647427_s99qgwimp",
+      "user_1757654096561_fgyd2ytf8"
+    ],
+    "savedScripts": [],
+    "chatHistory": {},
+    "gameHistory": [],
+    "collectedScripts": [],
+    "styleGrantsTo": [],
+    "balance": 1980,
+    "purchasedScripts": []
+  },
+  {
+    "id": "user_Howard",
+    "username": "Howard",
+    "password": "123456",
+    "isOnline": true,
+    "friends": [
+      "user_xiaolin",
+      "user_xiaobao",
+      "user_1756974647427_s99qgwimp",
+      "user_1757654096561_fgyd2ytf8"
+    ],
+    "savedScripts": [],
+    "chatHistory": {},
+    "gameHistory": [],
+    "collectedScripts": [],
+    "styleGrantsTo": [],
+    "balance": 1980,
+    "purchasedScripts": []
+  },
+  {
     "id": "user_xiaoming",
     "username": "小明",
     "password": "123456",
