@@ -1011,7 +1011,7 @@ export default function RoomPage() {
 
           {/* 私人线索 */}
           <div className="p-6 flex-1 overflow-y-auto relative">
-            <h3 className="text-lg font-bold text-white mb-4">🔍 私人信息</h3>
+            <h3 className="text-lg font-bold text-white mb-4">🔍 personal message</h3>
             
             {(() => {
               const myCharacterId = gameData?.playerCharacters?.[currentUser?.id];

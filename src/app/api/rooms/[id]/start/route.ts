@@ -14,9 +14,9 @@ function generateFallbackScript(plotRequirement: string, rounds: number, playerC
   for (let i = 0; i < playerCount; i++) {
     characters.push({
       id: generateId('char'),
-      name: `角色${i + 1}`,
-      identity: `身份${i + 1}`,
-      personality: `性格特点${i + 1}`,
+      name: `character${i + 1}`,
+      identity: `identities${i + 1}`,
+      personality: `Character traits${i + 1}`,
       isMainCharacter: true
     });
   }
@@ -25,9 +25,9 @@ function generateFallbackScript(plotRequirement: string, rounds: number, playerC
   for (let i = 0; i < aiCount; i++) {
     characters.push({
       id: generateId('char'),
-      name: `AI角色${i + 1}`,
-      identity: `AI身份${i + 1}`,
-      personality: `AI性格特点${i + 1}`,
+      name: `AI character ${i + 1}`,
+      identity: `AI character ${i + 1}`,
+      personality: `AI character traits ${i + 1}`,
       isMainCharacter: false
     });
   }
@@ -37,14 +37,14 @@ function generateFallbackScript(plotRequirement: string, rounds: number, playerC
   for (let round = 1; round <= rounds; round++) {
     roundContents.push({
       round: round,
-      plot: `第${round}轮剧情：${plotRequirement}相关的故事发展...`
+      plot: `Round ${round}: ${plotRequirement} Related story developments...`
     });
   }
   
   return {
     id: scriptId,
-    title: '默认剧本',
-    background: `基于您的要求"${plotRequirement}"生成的故事背景`,
+    title: 'Default Script',
+    background: `Based on your requirements"${plotRequirement}"Generative story background`,
     rounds: rounds,
     characters: characters,
     roundContents: roundContents,
@@ -123,11 +123,11 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
             // 使用默认的个人剧本
             personalScripts[character.id] = {
               characterId: character.id,
-              personalBackground: `作为${character.name}，你发现自己卷入了这个复杂的事件中。${script.background}`,
+              personalBackground: `As ${character.name}, You find yourself embroiled in this complicated affair. ${script.background}`,
               personalRoundContents: script.roundContents.map((rc: any) => ({
                 round: rc.round,
                 personalPlot: rc.plot,
-                hiddenInfo: "你有一些其他人不知道的信息..."
+                hiddenInfo: "You have information that no one else knows..."
               }))
             };
           }
@@ -143,11 +143,11 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
         script.characters.forEach((character: any) => {
           personalScripts[character.id] = {
             characterId: character.id,
-            personalBackground: `作为${character.name}，你发现自己卷入了这个复杂的事件中。${script.background}`,
+            personalBackground: `As ${character.name}, You find yourself embroiled in this complicated affair. ${script.background}`,
             personalRoundContents: script.roundContents.map((rc: any) => ({
               round: rc.round,
               personalPlot: rc.plot,
-              hiddenInfo: "你有一些其他人不知道的信息..."
+              hiddenInfo: "You have information that no one else knows..."
             }))
           };
         });
@@ -161,12 +161,12 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
 
     // 将AI类型转换为完整的AI NPC配置
     const AI_CHARACTER_TYPES = [
-      { id: 'logical', name: '逻辑分析型', personality: '善于逻辑推理和细节分析，说话条理清晰，喜欢用数据和事实支撑观点' },
-      { id: 'exploratory', name: '探索冒险型', personality: '勇于尝试新想法和假设，思维活跃，经常提出创新性的观点' },
-      { id: 'mysterious', name: '神秘莫测型', personality: '话语间常带有神秘色彩，喜欢用隐喻和暗示，给人深不可测的感觉' },
-      { id: 'suspicious', name: '多疑谨慎型', personality: '对一切都保持怀疑态度，善于发现疑点，说话谨慎小心' },
-      { id: 'emotional', name: '情感丰富型', personality: '情绪表达丰富生动，容易被剧情感动，说话带有强烈的感情色彩' },
-      { id: 'calm', name: '冷静沉稳型', personality: '始终保持冷静和理性，不易激动，说话平和有条理' }
+      { id: 'logical', name: 'logical-analytical', personality: 'Good at logical reasoning and detailed analysis, speak clearly, like to use data and facts to support the point of view' },
+      { id: 'exploratory', name: 'Exploratory Adventure', personality: 'Tempted to try out new ideas and hypotheses, with an active mind, often coming up with innovative ideas' },
+      { id: 'mysterious', name: 'enigmatic', personality: 'Often mysterious between words, like to use metaphors and hints, give people the feeling of unfathomable' },
+      { id: 'suspicious', name: 'suspicious and cautious', personality: 'Skeptical of everything, good at detecting suspicion, careful in what he says' },
+      { id: 'emotional', name: 'Emotional', personality: 'Rich and vivid emotional expression, easily moved by the drama, speaks with strong emotional coloring' },
+      { id: 'calm', name: 'calm and collected', personality: 'Remain calm and rational at all times, not easily agitated, and speak in a calm and organized manner' }
     ];
 
     const playerCount = room.players.length;
