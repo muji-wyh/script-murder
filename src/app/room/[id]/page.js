@@ -426,13 +426,13 @@ export default function RoomPage() {
   const startGame = async () => {
     // 收藏剧本无需剧情要求
     if (!room.collectedScript && !plotRequirement.trim()) {
-      alert('请输入剧情要求');
+      alert('Please enter plot requirements');
       return;
     }
 
     const roundCount = parseInt(rounds);
     if (isNaN(roundCount) || roundCount < 1 || roundCount > 30) {
-      alert('请输入有效的轮数（1-30）');
+      alert('Please enter a valid number of rounds (1-30）');
       return;
     }
 
@@ -442,7 +442,7 @@ export default function RoomPage() {
       const selectedAICount = Array.from(selectedAITypes.values()).reduce((sum, count) => sum + count, 0);
       
       if (selectedAICount !== requiredAICount) {
-        alert(`请选择 ${requiredAICount} 个AI角色，当前已选择 ${selectedAICount} 个`);
+        alert(`please select ${requiredAICount} AI NPC，current selected ${selectedAICount}`);
         return;
       }
     }
@@ -464,7 +464,7 @@ export default function RoomPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           rounds: room.collectedScript ? room.collectedScript.rounds : roundCount,
-          plotRequirement: room.collectedScript ? (room.collectedScript.plotRequirement || '外部导入剧本') : plotRequirement,
+          plotRequirement: room.collectedScript ? (room.collectedScript.plotRequirement || 'Importing scripts externally') : plotRequirement,
           aiNPCTypes: aiNPCTypes,
           friendStyleNPCs: selectedFriendStyles // 可能为空
         })
@@ -482,29 +482,29 @@ export default function RoomPage() {
         setTimeout(() => fetchRoomData(), 500);
         setTimeout(() => fetchRoomData(), 1500);
       } else {
-        console.error('游戏创建失败:', data.error);
-        let errorMessage = '开始游戏失败';
+        console.error('Game creation failed:', data.error);
+        let errorMessage = 'Failed to start game';
         
         if (data.error.includes('503') || data.error.includes('Service Unavailable')) {
-          errorMessage = 'AI服务暂时不可用，请稍后重试';
+          errorMessage = 'AI service is temporarily unavailable, please try again later.';
         } else if (data.error.includes('timeout')) {
-          errorMessage = '请求超时，请检查网络连接后重试';
+          errorMessage = 'Request timed out, please check network connection and try again';
         } else if (data.error) {
-          errorMessage = `开始游戏失败：${data.error}`;
+          errorMessage = `Failed to start the game:${data.error}`;
         }
         
         alert(errorMessage);
       }
     } catch (error) {
       console.error('Failed to start game:', error);
-      let errorMessage = '开始游戏失败';
+      let errorMessage = 'Failed to start game';
       
       if (error.message.includes('Failed to fetch')) {
-        errorMessage = '网络连接失败，请检查网络后重试';
+        errorMessage = 'Network connection failed, please check the network and try again';
       } else if (error.message.includes('timeout')) {
-        errorMessage = '请求超时，请重试';
+        errorMessage = 'Request timed out, please try again';
       } else {
-        errorMessage = '开始游戏失败，请重试';
+        errorMessage = 'Failed to start game, please try again';
       }
       
       alert(errorMessage);
@@ -540,14 +540,14 @@ export default function RoomPage() {
           const data = await res.json();
           if (!data.success) {
             console.warn('STT failure details:', data);
-            throw new Error(data.error || '转写失败');
+            throw new Error(data.error || 'Transcription failure');
           }
           if (!data.text) {
             console.warn('STT returned success but empty text:', data);
           }
           setNewMessage((prev) => (prev ? `${prev} ${data.text || ''}` : (data.text || '')));
         } catch (err) {
-          setSttError((err && err.message) ? err.message : '转写失败');
+          setSttError((err && err.message) ? err.message : 'Transcription failure');
         } finally {
           // stop tracks
           stream.getTracks().forEach(t => t.stop());
@@ -556,7 +556,7 @@ export default function RoomPage() {
       mr.start();
       setSttOn(true);
     } catch (err) {
-      setSttError(err.message || '无法访问麦克风');
+      setSttError(err.message || 'Unable to access the microphone');
       setSttOn(false);
     }
   };
@@ -593,7 +593,7 @@ export default function RoomPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <div className="text-white">正在加载房间信息...</div>
+        <div className="text-white">Loading room information...</div>
       </div>
     );
   }
@@ -601,7 +601,7 @@ export default function RoomPage() {
   if (!room || !currentUser) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <div className="text-white">房间不存在或已被删除</div>
+        <div className="text-white">Room does not exist or has been deleted</div>
       </div>
     );
   }
@@ -632,8 +632,8 @@ export default function RoomPage() {
       return (
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center text-white">
-            <h3 className="text-xl font-bold mb-4">加载游戏数据中...</h3>
-            <p className="text-slate-300">请稍候，正在获取剧本信息...</p>
+            <h3 className="text-xl font-bold mb-4">Loading game data in ...</h3>
+            <p className="text-slate-300">Please wait while we get the script information...</p>
           </div>
         </div>
       );
@@ -649,7 +649,7 @@ export default function RoomPage() {
         <div className="w-80 bg-slate-800/50 backdrop-blur-sm border-r border-purple-500/30 flex flex-col">
           {/* 玩家列表 */}
           <div className="p-6 border-b border-purple-500/20">
-            <h2 className="text-lg font-bold text-white mb-4">玩家列表</h2>
+            <h2 className="text-lg font-bold text-white mb-4">player list</h2>
             <div className="space-y-3">
               {players.map((player) => {
                 const characterName = getPlayerCharacterName(player.id);
@@ -667,13 +667,13 @@ export default function RoomPage() {
                       <div>
                         <div className="text-white font-medium">{player.username}</div>
                         {characterName && (
-                          <div className="text-purple-300 text-xs">扮演: {characterName}</div>
+                          <div className="text-purple-300 text-xs">play the role of: {characterName}</div>
                         )}
                       </div>
                     </div>
                     {player.id === room.hostId && (
                       <span className="text-xs bg-yellow-600 text-white px-2 py-1 rounded">
-                        房主
+                        Room owner
                       </span>
                     )}
                   </div>
@@ -685,7 +685,7 @@ export default function RoomPage() {
           {/* AI角色列表 */}
           {gameData?.aiNPCs && gameData.aiNPCs.length > 0 && (
             <div className="p-6 flex-1 overflow-y-auto">
-              <h2 className="text-lg font-bold text-white mb-4">AI角色</h2>
+              <h2 className="text-lg font-bold text-white mb-4">AI role</h2>
               <div className="space-y-3">
                 {gameData.aiNPCs.map((ai) => {
                   const { characterName, typeName } = getAICharacterInfo(ai);
@@ -716,7 +716,7 @@ export default function RoomPage() {
           {/* 当前剧情 */}
           <div className="p-6 border-b border-purple-500/20">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-white">📖 剧情</h3>
+              <h3 className="text-xl font-bold text-white">📖 plots</h3>
               {/* 房主控制按钮 */}
               {isHost && currentRoundContent && (
                 <div className="flex items-center space-x-2">
@@ -725,11 +725,11 @@ export default function RoomPage() {
                       onClick={advanceToNextRound}
                       className="px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold rounded-lg transition-all text-sm shadow-lg hover:shadow-xl transform hover:scale-105"
                     >
-                      进入下一轮 →
+                      Moving on to the next round →
                     </button>
                   ) : (
                     <div className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-lg text-sm">
-                      最后一轮 ✓
+                      final round ✓
                     </div>
                   )}
                 </div>
@@ -741,7 +741,7 @@ export default function RoomPage() {
                   onClick={endStory}
                   className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold rounded-lg transition-all text-sm shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
-                  结束故事 🏁
+                  Conclusion of the story 🏁
                 </button>
               )}
             </div>
@@ -772,8 +772,8 @@ export default function RoomPage() {
                       <div className={`text-sm mb-2 flex items-center justify-between ${
                         isCurrentRound ? 'text-purple-300' : 'text-slate-400'
                       }`}>
-                        <span>第 {roundNumber} 轮 / 共 {gameData?.rounds} 轮</span>
-                        {isCurrentRound && <span className="text-xs bg-purple-600 px-2 py-1 rounded">当前</span>}
+                        <span>round No. {roundNumber}  /  {gameData?.rounds} total</span>
+                        {isCurrentRound && <span className="text-xs bg-purple-600 px-2 py-1 rounded">current</span>}
                       </div>
                       <div className={`leading-relaxed ${
                         isCurrentRound ? 'text-white' : 'text-slate-300'
@@ -794,19 +794,19 @@ export default function RoomPage() {
                   <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
                     <div className="text-center text-slate-400">
                       <div>
-                        <p className="mb-4">请仔细阅读你的背景故事</p>
+                        <p className="mb-4">Please read your backstory carefully</p>
                         {!readyPlayers.has(currentUser?.id) && (
                           <button
                             onClick={markPlayerReady}
                             className="px-6 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold rounded-lg transition-all"
                           >
-                            已看完，开始剧情
+                            Finished reading and started the plot
                           </button>
                         )}
                         {readyPlayers.has(currentUser?.id) && (
                           <div>
-                            <p className="text-green-400 mb-2">✅ 已准备</p>
-                            <p className="text-sm">等待其他玩家准备... ({readyPlayers.size}/{players.length})</p>
+                            <p className="text-green-400 mb-2">✅ Ready</p>
+                            <p className="text-sm">Waiting for other players to prepare... ({readyPlayers.size}/{players.length})</p>
                           </div>
                         )}
                       </div>
@@ -819,7 +819,7 @@ export default function RoomPage() {
                  gameData?.status !== 'story_reading' && (
                   <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
                     <div className="text-center text-slate-400">
-                      等待剧情开始...
+                      Waiting for the episode to start...
                     </div>
                   </div>
                 )}
@@ -837,7 +837,7 @@ export default function RoomPage() {
                     }}
                     className="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg transition-all duration-200 flex items-center space-x-1 text-xs"
                   >
-                    <span>最新</span>
+                    <span>latest</span>
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
@@ -850,7 +850,7 @@ export default function RoomPage() {
           {/* 聊天区域 */}
           <div className="flex-1 flex flex-col min-h-0 relative">
             <div className="p-6 pb-2 flex-shrink-0">
-              <h3 className="text-lg font-bold text-white mb-4">💬 讨论区</h3>
+              <h3 className="text-lg font-bold text-white mb-4">💬 feedback</h3>
             </div>
             <div 
               ref={chatContainerRef}
@@ -874,7 +874,7 @@ export default function RoomPage() {
                   if (rounds.length === 0) {
                     return (
                       <div className="text-center text-slate-400 py-8">
-                        暂无讨论内容，开始你的推理吧！
+                        No discussion for now, start your reasoning!
                       </div>
                     );
                   }
@@ -885,7 +885,7 @@ export default function RoomPage() {
                       <div className="flex items-center justify-center my-4">
                         <div className="flex-1 h-px bg-purple-500/30"></div>
                         <div className="px-4 py-1 bg-purple-600/20 border border-purple-500/30 rounded-full text-purple-300 text-xs font-medium">
-                          第 {round} 轮讨论
+                          discuss round: {round}
                         </div>
                         <div className="flex-1 h-px bg-purple-500/30"></div>
                       </div>
@@ -906,7 +906,7 @@ export default function RoomPage() {
                             <span className={`text-sm font-medium ${
                               message.isNPC ? 'text-blue-300' : 'text-purple-300'
                             }`}>
-                              {message.senderName || '匿名'}
+                              {message.senderName || 'Anonymous'}
                             </span>
                             <span className="text-xs text-slate-400">
                               {new Date(message.timestamp).toLocaleTimeString()}
@@ -934,7 +934,7 @@ export default function RoomPage() {
                   }}
                   className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg transition-all duration-200 flex items-center space-x-2"
                 >
-                  <span className="text-sm">回到底部</span>
+                  <span className="text-sm">back to the end</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>
@@ -949,9 +949,9 @@ export default function RoomPage() {
                 <button
                   onClick={sttOn ? endSTT : beginSTT}
                   className={`px-3 py-2 rounded-lg text-white ${sttOn ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'}`}
-                  title={sttOn ? '已说完' : '点我开麦' }
+                  title={sttOn ? 'finish' : 'turn on the microphone' }
                 >
-                  {sttOn ? '已说完' : '语音'}
+                  {sttOn ? 'finished' : 'microphone'}
                 </button>
                 {/* 临时Key输入已移除（改为配置 .env.local） */}
                 <input
@@ -966,7 +966,7 @@ export default function RoomPage() {
                   onClick={sendMessage}
                   className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold rounded-lg transition-all"
                 >
-                  发送
+                  Send
                 </button>
               </div>
               {sttError && <div className="text-red-400 text-xs mt-2">{sttError}</div>}
@@ -978,7 +978,7 @@ export default function RoomPage() {
         <div className="w-80 bg-slate-800/50 backdrop-blur-sm border-l border-purple-500/30 flex flex-col">
           {/* 角色信息 */}
           <div className="p-6 border-b border-purple-500/20">
-            <h3 className="text-lg font-bold text-white mb-4">🎭 我的角色</h3>
+            <h3 className="text-lg font-bold text-white mb-4">🎭 My Role</h3>
             {(() => {
               const myCharacterId = gameData?.playerCharacters?.[currentUser?.id];
               const myCharacter = gameData?.script?.characters?.find(c => c.id === myCharacterId);
@@ -990,20 +990,20 @@ export default function RoomPage() {
                   <div className="text-slate-400 text-xs">{myCharacter.personality}</div>
                 </div>
               ) : (
-                <div className="text-slate-400 text-center py-4">角色信息加载中...</div>
+                <div className="text-slate-400 text-center py-4">Character information loading...</div>
               );
             })()}
           </div>
 
           {/* 故事背景 */}
           <div className="p-6 border-b border-purple-500/20">
-            <h3 className="text-lg font-bold text-white mb-4">🌟 我的背景故事</h3>
+            <h3 className="text-lg font-bold text-white mb-4">🌟 My backstory.</h3>
             <div className="bg-slate-700/50 rounded-lg p-4 max-h-40 overflow-y-auto">
               <div className="text-slate-300 text-sm leading-relaxed">
                 {(() => {
                   const myCharacterId = gameData?.playerCharacters?.[currentUser?.id];
                   const personalScript = myCharacterId ? gameData?.personalScripts?.[myCharacterId] : null;
-                  return personalScript?.personalBackground || gameData?.scriptBackground || '背景加载中...';
+                  return personalScript?.personalBackground || gameData?.scriptBackground || 'Background loading...';
                 })()}
               </div>
             </div>
@@ -1040,7 +1040,7 @@ export default function RoomPage() {
               if (allClues.length === 0) {
                 return (
                   <div className="text-slate-400 text-center py-4 text-sm">
-                    {currentRound > 0 ? '暂无私人信息' : '游戏开始后将显示信息'}
+                    {currentRound > 0 ? 'No private information' : 'A message will be displayed when the game starts'}
                   </div>
                 );
               }
@@ -1068,9 +1068,9 @@ export default function RoomPage() {
                             ? 'border-purple-500/30 text-purple-300' 
                             : 'border-slate-600/30 text-slate-400'
                         } text-sm font-semibold flex items-center justify-between`}>
-                          <span>第 {clueData.round} 轮线索</span>
+                          <span>No. of thread of the story: {clueData.round}</span>
                           {clueData.isCurrentRound && (
-                            <span className="text-xs bg-purple-600 px-2 py-1 rounded">当前</span>
+                            <span className="text-xs bg-purple-600 px-2 py-1 rounded">current</span>
                           )}
                         </div>
                         
@@ -1079,7 +1079,7 @@ export default function RoomPage() {
                           {/* 剧情线索 */}
                           {clueData.userClue && (
                             <div className="bg-yellow-900/20 rounded-lg p-3 border border-yellow-500/30">
-                              <div className="text-yellow-300 text-xs font-semibold mb-2">📋 剧情线索</div>
+                              <div className="text-yellow-300 text-xs font-semibold mb-2">📋 thread</div>
                               <div className={`text-sm leading-relaxed ${
                                 clueData.isCurrentRound ? 'text-yellow-100' : 'text-yellow-200/70'
                               }`}>
@@ -1091,7 +1091,7 @@ export default function RoomPage() {
                           {/* 隐藏信息 */}
                           {clueData.hiddenInfo && (
                             <div className="bg-red-900/20 rounded-lg p-3 border border-red-500/30">
-                              <div className="text-red-300 text-xs font-semibold mb-2">🤫 秘密信息</div>
+                              <div className="text-red-300 text-xs font-semibold mb-2">🤫 secret message</div>
                               <div className={`text-sm leading-relaxed ${
                                 clueData.isCurrentRound ? 'text-red-100' : 'text-red-200/70'
                               }`}>
@@ -1116,7 +1116,7 @@ export default function RoomPage() {
                         }}
                         className="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg transition-all duration-200 flex items-center space-x-1 text-xs"
                       >
-                        <span>最新</span>
+                        <span>latest</span>
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                         </svg>
@@ -1141,8 +1141,8 @@ export default function RoomPage() {
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center text-white">
             <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <h3 className="text-xl font-bold mb-2">正在生成游戏复盘...</h3>
-            <p className="text-slate-300">请稍候，AI正在分析本局游戏</p>
+            <h3 className="text-xl font-bold mb-2">A game replay is being generated...</h3>
+            <p className="text-slate-300">Please wait. The AI is analyzing the game.</p>
           </div>
         </div>
       );
@@ -1154,9 +1154,9 @@ export default function RoomPage() {
           {/* 标题 */}
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-2">
-              🎭 游戏复盘
+              🎭 Game Review
             </h1>
-            <p className="text-gray-300">本局游戏精彩回顾与深度分析</p>
+            <p className="text-gray-300">Recap and in-depth analysis of the game</p>
           </div>
 
           {/* 故事相关复盘 */}
@@ -1164,7 +1164,7 @@ export default function RoomPage() {
             {/* 故事复盘 */}
             <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
               <h2 className="text-xl font-bold text-yellow-400 mb-4 flex items-center">
-                📚 本局故事复盘
+                📚 The story of the inning resumed
               </h2>
               <div className="text-gray-300 leading-relaxed text-sm">
                 {gameSummary.storyReview || '故事复盘内容生成中...'}
@@ -1174,7 +1174,7 @@ export default function RoomPage() {
             {/* 精彩点解密 */}
             <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-green-500/30 p-6">
               <h2 className="text-xl font-bold text-green-400 mb-4 flex items-center">
-                💡 精彩点解密
+                💡 Highlights Declassified
               </h2>
               <div className="text-gray-300 leading-relaxed text-sm">
                 {gameSummary.plotAnalysis || '精彩点分析生成中...'}
@@ -1184,7 +1184,7 @@ export default function RoomPage() {
             {/* 故事升华 */}
             <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
               <h2 className="text-xl font-bold text-purple-400 mb-4 flex items-center">
-                ✨ 故事升华
+                ✨ Story Sublimation
               </h2>
               <div className="text-gray-300 leading-relaxed text-sm">
                 {gameSummary.storyElevation || '故事升华内容生成中...'}
@@ -1196,7 +1196,7 @@ export default function RoomPage() {
           {Object.values(gameSummary.playerAnalysis || {}).length > 0 && (
             <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-pink-500/30 p-6">
               <h2 className="text-2xl font-bold text-pink-400 mb-6 flex items-center">
-                👥 玩家表现分析
+                👥 Player Performance Analysis
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {Object.values(gameSummary.playerAnalysis).map((analysis, index) => (
@@ -1206,19 +1206,19 @@ export default function RoomPage() {
                     </h3>
                     <div className="space-y-4">
                       <div>
-                        <h4 className="text-sm font-semibold text-yellow-300 mb-2">💭 观点总结</h4>
+                        <h4 className="text-sm font-semibold text-yellow-300 mb-2">💭 Summary of views</h4>
                         <p className="text-gray-300 text-sm leading-relaxed">
                           {analysis.viewpointSummary}
                         </p>
                       </div>
                       <div>
-                        <h4 className="text-sm font-semibold text-green-300 mb-2">🎬 剧情贡献</h4>
+                        <h4 className="text-sm font-semibold text-green-300 mb-2">🎬 plot contribution</h4>
                         <p className="text-gray-300 text-sm leading-relaxed">
                           {analysis.plotRelatedComment}
                         </p>
                       </div>
                       <div>
-                        <h4 className="text-sm font-semibold text-purple-300 mb-2">🗣️ 发言风格</h4>
+                        <h4 className="text-sm font-semibold text-purple-300 mb-2">🗣️ Presentation style</h4>
                         <p className="text-gray-300 text-sm leading-relaxed">
                           {analysis.styleComment}
                         </p>
@@ -1241,19 +1241,19 @@ export default function RoomPage() {
                   : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
               }`}
             >
-              {isScriptCollected ? '✅ 已收藏' : '📚 收藏剧本'}
+              {isScriptCollected ? '✅ Favorited' : '📚 Add to favorite'}
             </button>
             <button
               onClick={() => setShowGameSummary(false)}
               className="px-8 py-3 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-bold rounded-lg transition-all duration-300 mr-4"
             >
-              🔙 返回游戏
+              🔙 Back to game
             </button>
             <button
               onClick={() => window.location.href = '/'}
               className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-lg transition-all duration-300"
             >
-              🏠 回到主页
+              🏠 Back to home
             </button>
           </div>
         </div>
@@ -1389,7 +1389,7 @@ export default function RoomPage() {
     const nextRound = currentRound + 1;
     
     if (nextRound > gameData.rounds) {
-      alert('已经是最后一轮了！');
+      alert('This is the last round！');
       return;
     }
     
@@ -1409,14 +1409,14 @@ export default function RoomPage() {
           // 刷新游戏数据
           fetchGameData(gameData.id);
         } else {
-          alert('进入下一轮失败：' + result.error);
+          alert('Failure to advance to the next round：' + result.error);
         }
       } else {
-        alert('进入下一轮失败');
+        alert('Failure to advance to the next round');
       }
     } catch (error) {
       console.error('Failed to advance round:', error);
-      alert('进入下一轮失败');
+      alert('Failure to advance to the next round');
     }
   };
 
@@ -1440,16 +1440,16 @@ export default function RoomPage() {
           await generateSummariesForAllPlayers();
           setShowGameSummary(true);
           
-          console.log(`游戏已结束，由 ${result.endedBy} 结束`);
+          console.log(`Game over by ${result.endedBy}`);
         } else {
-          alert('结束故事失败：' + result.error);
+          alert('End Story Failure' + result.error);
         }
       } else {
-        alert('结束故事失败');
+        alert('End Story Failure');
       }
     } catch (error) {
       console.error('Failed to end story:', error);
-      alert('结束故事失败');
+      alert('End Story Failure');
     }
   };
 
@@ -1477,14 +1477,14 @@ export default function RoomPage() {
             window.dispatchEvent(new CustomEvent('userDataUpdated'));
           }
         } else {
-          alert('收藏失败：' + result.error);
+          alert('Collection Failure：' + result.error);
         }
       } else {
-        alert('收藏失败');
+        alert('Collection Failure');
       }
     } catch (error) {
       console.error('Failed to collect script:', error);
-      alert('收藏失败');
+      alert('Collection Failure');
     }
   };
 
@@ -1498,9 +1498,9 @@ export default function RoomPage() {
     try {
       // 设置加载状态
       setGameSummary({
-        storyReview: '正在为所有玩家生成复盘...',
-        plotAnalysis: '正在分析精彩点...',
-        storyElevation: '正在升华故事...',
+        storyReview: 'A replay is being generated for all players...',
+        plotAnalysis: 'Wonderful points being analyzed...',
+        storyElevation: 'The story is being sublimated...',
         playerAnalysis: {}
       });
 
@@ -1523,18 +1523,18 @@ export default function RoomPage() {
 
       // 如果获取失败，显示错误信息
       setGameSummary({
-        storyReview: '复盘生成失败，请稍后重试',
-        plotAnalysis: '分析生成失败，请稍后重试',
-        storyElevation: '升华生成失败，请稍后重试',
+        storyReview: 'Replay generation failed. Please try again later.',
+        plotAnalysis: 'Analysis generation failed, please try again later',
+        storyElevation: 'Sublimation generation failed. Please try again later.',
         playerAnalysis: {}
       });
 
     } catch (error) {
       console.error('Failed to generate summaries for all players:', error);
       setGameSummary({
-        storyReview: '复盘生成失败，请稍后重试',
-        plotAnalysis: '分析生成失败，请稍后重试',
-        storyElevation: '升华生成失败，请稍后重试',
+        storyReview: 'Replay generation failed. Please try again later.',
+        plotAnalysis: 'Analysis generation failed, please try again later',
+        storyElevation: 'Sublimation generation failed. Please try again later.',
         playerAnalysis: {}
       });
     }
@@ -1569,9 +1569,9 @@ export default function RoomPage() {
       // 如果获取失败，显示错误信息
       console.error('获取复盘失败');
       setGameSummary({
-        storyReview: '复盘生成中，请稍候...',
-        plotAnalysis: '复盘生成中，请稍候...',
-        storyElevation: '复盘生成中，请稍候...',
+        storyReview: 'The review is being generated, please wait...',
+        plotAnalysis: 'The review is being generated, please wait...',
+        storyElevation: 'The review is being generated, please wait...',
         playerAnalysis: {}
       });
 
@@ -1584,9 +1584,9 @@ export default function RoomPage() {
       console.error('Failed to get summary:', error);
       // 设置重试状态
       setGameSummary({
-        storyReview: '正在重试获取复盘...',
-        plotAnalysis: '正在重试获取复盘...',
-        storyElevation: '正在重试获取复盘...',
+        storyReview: 'Retrying to get the replay...',
+        plotAnalysis: 'Retrying to get the replay...',
+        storyElevation: 'Retrying to get the replay...',
         playerAnalysis: {}
       });
 
@@ -1604,9 +1604,9 @@ export default function RoomPage() {
     try {
       // 设置加载状态
       setGameSummary({
-        storyReview: '正在生成故事复盘...',
-        plotAnalysis: '正在分析精彩点...',
-        storyElevation: '正在升华故事...',
+        storyReview: 'Story review being generated...',
+        plotAnalysis: 'Analyzing the highlights...',
+        storyElevation: 'The story is being sublimated...',
         playerAnalysis: {}
       });
 
@@ -1626,9 +1626,9 @@ export default function RoomPage() {
           console.error('生成复盘失败：', result.error);
           // 设置错误状态
           setGameSummary({
-            storyReview: `复盘生成失败：${result.error}`,
-            plotAnalysis: `分析生成失败：${result.error}`,
-            storyElevation: `升华生成失败：${result.error}`,
+            storyReview: `Repeat Generation Failure：${result.error}`,
+            plotAnalysis: `Analysis Generation Failure：${result.error}`,
+            storyElevation: `Sublimation Generation Failure：${result.error}`,
             playerAnalysis: {}
           });
         }
@@ -1636,9 +1636,9 @@ export default function RoomPage() {
         const errorText = await response.text();
         console.error('生成复盘请求失败：', response.status, errorText);
         setGameSummary({
-          storyReview: `复盘生成失败：网络错误 ${response.status}`,
-          plotAnalysis: `分析生成失败：网络错误 ${response.status}`,
-          storyElevation: `升华生成失败：网络错误 ${response.status}`,
+          storyReview: `Replay generation failed: network error ${response.status}`,
+          plotAnalysis: `Failed to analyze generation: network error ${response.status}`,
+          storyElevation: `Sublimation generation failed: network error ${response.status}`,
           playerAnalysis: {}
         });
       }
@@ -1646,9 +1646,9 @@ export default function RoomPage() {
       console.error('Failed to generate summary:', error);
       // 设置默认复盘
       setGameSummary({
-        storyReview: '复盘生成失败，请稍后重试',
-        plotAnalysis: '分析生成失败，请稍后重试',
-        storyElevation: '升华生成失败，请稍后重试',
+        storyReview: 'Replay generation failed. Please try again later.',
+        plotAnalysis: 'Analysis generation failed, please try again later',
+        storyElevation: 'Sublimation generation failed. Please try again later.',
         playerAnalysis: {}
       });
     }
@@ -1662,7 +1662,7 @@ export default function RoomPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-white mb-1">{room.name}</h1>
-              <p className="text-purple-300 text-sm">房间号: {room.id} | 状态: {
+              <p className="text-purple-300 text-sm">Room No.: {room.id} | Status: {
                 room.status === 'waiting' ? '等待中' : 
                 room.status === 'playing' ? '游戏中' : '已结束'
               }</p>
@@ -1671,7 +1671,7 @@ export default function RoomPage() {
               onClick={leaveRoom}
               className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
             >
-              离开房间
+              Leave Room
             </button>
           </div>
         </div>
@@ -1687,7 +1687,7 @@ export default function RoomPage() {
                 {/* 玩家列表 */}
                 <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6 mb-6">
                   <h2 className="text-xl font-bold text-white mb-4">
-                    玩家列表 ({players.length}人)
+                    player list ({players.length})
                   </h2>
                   <div className="space-y-3">
                     {players.map((player) => (
@@ -1704,7 +1704,7 @@ export default function RoomPage() {
                           <span className="text-white">{player.username}</span>
                           {player.id === room.hostId && (
                             <span className="text-xs bg-yellow-600 text-white px-2 py-1 rounded">
-                              房主
+                              Room Owner
                             </span>
                           )}
                         </div>
@@ -1717,11 +1717,11 @@ export default function RoomPage() {
                 {isHost && room.status === 'waiting' && (
                   <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
                     <h3 className="text-lg font-bold text-white mb-4">
-                      AI NPC选择 (已选择: {Array.from(selectedAITypes.values()).reduce((sum, count) => sum + count, 0)}个
+                      selecte AI NPC (selected: {Array.from(selectedAITypes.values()).reduce((sum, count) => sum + count, 0)}个
                       {room.collectedScript ? (() => {
                         const aiCharacterCount = room.collectedScript.characters?.filter(c => !c.isMainCharacter).length || 0;
-                        return aiCharacterCount > 0 ? ` / 需要: ${aiCharacterCount}个` : '';
-                      })() : ' / 自由选择'})
+                        return aiCharacterCount > 0 ? ` / ${aiCharacterCount} required` : '';
+                      })() : ' / free choice'})
                     </h3>
                     <div className="space-y-3">
                       {AI_CHARACTER_TYPES.map((type) => {
@@ -1771,7 +1771,7 @@ export default function RoomPage() {
                 {isHost && room.status === 'waiting' && (
                   <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
                     <h2 className="text-xl font-bold text-white mb-6">
-                      {room.collectedScript ? '收藏剧本配置' : '游戏配置'}
+                      {room.collectedScript ? 'Favorite Script Configuration' : 'game configuration'}
                     </h2>
                     
                     {/* 如果是收藏剧本，显示剧本信息 */}
@@ -1779,9 +1779,9 @@ export default function RoomPage() {
                       <div className="mb-6 p-4 bg-purple-600/20 border border-purple-500/30 rounded-lg">
                         <h3 className="text-white font-medium mb-2">📚 {room.collectedScript.title}</h3>
                         <p className="text-purple-200 text-sm mb-2">
-                          {room.collectedScript.rounds}轮游戏 · 
-                          需要{room.collectedScript.characters?.filter(c => c.isMainCharacter).length || 0}名真人玩家 · 
-                          {room.collectedScript.characters?.filter(c => !c.isMainCharacter).length || 0}个AI角色
+                          round {room.collectedScript.rounds} · 
+                          need {room.collectedScript.characters?.filter(c => c.isMainCharacter).length || 0} real players· 
+                          {room.collectedScript.characters?.filter(c => !c.isMainCharacter).length || 0} AI NPCs
                         </p>
                         <p className="text-purple-300 text-xs line-clamp-3">
                           {room.collectedScript.background}
@@ -1792,7 +1792,7 @@ export default function RoomPage() {
                     {/* 游戏轮数 */}
                     <div className="mb-6">
                       <label className="block text-white font-medium mb-2">
-                        游戏轮数 {room.collectedScript && '(已预设)'}
+                        Number Game Rounds {room.collectedScript && '(preconfigured)'}
                       </label>
                       <input
                         type="number"
@@ -1801,7 +1801,7 @@ export default function RoomPage() {
                         value={rounds}
                         onChange={(e) => setRounds(e.target.value)}
                         className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                        placeholder="输入游戏轮数（1-30）"
+                        placeholder="Number Game Rounds（1-30）"
                         autoComplete="off"
                         disabled={!!room.collectedScript}
                       />
@@ -1810,7 +1810,7 @@ export default function RoomPage() {
                     {/* 剧情要求 */}
                     <div className="mb-6">
                       <label className="block text-white font-medium mb-2">
-                        剧情要求 {room.collectedScript && '(已预设)'}
+                        剧情要求 {room.collectedScript && '(preconfigured)'}
                       </label>
                       <textarea
                         value={plotRequirement}
@@ -1823,7 +1823,7 @@ export default function RoomPage() {
                           lineHeight: '1.5'
                         }}
                         rows={6}
-                        placeholder="描述你想要的剧情类型、背景设定、风格等..."
+                        placeholder="Describe the type of plot you want, background setting, style, etc...."
                         autoComplete="off"
                         spellCheck="false"
                         disabled={!!room.collectedScript}
@@ -1857,13 +1857,13 @@ export default function RoomPage() {
                     <div className="text-center">
                       {room.status === 'waiting' ? (
                         <div className="text-white">
-                          <h3 className="text-xl font-bold mb-4">等待房主开始游戏</h3>
-                          <p className="text-slate-300">房主正在配置游戏参数...</p>
+                          <h3 className="text-xl font-bold mb-4">Waiting for the homeowner to start the game</h3>
+                          <p className="text-slate-300">The homeowner is configuring the game parameters...</p>
                         </div>
                       ) : (
                         <div className="text-white">
-                          <h3 className="text-xl font-bold mb-4">游戏已结束</h3>
-                          <p className="text-slate-300">游戏已经结束，感谢参与！</p>
+                          <h3 className="text-xl font-bold mb-4">Game Over</h3>
+                          <p className="text-slate-300">The game is over, thanks for participating!</p>
                         </div>
                       )}
                     </div>
@@ -1893,7 +1893,7 @@ function FriendStylePicker({ currentUser, onChange }) {
         const data = await res.json();
         if (data.success) setItems(data.friendStyles || []);
       } catch (e) {
-        setError('加载好友风格失败');
+        setError('Failed to load friend style');
       } finally {
         setLoading(false);
       }
@@ -1917,15 +1917,15 @@ function FriendStylePicker({ currentUser, onChange }) {
   return (
     <div className="mt-6">
       <div className="flex items-center justify-between mb-2">
-        <div className="text-white font-medium">好友风格 AINPC（可选）</div>
-        <div className="text-xs text-slate-400">选择被授权给你的好友风格</div>
+        <div className="text-white font-medium">Style of AINPC friends (optional)</div>
+        <div className="text-xs text-slate-400">Choose to be authorized to your friend's style</div>
       </div>
       {loading ? (
-        <div className="text-slate-300 text-sm">加载中...</div>
+        <div className="text-slate-300 text-sm">loading...</div>
       ) : error ? (
         <div className="text-red-400 text-sm">{error}</div>
       ) : items.length === 0 ? (
-        <div className="text-slate-400 text-sm">暂无可用好友风格</div>
+        <div className="text-slate-400 text-sm">No available buddy styles</div>
       ) : (
         <div className="space-y-2">
           {items.map((fs) => {
@@ -1934,7 +1934,7 @@ function FriendStylePicker({ currentUser, onChange }) {
               <label key={fs.userId} className={`block p-3 rounded border ${checked ? 'border-purple-400 bg-purple-600/20' : 'border-slate-600 bg-slate-700/40'}`}>
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-white text-sm">{fs.username} 的风格</div>
+                    <div className="text-white text-sm">style of {fs.username}</div>
                     {fs.recentStyleSample && (
                       <div className="text-slate-300 text-xs mt-1 line-clamp-2">{fs.recentStyleSample}</div>
                     )}

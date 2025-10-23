@@ -4857,9 +4857,10 @@
   {
     "id": "user_1757654096561_fgyd2ytf8",
     "username": "yoki",
-    "password": "880214",
+    "password": "123456",
     "isOnline": true,
     "friends": [
+      "user_Sheldon",
       "user_xiaoming",
       "user_xiaolin",
       "user_xiaobao",
