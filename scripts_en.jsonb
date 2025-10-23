@@ -1,0 +1,1972 @@
+[
+  {
+    "id": "script_1754293443012_m4qi4jnv5",
+    "title": "Galaxy's Reflection: The Eternal Gamma Love",
+    "rounds": 3,
+    "background": "In the year 2347, interstellar travel has become commonplace. However, a secret experiment is quietly underway in the Gamma Galaxy—time travel. Dr. Elise Carter, a brilliant physicist, is dedicated to finding a bridge between the past and the future, hoping to rectify a historical regret from a century ago. Her lover, interstellar explorer Alexander Reynolds, disappeared in an accidental spacetime jump. Elise firmly believes he is still alive and resolutely activates the forbidden time machine, 'Chronos.' However, the temporal turbulence is far more dangerous than she imagined. The era she finally arrives in is not the one where she expected to find Alexander, but another era full of mysteries...",
+    "characters": [
+      {
+        "id": "elise_carter",
+        "name": "Elise Carter",
+        "identity": "Physicist from 2347",
+        "personality": "Determined, persistent, intelligent, emotionally delicate",
+        "isMainCharacter": true
+      },
+      {
+        "id": "alexander_reynolds",
+        "name": "Alexander Reynolds",
+        "identity": "Interstellar explorer from 2347",
+        "personality": "Brave, adventurous, optimistic, deeply in love with Elise",
+        "isMainCharacter": true
+      },
+      {
+        "id": "professor_meier",
+        "name": "Professor Meier",
+        "identity": "Chronos Project Supervisor (AI NPC)",
+        "personality": "Rigorous, rational, conservative, skeptical of time travel",
+        "isMainCharacter": false
+      },
+      {
+        "id": "temporal_guardian_ara",
+        "name": "Ara (Temporal Guardian)",
+        "identity": "Mysterious being from an unknown era (AI NPC)",
+        "personality": "Calm, mysterious, powerful, guardian of the temporal order",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Elise arrives in Shanghai in 1923. She finds herself on an exotic pier. A mysterious man whispers in her ear: 'Seek the reflection of the Gamma star, it will guide you.' She discovers her time machine is severely damaged and cannot be started immediately. There is no news of Alexander, only a blurry photograph.",
+        "privateClues": {
+          "elise_carter": "The back of the photograph in your hand reads 'Eternity Cafe.' The cafe's owner seems to know some secrets about time travel. You discover that your energy core has only 30% of its power left.",
+          "alexander_reynolds": "You find yourself trapped in a strange era. You are seriously injured, and your only clue is a pocket watch engraved with 'Elise.' Someone is hunting you, calling you a 'time paradox.'"
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Elise finds the Eternity Cafe, where the owner is an elegant woman named Song Mei. Song Mei tells her that Alexander had also been there and left a letter. The letter mentions that the 'reflection of the Gamma star' actually refers to a special observation point at the Shanghai Observatory. Meanwhile, the temporal guardian Ara warns Elise that her actions are disrupting the timeline.",
+        "privateClues": {
+          "elise_carter": "Song Mei shows you a star chart left by Alexander, which marks a special coordinate point. You suspect that this coordinate point is the location of Alexander's last jump. You discover a crude time research laboratory in the cafe's basement.",
+          "alexander_reynolds": "You find a mysterious doctor who treats your injuries and tells you that the people hunting you are from an organization called the 'Time Management Bureau,' whose purpose is to maintain the stability of the timeline. The doctor gives you an address, saying it's a safe house."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Elise goes to the Shanghai Observatory. At the observation point, she discovers a hidden energy channel that can briefly connect to the future. At the same time, Alexander also arrives at the observatory and reunites with Elise. However, agents from the Time Management Bureau have also tracked them down and are trying to stop them. The temporal guardian Ara decides to intervene, offering a final choice: repair the timeline, or travel together to an unknown future.",
+        "privateClues": {
+          "elise_carter": "The energy channel requires a large amount of energy to activate. You must make a choice: use the remaining energy to return to the future, or use it to find the spacetime point where Alexander fell. Alexander tells you that the Time Management Bureau's goal is to erase all possibilities of time travel.",
+          "alexander_reynolds": "You notice that one of the Time Management Bureau agents looks very much like Professor Meier from the past. He tells you that Elise's actions have seriously threatened the temporal stability of the entire universe and you must stop her. Ara's appearance makes you realize that time is not linear, but an interweaving of countless possibilities."
+        }
+      }
+    ],
+    "createdAt": 1754293443012,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754293469256_51edbkfad",
+    "title": "Sakura of Reincarnation",
+    "rounds": 3,
+    "background": "In the year 2249, Tokyo is a highly technologically advanced city. Aya, a top programmer, accidentally discovers a time travel program called 'Sakura' hidden in an old server. Curious about her grandparents' love story, Aya activates the program, but unexpectedly transports herself and her childhood friend, Kenta, a history professor, back to Kyoto in 1944. Amidst the flames of war, the two must survive in the torrent of history, find a way back to the future, and uncover the secrets hidden behind the 'Sakura' program. More importantly, they must ensure their presence does not alter history, and this journey through time will also test the bond between them.",
+    "characters": [
+      {
+        "id": "ayane",
+        "name": "Ayane",
+        "identity": "Programmer from 2249",
+        "personality": "Smart, independent, curious, slightly adventurous",
+        "isMainCharacter": true
+      },
+      {
+        "id": "kenta",
+        "name": "Kenta",
+        "identity": "History professor from 2249",
+        "personality": "Calm, knowledgeable, responsible, slightly conservative",
+        "isMainCharacter": true
+      },
+      {
+        "id": "sakura",
+        "name": "Sakura",
+        "identity": "Geisha from 1944",
+        "personality": "Gentle, considerate, understanding, hides a secret in her heart",
+        "isMainCharacter": false
+      },
+      {
+        "id": "hideki",
+        "name": "Hideki",
+        "identity": "Military officer from 1944",
+        "personality": "Serious, cold, loyal to his duty, has special feelings for the geisha Sakura",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Aya and Kenta suddenly appear on the streets of Kyoto in 1944, bewildered. Their futuristic clothing attracts attention. Sakura, a beautiful geisha, notices them and offers to help. Hideki, a military officer, also becomes interested in them, but more with suspicion.",
+        "privateClues": {
+          "ayane": "You notice your time bracelet is malfunctioning and cannot determine the specific teleportation coordinates. The battery icon is flashing, indicating that the power is about to run out. You must find a way to charge it as soon as possible.",
+          "kenta": "You notice the cherry blossom hairpin worn by Sakura is almost identical to the one worn by your grandmother in your grandfather's photograph. You begin to wonder if history is repeating itself, or if this is not a coincidence at all."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Sakura takes Aya and Kenta to the teahouse where she lives, providing them with temporary shelter. Aya tries to find a device that can charge her time bracelet, but the technology of 1944 is far from adequate. Hideki begins to investigate Aya and Kenta's identities, suspecting them of being spies.",
+        "privateClues": {
+          "ayane": "You discover a secret room in the teahouse's basement, containing some old electronic equipment, seemingly for some secret research. You have a vague feeling that this is related to the 'Sakura' program.",
+          "kenta": "You overhear a conversation between Sakura and Hideki and learn that Hideki is about to be transferred to the battlefield, and Sakura seems reluctant to part with him. You recall that your grandmother never mentioned this relationship, which does not match the historical records."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Aya finally finds a clue to charge her time bracelet, but it requires using the equipment in the teahouse's basement. Hideki's investigation deepens, and he begins to suspect a connection between Sakura, Aya, and Kenta. To protect Aya and Kenta, Sakura has to make a difficult choice.",
+        "privateClues": {
+          "ayane": "You successfully activate the equipment in the basement, and the time bracelet begins to charge. However, the device makes a loud noise, which is likely to attract Hideki's attention. You must complete the charging as soon as possible, or all your efforts will be in vain.",
+          "kenta": "You find Sakura secretly destroying some letters. The content of the letters seems to be related to time travel. You realize that Sakura may know more secrets about the 'Sakura' program, but she doesn't seem to want to tell you."
+        }
+      }
+    ],
+    "createdAt": 1754293469256,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754294815279_l158eh1ip",
+    "title": "Baozi Wars: The Battle of the Old Brand",
+    "rounds": 3,
+    "background": "The century-old 'Dexing Baozi Shop' is famous far and wide, and its signature fresh meat buns are renowned. The old owner, Old Master Zhao, is getting on in years and has decided to hold a unique baozi-eating contest. The winner will gain the operating rights to the Dexing Baozi Shop. As soon as the news broke, baozi lovers from all over flocked to participate. However, behind the seemingly simple competition lies a contest of family feuds and business conspiracies. Is it a simple eating competition, or a power struggle with undercurrents? In the aroma of the baozi, there is a hint of something unusual...",
+    "characters": [
+      {
+        "id": "character1",
+        "name": "Zhao Xiaoman",
+        "identity": "Old Master Zhao's granddaughter, grew up in the baozi shop",
+        "personality": "Shrewd and capable, gentle on the outside but tough on the inside, has a strong sense of responsibility for the family business, but is dissatisfied with her grandfather's traditional business philosophy and wants to innovate.",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character2",
+        "name": "Li Dazhuang",
+        "identity": "A famous 'big eater', his dream is to eat all the delicacies in the world",
+        "personality": "Honest and simple, with an amazing appetite, cheerful, seemingly without desires, but has a love and persistence for baozi that is beyond ordinary people.",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character3",
+        "name": "Aunt Wang",
+        "identity": "An old employee of Dexing Baozi Shop, in charge of the back kitchen",
+        "personality": "Taciturn, serious in her work, loyal to Dexing Baozi Shop, but seems to know some unknown secrets.",
+        "isMainCharacter": false
+      },
+      {
+        "id": "character4",
+        "name": "Boss Zhang",
+        "identity": "The owner of the new 'Delicious Baozi' shop on the next street, a business competitor",
+        "personality": "Shrewd and mercenary, ambitious, bent on annexing Dexing Baozi Shop, unscrupulous in his methods.",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins, and the contestants are eager to start. The first round is a timed baozi-eating contest, the one who eats the most in the allotted time wins. Zhao Xiaoman has a strategy based on her knowledge of baozi making, while Li Dazhuang takes the lead with his natural appetite. Aunt Wang watches silently from the side with a complex expression. Boss Zhang looks around in the crowd, as if searching for something.",
+        "privateClues": {
+          "character1": "Before the competition, your grandfather, Old Master Zhao, secretly slipped you a note that said: 'Be careful of Boss Zhang, beware of the baozi filling.' It seems your grandfather is wary of Boss Zhang.",
+          "character2": "You accidentally overhear Aunt Wang muttering: 'The old master is too impulsive this time, this baozi shop is going to be in trouble sooner or later.' Aunt Wang doesn't seem to approve of the competition."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "The second round is a blind-tasting of fillings. Contestants need to be blindfolded and identify the baozi fillings by taste. The one who answers the most correctly wins. Zhao Xiaoman performs well due to her familiarity with the fillings since childhood. Although Li Dazhuang has a sensitive palate, he has difficulty with some special fillings. Boss Zhang starts to deliberately create chaos during the competition to interfere with the contestants' judgment.",
+        "privateClues": {
+          "character1": "You smell a faint medicinal taste in today's baozi filling, which is different from usual. Has someone tampered with it?",
+          "character2": "You notice that Boss Zhang has been secretly observing Zhao Xiaoman, his eyes full of hostility and calculation. He seems to have other plans for Zhao Xiaoman."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "The final round is baozi making. Contestants need to make baozi on the spot, which will be tasted and scored by the judges. The winner is decided by the combined scores of the three rounds. Zhao Xiaoman demonstrates exquisite baozi-making skills, but finds that the flour seems to have been tampered with, affecting the taste. Although Li Dazhuang is not good at making baozi, he impresses the judges with his sincerity and love for baozi. Aunt Wang suddenly stands up and reveals a shocking truth...",
+        "privateClues": {
+          "character1": "You find that the baozi shop's account book is missing. This book records the business situation of Dexing Baozi Shop over the years, as well as some important business secrets.",
+          "character2": "You notice a burn mark on Aunt Wang's hand, which is identical to the one you saw on Boss Zhang's hand yesterday. What is the relationship between them?"
+        }
+      }
+    ],
+    "createdAt": 1754294815279,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754295413704_msov3ekhc",
+    "title": "Old Wang's Baozi Shop",
+    "rounds": 3,
+    "background": "In the late Qing Dynasty and early Republic of China, under the city walls of Beiping, Old Wang opened a baozi shop that was famous far and wide. His baozi had thin skins and large fillings, and the taste was delicious, especially the secret sauce, which was addictive. However, Old Wang recently passed away, leaving behind a mysterious recipe. It is said that whoever can find this recipe can inherit Old Wang's baozi shop and his skills. The neighbors are all coveting this recipe, and undercurrents are surging. Today is the seventh day after Old Wang's death. According to custom, an altar should be set up in the baozi shop to burn paper money and worship. Everyone wants to take this opportunity to see if they can find the recipe.",
+    "characters": [
+      {
+        "id": "character1",
+        "name": "Wang Xiao'er",
+        "identity": "Old Wang's son, lazy and greedy",
+        "personality": "Greedy, timid, idle",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character2",
+        "name": "Aunt Li",
+        "identity": "Old Wang's neighbor, warm-hearted",
+        "personality": "Gossipy, likes to take advantage of others, outspoken"
+      },
+      {
+        "id": "character3",
+        "name": "Manager Zhang",
+        "identity": "The manager of the restaurant opposite, shrewd",
+        "personality": "Calculating, slick, profit-oriented"
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The seventh-day memorial service begins. Wang Xiao'er tremblingly sets up the altar, with Aunt Li and Manager Zhang helping. While burning paper money, Aunt Li mutters about how good Old Wang was. Manager Zhang looks around, as if searching for something. Wang Xiao'er seems absent-minded, his eyes glancing at the money box from time to time.",
+        "privateClues": {
+          "character1": "Before he died, Dad gave me a piece of paper with the word 'stove' on it. It's out of context, I don't know what it means.",
+          "character2": "I saw Manager Zhang secretly rummaging through Old Wang's belongings, acting suspiciously. He must have some motive.",
+          "character3": "A few days before Old Wang died, he complained to me that his son was a disappointment and he wanted to hand over the baozi shop to someone he trusted. Could the recipe be with his son?"
+        }
+      },
+      {
+        "round": 2,
+        "plot": "After the memorial service, Aunt Li suggests everyone eat baozi together to commemorate Old Wang. Wang Xiao'er reluctantly agrees. Manager Zhang excuses himself to take care of his restaurant, but before leaving, he casually asks Wang Xiao'er about his future plans for the baozi shop. Aunt Li, while eating baozi, praises Old Wang's skills and indirectly asks about the recipe.",
+        "privateClues": {
+          "character1": "Mom said that the family heirlooms are hidden in the most unexpected places. Is there something under the stove? I have to find a chance to check.",
+          "character2": "The taste of this baozi is different from before! Something is missing... right, it's missing the taste of fennel. Is fennel missing from the recipe?",
+          "character3": "Wang Xiao'er's eyes are shifty, he obviously knows something. And he frequently looks towards the kitchen, there's definitely a secret there."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Wang Xiao'er sneaks into the kitchen when Aunt Li is not paying attention. Aunt Li notices Wang Xiao'er's movement and quietly follows him. At this moment, Manager Zhang suddenly returns, holding a package, and also heads to the kitchen. The three of them appear in the kitchen at the same time, and the atmosphere becomes tense.",
+        "privateClues": {
+          "character1": "Sure enough, there's a secret compartment under the stove! Inside is a porcelain bottle with the words 'Secret Sauce' written on it. But the bottle is empty! Did someone get here first?",
+          "character2": "I saw Manager Zhang holding a package of fennel! What is he trying to do? Does he want to concoct the recipe himself?",
+          "character3": "Here's my chance! Wang Xiao'er found the bottle, but he seems disappointed. Now is the best time to get the recipe!"
+        }
+      }
+    ],
+    "createdAt": 1754295413704,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754295711401_rk89l6e17",
+    "title": "The Midnight Baozi Shop",
+    "rounds": 3,
+    "background": "Late at night, fog fills the alley. You, Master Li, are the owner of the only operating 'Old Li's Baozi Shop' on this old street. Your baozi, with their thin skin and large fillings, are famous far and wide. However, recently you've felt a strange atmosphere around you. Today is especially weird. First, old customer Aunt Zhang suddenly ordered ten meat buns, saying she was sending them to her deceased husband. Sending baozi in the middle of the night? Then, Old Man Wang, who never eats meat buns, surprisingly ordered two pork and green onion buns. Is there... a secret to these baozi? What makes you even more uneasy is that you always feel someone is watching you in the dark, watching your baozi...",
+    "characters": [
+      {
+        "id": "character1",
+        "name": "Li Laoshi",
+        "identity": "Owner of Old Li's Baozi Shop",
+        "personality": "Honest and dutiful, with exquisite skills, and some doubts in his heart",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character2",
+        "name": "Zhang Cuihua (Aunt Zhang)",
+        "identity": "An old customer of Old Li's Baozi Shop",
+        "personality": "Warm-hearted, a bit nagging, her recent behavior is a bit strange",
+        "isMainCharacter": false
+      },
+      {
+        "id": "character3",
+        "name": "Wang Fugui (Old Man Wang)",
+        "identity": "A regular customer of Old Li's Baozi Shop",
+        "personality": "Solitary, taciturn, usually only eats vegetarian buns",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Late at night, Aunt Zhang hurriedly comes to the baozi shop, buys ten meat buns, and looks flustered. Old Man Wang comes later, specifically asking for two pork and green onion buns, but takes two steamed buns and leaves, saying he's old and forgetful.",
+        "privateClues": {
+          "character1": "The money Aunt Zhang gave you is newly printed ghost money, with burn marks on it. After Old Man Wang leaves, you find a folded piece of paper he left on the table, which says 'See you in the back alley at midnight tonight.'",
+          "character2": "You heard that Li Laoshi recently developed a new baozi filling that is said to prolong life. For your deceased husband, you want to give it a try. Li Laoshi seems to have discovered something.",
+          "character3": "I shouldn't eat meat buns, but to get close to Li Laoshi, I have to. The content of the note must be delivered to him tonight."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "You decide to follow Old Man Wang and find that he didn't go home, but is hiding in the shadows of the back alley. Aunt Zhang also seems to be loitering nearby, looking towards your baozi shop from time to time. A low cry comes from the depths of the alley.",
+        "privateClues": {
+          "character1": "Old Man Wang seems to be waiting for someone. He is clutching a medicine bottle, on which the words 'prolong life' are faintly visible. Aunt Zhang seems to be hiding from someone, she keeps looking back with fear in her eyes.",
+          "character2": "I must stop Old Man Wang! He's going to ruin Li Laoshi! I saw the medicine bottle he was holding, it's a forbidden drug that makes people lose their minds!",
+          "character3": "Time is running out, I must tell Li Laoshi the truth. Zhang Cuihua is watching me, she knows my plan."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Midnight arrives, and a dark figure suddenly appears in the back alley. Old Man Wang tremblingly hands the dark figure a baozi. The dark figure swallows the baozi in one bite and lets out a strange laugh. Aunt Zhang suddenly rushes out, shouting: 'Don't eat it!'",
+        "privateClues": {
+          "character1": "The identity of the dark figure is unknown, but he has a strange tattoo on the back of his hand, like a twisted baozi. Aunt Zhang rushes towards the dark figure, but is kicked away and faints.",
+          "character2": "That dark figure... it's Old Chen! He ate Li Laoshi's baozi! It's over, it's all over!",
+          "character3": "My mission has failed... that baozi was eaten by Old Chen. Li Laoshi, run!"
+        }
+      }
+    ],
+    "createdAt": 1754295711401,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754296184455_m7z394qrt",
+    "title": "The Mystery of the Crispy Corners",
+    "rounds": 3,
+    "background": "The quiet town of Clayville is famous for its unique Crispy Corners factory. The factory is the town's economic pillar, but recently it has been shrouded in shadow. The taste of the Crispy Corners produced by the factory has been declining, and there have even been strange changes in flavor. People suspect that there is a problem within the factory, that someone is secretly sabotaging it, trying to destroy the factory. Emily Carter, the quality control supervisor of the Crispy Corners factory, must find out the truth before everything is irreversible and save the future of the town.",
+    "characters": [
+      {
+        "id": "emilyCarter",
+        "name": "Emily Carter",
+        "identity": "Crispy Corners Factory Quality Control Supervisor",
+        "personality": "Serious and responsible, strives for perfection, has a strong sense of justice",
+        "isMainCharacter": true
+      },
+      {
+        "id": "georgeMiller",
+        "name": "George Miller",
+        "identity": "An old employee of the Crispy Corners factory, in charge of the production line",
+        "personality": "Taciturn, experienced, somewhat mysterious",
+        "isMainCharacter": false
+      },
+      {
+        "id": "lindaBrown",
+        "name": "Linda Brown",
+        "identity": "A new intern at the Crispy Corners factory",
+        "personality": "Lively and cheerful, curious, likes to gossip",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Emily discovers that a recent batch of Crispy Corners used expired spices, resulting in a poor taste. The production line managed by George is the main suspect. Linda tells Emily that she saw George secretly entering the warehouse at night, acting suspiciously.",
+        "privateClues": {
+          "emilyCarter": "The quality control records show that the batch number of the expired spices is 20231026, and the supplier is the distant 'Old Joe's Spice Company.' George has been taking frequent leave recently, saying he has family matters.",
+          "georgeMiller": "My wife has been sick recently and needs a lot of money. I had to secretly take on some private work. I went to the warehouse at night to help someone move goods, it has absolutely nothing to do with Crispy Corners. I don't know anything about the spices.",
+          "lindaBrown": "George was wearing a strange black coat that night, he seemed afraid of being recognized. He was also carrying a large black bag, I don't know what was inside. Afterwards, I smelled a strong caramel scent."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Emily investigates 'Old Joe's Spice Company' and finds that the company went out of business three years ago. She asks George about the expired spices, but he is evasive and refuses to answer. Linda claims she found the black coat George discarded, which contained some Crispy Corner crumbs with a strange taste.",
+        "privateClues": {
+          "emilyCarter": "The last person in charge of 'Old Joe's Spice Company' was named Jonathan Miller, which is only one word different from George Miller. The Crispy Corner crumbs on the black coat were tested and found to contain a small amount of cyanide.",
+          "georgeMiller": "Jonathan Miller is my cousin. He used to run a spice company, but he passed away a long time ago. The coat is not mine, I've never worn that style. Someone is trying to frame me!",
+          "lindaBrown": "I found in the factory's surveillance footage that a figure secretly entered the spice warehouse, but it was too dark to see who it was. The figure's build is similar to George's, but the walking posture is somewhat different."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Emily discovers that the factory's ventilation system has been tampered with, and the cyanide was likely mixed into the Crispy Corners through the ventilation system. Linda admits that she was instructed by someone to deliberately frame George. The mastermind turns out to be... (the truth needs to be filled in based on the players' reasoning, here we assume the mastermind is the owner of the Crispy Corners factory, who wants to make the factory go bankrupt and then acquire other factories at a low price)",
+        "privateClues": {
+          "emilyCarter": "The factory owner has been secretly in contact with competitors recently, seemingly discussing acquisition matters. The owner also gave Linda a promotion and a raise, encouraging her to 'learn more experience.'",
+          "georgeMiller": "The owner often says sarcastic things to me, seeming dissatisfied with my work. He always hints that I should retire early and give my position to the younger generation.",
+          "lindaBrown": "The owner promised me that if I could get rid of George, he would make me the supervisor of the production line. I admit I was foolish for a moment and did something wrong, but I regret it now."
+        }
+      }
+    ],
+    "createdAt": 1754296184455,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754296546629_awuhxq8hd",
+    "title": "French Fry Championship: Who Stole My Fries?",
+    "rounds": 3,
+    "background": "The annual 'French Fry Championship' kicks off at the headquarters of the fast-food restaurant 'Golden Crisp.' Four contestants gather with one goal: to eat the most fries in three rounds and win the title of 'French Fry King' and a lifetime supply of free fries from 'Golden Crisp.' However, on the eve of the competition, one of the contestants, Ah Qiang, discovers that his secret weapon - a special mustard sauce - has disappeared. This mustard sauce is the key to his victory! Seeds of suspicion spread among the contestants. This competition is not just about fries, but a contest of trust and conspiracy. Who is the mastermind? And where did the mustard sauce go?",
+    "characters": [
+      {
+        "id": "阿强",
+        "name": "Li Aqiang",
+        "identity": "Veteran fry lover, runner-up in previous competitions",
+        "personality": "Forthright, competitive, slightly neurotic, has an almost obsessive love for fries",
+        "isMainCharacter": true
+      },
+      {
+        "id": "小美",
+        "name": "Wang Xiaomei",
+        "identity": "Food blogger, new internet celebrity",
+        "personality": "Lively and cheerful, good at socializing, seemingly simple but actually shrewd",
+        "isMainCharacter": false
+      },
+      {
+        "id": "老王",
+        "name": "Wang Laogen",
+        "identity": "Retired old cadre, self-proclaimed 'fry health expert'",
+        "personality": "Stubborn, conservative, likes to pull rank, has unique views on how to eat fries",
+        "isMainCharacter": false
+      },
+      {
+        "id": "艾米",
+        "name": "Emily",
+        "identity": "International student, curious baby",
+        "personality": "Enthusiastic, curious, likes to try new things, full of interest in Asian culture",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins. The host announces the rules: the first round is a 'speed challenge,' where contestants need to eat as many fries as possible in five minutes. During the competition, Ah Qiang is obviously affected, his speed is much slower than before, while the others perform normally. Xiaomei seems nonchalant, but the number of fries she eats is amazing. Old Wang still insists on his 'healthy eating method,' chewing slowly. Emily is trying various dipping sauces.",
+        "privateClues": {
+          "阿强": "You clearly checked that the mustard sauce was in your bag this morning, but now it's gone. You suspect Xiaomei, because she was hovering around you just now and asked you 'What secret weapon did you prepare?'.",
+          "小美": "Before the competition, you saw Old Wang secretly sprinkling a strange white powder on his fries. You think this must be his secret to winning, and he is particularly unwilling to let others get close to his fries.",
+          "老王": "You see Emily constantly taking pictures, as if she is recording your posture of eating fries. You think she might be studying something, which makes you feel uncomfortable.",
+          "艾米": "You notice that Ah Qiang looks absent-minded and keeps staring at his bag. It seems that something is very important to him, and he seems to have lost it. You also hear him muttering 'mustard sauce' under his breath."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "The second round is 'creative eating.' Contestants need to use the provided ingredients to create a unique way of eating fries. Ah Qiang is still unhappy and casually puts something together. Xiaomei mixes ketchup and mustard sauce to create a new flavor, which wins praise from everyone. Old Wang dips his fries in goji berry-infused water, sparking controversy. Emily eats her fries with ice cream, saying this is the authentic 'American way.'",
+        "privateClues": {
+          "阿强": "You notice that the mustard sauce Xiaomei is using seems very similar to the packaging of your lost one, but you can't be sure. You also see Old Wang secretly watching you with a hint of schadenfreude in his eyes.",
+          "小美": "You learn from the host that the mustard sauce was specially provided by the sponsor, and there is only one. You begin to suspect that Ah Qiang may not have brought any mustard sauce at all, and it was all a play he directed himself to disrupt your concentration.",
+          "老王": "You notice that some of Emily's ice cream has melted and dripped on the floor. Some strange white powder appears on the floor, which you recognize as an ingredient of some kind of laxative. You begin to suspect that someone wants to frame others.",
+          "艾米": "You accidentally see Old Wang secretly pouring some white powder into Ah Qiang's drink. You don't know what it is, but you feel that things are getting more and more complicated."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "The final round is the 'endurance challenge.' Contestants need to maintain their speed of eating fries as much as possible for ten minutes. Whoever lasts to the end is the winner. After eating the first bite of fries, Ah Qiang suddenly turns pale, clutches his stomach, and runs out. Xiaomei, Old Wang, and Emily continue the competition, but the atmosphere is extremely tense. In the end, Xiaomei wins the competition with her stable performance. However, after the competition, Ah Qiang claims that he was framed.",
+        "privateClues": {
+          "阿强": "After drinking the drink, your stomach starts to hurt badly. You are sure that someone put something in your drink. You suspect Old Wang, because he has always been resentful of your 'secret weapon.'",
+          "小美": "You won the competition, but you feel that something is not right. You begin to suspect that you have been used, and the real goal is not the championship, but something else.",
+          "老王": "You see Emily secretly wiping the white powder off the floor after Ah Qiang left. You begin to suspect that Emily is the mastermind, and she may be using this competition to conduct some secret transaction.",
+          "艾米": "You see Xiaomei secretly stuffing something into her bag after the competition. You think she must know something, and she is very likely the one who stole Ah Qiang's mustard sauce."
+        }
+      }
+    ],
+    "createdAt": 1754296546629,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754299570854_pxrsbaccn",
+    "title": "French Fry Championship: Who Stole My Fries?",
+    "rounds": 3,
+    "background": "The annual 'French Fry Championship' kicks off at the headquarters of the fast-food restaurant 'Golden Crisp.' Four contestants gather with one goal: to eat the most fries in three rounds and win the title of 'French Fry King' and a lifetime supply of free fries from 'Golden Crisp.' However, on the eve of the competition, one of the contestants, Ah Qiang, discovers that his secret weapon - a special mustard sauce - has disappeared. This mustard sauce is the key to his victory! Seeds of suspicion spread among the contestants. This competition is not just about fries, but a contest of trust and conspiracy. Who is the mastermind? And where did the mustard sauce go?",
+    "characters": [
+      {
+        "id": "阿强",
+        "name": "Li Aqiang",
+        "identity": "Veteran fry lover, runner-up in previous competitions",
+        "personality": "Forthright, competitive, slightly neurotic, has an almost obsessive love for fries",
+        "isMainCharacter": true
+      },
+      {
+        "id": "小美",
+        "name": "Wang Xiaomei",
+        "identity": "Food blogger, new internet celebrity",
+        "personality": "Lively and cheerful, good at socializing, seemingly simple but actually shrewd",
+        "isMainCharacter": false
+      },
+      {
+        "id": "老王",
+        "name": "Wang Laogen",
+        "identity": "Retired old cadre, self-proclaimed 'fry health expert'",
+        "personality": "Stubborn, conservative, likes to pull rank, has unique views on how to eat fries",
+        "isMainCharacter": false
+      },
+      {
+        "id": "艾米",
+        "name": "Emily",
+        "identity": "International student, curious baby",
+        "personality": "Enthusiastic, curious, likes to try new things, full of interest in Asian culture",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins. The host announces the rules: the first round is a 'speed challenge,' where contestants need to eat as many fries as possible in five minutes. During the competition, Ah Qiang is obviously affected, his speed is much slower than before, while the others perform normally. Xiaomei seems nonchalant, but the number of fries she eats is amazing. Old Wang still insists on his 'healthy eating method,' chewing slowly. Emily is trying various dipping sauces.",
+        "privateClues": {
+          "阿强": "You clearly checked that the mustard sauce was in your bag this morning, but now it's gone. You suspect Xiaomei, because she was hovering around you just now and asked you 'What secret weapon did you prepare?'.",
+          "小美": "Before the competition, you saw Old Wang secretly sprinkling a strange white powder on his fries. You think this must be his secret to winning, and he is particularly unwilling to let others get close to his fries.",
+          "老王": "You see Emily constantly taking pictures, as if she is recording your posture of eating fries. You think she might be studying something, which makes you feel uncomfortable.",
+          "艾米": "You notice that Ah Qiang looks absent-minded and keeps staring at his bag. It seems that something is very important to him, and he seems to have lost it. You also hear him muttering 'mustard sauce' under his breath."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "The second round is 'creative eating.' Contestants need to use the provided ingredients to create a unique way of eating fries. Ah Qiang is still unhappy and casually puts something together. Xiaomei mixes ketchup and mustard sauce to create a new flavor, which wins praise from everyone. Old Wang dips his fries in goji berry-infused water, sparking controversy. Emily eats her fries with ice cream, saying this is the authentic 'American way.'",
+        "privateClues": {
+          "阿强": "You notice that the mustard sauce Xiaomei is using seems very similar to the packaging of your lost one, but you can't be sure. You also see Old Wang secretly watching you with a hint of schadenfreude in his eyes.",
+          "小美": "You learn from the host that the mustard sauce was specially provided by the sponsor, and there is only one. You begin to suspect that Ah Qiang may not have brought any mustard sauce at all, and it was all a play he directed himself to disrupt your concentration.",
+          "老王": "You notice that some of Emily's ice cream has melted and dripped on the floor. Some strange white powder appears on the floor, which you recognize as an ingredient of some kind of laxative. You begin to suspect that someone wants to frame others.",
+          "艾米": "You accidentally see Old Wang secretly pouring some white powder into Ah Qiang's drink. You don't know what it is, but you feel that things are getting more and more complicated."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "The final round is the 'endurance challenge.' Contestants need to maintain their speed of eating fries as much as possible for ten minutes. Whoever lasts to the end is the winner. After eating the first bite of fries, Ah Qiang suddenly turns pale, clutches his stomach, and runs out. Xiaomei, Old Wang, and Emily continue the competition, but the atmosphere is extremely tense. In the end, Xiaomei wins the competition with her stable performance. However, after the competition, Ah Qiang claims that he was framed.",
+        "privateClues": {
+          "阿强": "After drinking the drink, your stomach starts to hurt badly. You are sure that someone put something in your drink. You suspect Old Wang, because he has always been resentful of your 'secret weapon.'",
+          "小美": "You won the competition, but you feel that something is not right. You begin to suspect that you have been used, and the real goal is not the championship, but something else.",
+          "老王": "You see Emily secretly wiping the white powder off the floor after Ah Qiang left. You begin to suspect that Emily is the mastermind, and she may be using this competition to conduct some secret transaction.",
+          "艾米": "You see Xiaomei secretly stuffing something into her bag after the competition. You think she must know something, and she is very likely the one who stole Ah Qiang's mustard sauce."
+        }
+      }
+    ],
+    "createdAt": 1754299570854,
+    "createdBy": "collected"
+  },
+  {
+    "id": "script_1754299626235_cu9isgqy5",
+    "title": "The Secret of the Cheese Feast",
+    "rounds": 3,
+    "background": "The annual 'Cheese Feast' is the most important festival in Cheese Town, and also the key to the mayoral election. This year's feast not only features a dazzling array of cheeses, but also a 'cheese-eating contest' that will decide the mayor. However, on the eve of the competition, someone anonymously reports that this year's cheese has been adulterated with banned ingredients in an attempt to manipulate the competition results. The contestants are fighting openly and secretly, and the conspiracy behind it is gradually emerging. Who is the real mastermind? And who can have the last laugh at this cheese feast?",
+    "characters": [
+      {
+        "id": "monty",
+        "name": "Monty Gouda",
+        "identity": "Veteran cheese lover, mayoral candidate",
+        "personality": "Scheming, ambitious, outwardly friendly",
+        "isMainCharacter": true
+      },
+      {
+        "id": "camembert",
+        "name": "Camembert Brie",
+        "identity": "New cheese expert, mayoral candidate",
+        "personality": "Confident and decisive, sharp, pursues fairness",
+        "isMainCharacter": true
+      },
+      {
+        "id": "gorgonzola",
+        "name": "Gorgonzola Roquefort",
+        "identity": "Old cheese merchant, competition sponsor",
+        "personality": "Profit-oriented, opportunistic, well-informed",
+        "isMainCharacter": false
+      },
+      {
+        "id": "parmesan",
+        "name": "Parma Reggiano",
+        "identity": "Competition host, the town's good old boy",
+        "personality": "Fair and strict, helpful, but a bit slow",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins, the first round is the 'Wheel of Cheese Challenge.' Monty takes the lead, showing an amazing appetite. Camembert follows closely, but seems to be struggling a bit. Gorgonzola is in the audience, frequently talking to different people with a complex expression. Parma hosts the competition dutifully, announcing the rules.",
+        "privateClues": {
+          "monty": "I saw Gorgonzola secretly talking to Parma before the competition, seeming to imply that Parma should favor me. If I am elected mayor, he will get more benefits.",
+          "camembert": "I tasted that today's cheese is a bit off, it seems to have some kind of emetic added, which caused my appetite to decrease. I suspect Monty is behind it, he knows I'm young and wants to defeat me with dirty tricks."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "The second round is the 'Goat Cheese Platter.' Camembert adjusts his state and catches up, neck and neck with Monty. However, someone suddenly faints during the competition, causing chaos. Parma quickly organizes medical staff for treatment, and Gorgonzola disappears in the chaos.",
+        "privateClues": {
+          "monty": "The person who fainted is a supporter of Camembert. I had previously heard people discussing their opposition to me adding 'special' spices to the cheese. It seems someone doesn't want me to win, I must take action.",
+          "camembert": "I noticed that Gorgonzola seems to be secretly observing me, his eyes full of inquiry. I previously found out that his cheese workshop cuts corners. If I am elected mayor, I will definitely investigate his workshop thoroughly."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "The third and final round is 'Blue Cheese Speed Eating.' The scene becomes heated, with both Monty and Camembert giving it their all. Parma announces that the competition is in its final countdown. Suddenly, someone reveals that Monty's cheese was indeed adulterated with banned ingredients, and the evidence is conclusive. In the end, Camembert wins the competition and is successfully elected mayor.",
+        "privateClues": {
+          "monty": "Someone reported me! It must be Camembert! I must find a way to clear my name, or my reputation will be ruined. I saw Gorgonzola whispering to Camembert just now, he must be the one pulling the strings!",
+          "camembert": "I won! Justice will eventually prevail over evil! I know Gorgonzola has been helping me investigate Monty's violations, and the evidence he provided was crucial. I will reorganize Cheese Town so that everyone can eat healthy and delicious cheese!"
+        }
+      }
+    ],
+    "createdAt": 1754299626235,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754300000800_0qicwar45",
+    "title": "The Secret of the Golden Apple",
+    "rounds": 3,
+    "background": "The small town of Edenburg, at the foot of the Alps, is famous for its delicious golden apples. Every autumn harvest season, the town holds a grand apple-eating contest, attracting foodies and apple lovers from all over. However, this year's competition is shrouded in a mysterious atmosphere. The town's old fruit farmer, Hans, claims to have cultivated a 'Golden Apple King' with magical powers. Whoever eats it will gain unexpected wealth and wisdom. As soon as the news broke, the whole town was in an uproar. But at the same time, some strange things have happened in the town: the statue of the apple orchard's guardian deity has been destroyed, and the Apple King seems to have mysteriously disappeared. This year's apple-eating contest is destined to be anything but peaceful.",
+    "characters": [
+      {
+        "id": "emma",
+        "name": "Emma Brown",
+        "identity": "Food critic",
+        "personality": "Shrewd and capable, a perfectionist with a high appreciation for food, but sometimes too harsh.",
+        "isMainCharacter": true
+      },
+      {
+        "id": "leo",
+        "name": "Leo Baker",
+        "identity": "Heir to the apple orchard",
+        "personality": "Enthusiastic and cheerful, helpful, has a deep affection for the family's apple orchard, but sometimes too impulsive.",
+        "isMainCharacter": true
+      },
+      {
+        "id": "hans",
+        "name": "Hans Müller",
+        "identity": "Old fruit farmer",
+        "personality": "Old-fashioned and stubborn, experienced, loves apples deeply, and firmly believes in legends.",
+        "isMainCharacter": false
+      },
+      {
+        "id": "gretel",
+        "name": "Gretel Schmidt",
+        "identity": "The town's baker",
+        "personality": "Kind and friendly, skillful, good at making all kinds of apple desserts, likes to inquire about gossip.",
+        "isMainCharacter": false
+      },
+      {
+        "id": "fritz",
+        "name": "Fritz Wagner",
+        "identity": "The town's tavern owner",
+        "personality": "Taciturn, keeps his cards close to his chest, runs the only tavern in town, and seems to know many secrets.",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins, and the contestants are tasting various flavors of golden apples. Emma carefully savors each apple, trying to find the legendary 'Golden Apple King.' Leo is busy greeting guests and introducing the characteristics of his family's apples. Hans is anxiously searching for something in the crowd, sighing from time to time. Gretel is busy selling her apple pies on the side and quietly inquiring about the 'Golden Apple King.' Fritz sits in the tavern, silently observing everything.",
+        "privateClues": {
+          "emma": "You notice that Hans has been staring at Leo with dissatisfaction in his eyes. You also see Gretel quietly taking something from Hans's pocket.",
+          "leo": "You notice that Emma shows great interest in your family's apples, she seems to be looking for a special kind of apple. You also hear Hans muttering 'stolen' under his breath."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "The competition reaches its climax, and the contestants begin to compete on speed, to see who can eat the most apples. Although Emma eats elegantly, her speed is not slow, and she is still looking for the 'Golden Apple King.' Leo also joins the competition, wanting to prove the quality of his family's apples. Hans suddenly rushes onto the stage, accusing Leo of stealing the 'Golden Apple King.' Gretel fans the flames on the side, claiming that she saw Leo enter Hans's apple orchard with her own eyes. Fritz remains silent, just handing Hans a glass of wine.",
+        "privateClues": {
+          "emma": "You notice that what Gretel took is a key with the apple orchard's logo on it. You also notice that when Fritz handed Hans the wine, he seemed to whisper something in his ear.",
+          "leo": "There is a hint of fear in Hans's eyes as he accuses you, not anger. You recall seeing a dark figure in the apple orchard last night, but you couldn't see who it was."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "The scene is in chaos, and the police arrive to investigate the theft of the 'Golden Apple King.' Emma and Leo decide to team up to investigate and hope to find the truth. Hans insists that Leo is the thief and asks the police to arrest him. Gretel slips away in the chaos. Fritz finally speaks up, claiming that he knows the whereabouts of the 'Golden Apple King,' but someone has to pay a price to get this secret.",
+        "privateClues": {
+          "emma": "You find a small golden fragment in Gretel's apple pie, which seems to have fallen from some kind of apple. You also hear Fritz telling the police that he knows who entered Hans's apple orchard last night.",
+          "leo": "You find a strange footprint in your own apple orchard, which doesn't look like a human's. You also notice that an apple tree is missing from Hans's apple orchard, and that tree seemed to bear a particularly large apple."
+        }
+      }
+    ],
+    "createdAt": 1754300000800,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754300434135_k0q25gued",
+    "title": "The Secret of the Banana Carnival Night",
+    "rounds": 3,
+    "background": "Welcome to the annual 'Banana Carnival Night'! On the tropical island of Mangu, this is a grand festival to celebrate the harvest and friendship. The most eye-catching event is the 'Banana Speed-Eating Contest.' This year, the prize is the 'Golden Banana,' which is said to bring unexpected good luck to its owner in the coming year. However, the atmosphere this year is a bit unusual. Last year's champion, the old sea captain Li Weisi, mysteriously disappeared before the competition, leaving behind a meaningful letter that said: 'Behind the banana, there are unknown secrets.' This year's competition is not only a contest of speed, but also a pursuit of the truth.",
+    "characters": [
+      {
+        "id": "character1",
+        "name": "Emily Li",
+        "identity": "Li Weisi's granddaughter, an independent journalist",
+        "personality": "Smart, brave, with a strong sense of justice, determined to find out the truth about her grandfather's disappearance",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character2",
+        "name": "Morris",
+        "identity": "The island's banana plantation owner",
+        "personality": "Slick, shrewd, with an unusual desire for money",
+        "isMainCharacter": false
+      },
+      {
+        "id": "character3",
+        "name": "Kate",
+        "identity": "The island's bar owner",
+        "personality": "Enthusiastic, gossipy, well-informed",
+        "isMainCharacter": false
+      },
+      {
+        "id": "character4",
+        "name": "Jack",
+        "identity": "An outside tourist, self-proclaimed food critic",
+        "personality": "Mysterious, picky, with a special research interest in bananas",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins, and all contestants are desperately eating bananas. Emily competes while observing the people around her. She notices that Morris seems particularly nervous, while Jack is observing the quality of the bananas during the competition. Kate weaves through the crowd, seemingly cheering for the contestants, but actually quietly inquiring about something.",
+        "privateClues": {
+          "character1": "In the envelope left by your grandfather, there is also a yellowed photo of a young Morris and your grandfather under an ancient banana tree deep in the island. The back of the photo says: 'A shared secret.'",
+          "character2": "Before the competition, you saw Jack secretly sprinkling some strange powder on his bananas. You think he might be cheating, but he gives you a very dangerous feeling, which makes you afraid to speak up.",
+          "character3": "I heard Morris and Jack talking in a low voice in the corner, mentioning 'the curse of the Golden Banana' and 'the way to lift the curse.' It seems the Golden Banana is not just a prize.",
+          "character4": "The variety of these bananas is very special, and some of them seem to have been genetically modified. I need more samples for analysis to determine the purpose of the modification. I suspect this is related to the special soil on the island."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "During a break in the competition, Emily finds Kate and asks about Li Weisi's disappearance. Kate reveals that before his disappearance, Li Weisi seemed to have been investigating the secrets of the island's banana plantation. And Morris is the biggest beneficiary. Jack claims to be very interested in the origin of bananas and hopes to find the oldest banana variety.",
+        "privateClues": {
+          "character1": "Kate told me that before his disappearance, my grandfather had discovered that Morris's plantation was using a large amount of illegal fertilizers, which could cause the bananas to mutate and even produce toxins.",
+          "character2": "Someone told me that Li Weisi seems to have found evidence of your illegal use of fertilizers and plans to report you. If he discloses this information, your banana empire will be ruined.",
+          "character3": "Jack gave me a sum of money to help him collect some special banana varieties. He said these bananas are very important for his research, but I always feel that he is hiding something.",
+          "character4": "Through analysis, I found that these bananas contain trace amounts of radioactive elements. This means that the place where they grow may have some kind of radiation source. This explains the special taste and efficacy of the bananas."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "The competition enters a heated stage. Emily realizes that to find the truth, she must win the competition and get the Golden Banana. She speeds up and surpasses the other contestants. At the last moment, Emily sees Jack secretly stuffing a banana into Morris's mouth, and Morris instantly falls to the ground. Emily realizes that this is not just a competition, but a carefully planned conspiracy.",
+        "privateClues": {
+          "character1": "I saw that the banana Jack secretly stuffed into Morris's mouth had an unusual color, as if it had been specially treated. I must find evidence as soon as possible to expose his conspiracy and find out the truth about my grandfather's disappearance.",
+          "character2": "Jack! Why did you do this! You promised to help me get rid of Li Weisi's threat, not kill me! I... I...",
+          "character3": " (Scared) I... I don't know anything. Jack just asked me to help collect bananas, I really don't know about the other things... Please let me go...",
+          "character4": "(Cold laugh) It seems that the secret of the Golden Banana is about to be revealed. That banana contains highly toxic radioactive material, which is the last step to lift the 'curse of the Golden Banana.' Now, it's my turn to get the Golden Banana."
+        }
+      }
+    ],
+    "createdAt": 1754300434135,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754300694093_nt0h7cy3o",
+    "title": "In the Cucumber Field: The Cucumber Championship",
+    "rounds": 3,
+    "background": "In the scorching summer, Qinghe Village welcomes its annual cucumber harvest season. To celebrate the harvest and to select the village's 'cucumber big eater,' the village chief has specially organized a grand cucumber-eating contest. The villagers are enthusiastic and have signed up to participate. However, on the eve of the competition, whispers spread through the village: some say that this year's competition cucumbers have been tampered with, while others say that the village chief's granddaughter and a mysterious merchant from another village seem to have an ulterior secret. This seemingly simple cucumber-eating contest seems to hide some unknown conspiracies...",
+    "characters": [
+      {
+        "id": "xiaocui",
+        "name": "Cuihua",
+        "identity": "The granddaughter of the village chief of Qinghe Village, and one of the organizers of this competition",
+        "personality": "Lively and cheerful, kind-hearted, but sometimes too willful, has a favorable impression of the mysterious merchant from another village, Boss Li.",
+        "isMainCharacter": true
+      },
+      {
+        "id": "zhangsan",
+        "name": "Zhang San",
+        "identity": "A villager of Qinghe Village, a famous 'foodie' in the village, and a hot favorite to win this competition.",
+        "personality": "Honest and simple, with an amazing appetite, has an extraordinary love for cucumbers, but is also a bit careless.",
+        "isMainCharacter": true
+      },
+      {
+        "id": "lili",
+        "name": "Li Li",
+        "identity": "A villager of Qinghe Village, a volunteer for this competition, responsible for recording the competition results.",
+        "personality": "Meticulous and serious, has a good grasp of all the big and small matters in the village, but is a bit gossipy.",
+        "isMainCharacter": false
+      },
+      {
+        "id": "wangwu",
+        "name": "Wang Wu",
+        "identity": "A merchant from another village, claiming to want to buy the cucumbers of Qinghe Village",
+        "personality": "Shrewd and slick, good with words, seems to have a special interest in the cucumbers of Qinghe Village, always gives a feeling of ill intentions.",
+        "isMainCharacter": false
+      },
+      {
+        "id": "zhaoliu",
+        "name": "Zhao Liu",
+        "identity": "A villager of Qinghe Village, also a contestant, with average strength.",
+        "personality": "Timid and afraid of trouble, goes with the flow, often echoes others in a crowd, has no opinion of his own.",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins. Cuihua enthusiastically announces the rules, Zhang San is full of confidence, and Wang Wu smiles meaningfully on the side. The first round is fierce, Zhang San is far ahead, but just as he is about to finish the last cucumber, he suddenly turns pale, clutches his stomach, and seems to have eaten something unclean.",
+        "privateClues": {
+          "xiaocui": "Before the competition, Wang Wu secretly gave you a packet of powder, saying it could increase the sweetness of the cucumbers, and asked you to secretly add it to the cucumbers during the competition. But you were hesitant and didn't completely follow his instructions.",
+          "zhangsan": "You find that the cucumber you ate seems a bit off, the taste is a bit bitter, and your stomach hurts faintly. You recall seeing Cuihua sneakily adding something to the cucumbers before the competition."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Zhang San withdraws from the competition, causing a commotion. Li Li hurries forward to ask about the situation, while Wang Wu takes the opportunity to approach Cuihua and talk to her in a low voice. Zhao Liu seems to have seen something, but dares not speak up. The second round ends hastily, and the atmosphere becomes tense.",
+        "privateClues": {
+          "xiaocui": "Wang Wu tells you that the powder must be fully added to be effective, and implies that if you don't do as he says, he will cancel the cucumber purchase plan with Qinghe Village. You feel very uneasy, but dare not disobey Wang Wu's wishes.",
+          "zhangsan": "You carefully recall the taste of the cucumber and find that the bitter taste seems to be mixed with a faint almond smell. You remember the village legend about poisonous wild almonds."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Cuihua announces the start of the third round, but the villagers' enthusiasm has waned. Zhang San suddenly rushes onto the stage, accusing Cuihua of poisoning the cucumbers and claiming to have evidence. Wang Wu tries to stop Zhang San, but it's too late. The truth is about to be revealed...",
+        "privateClues": {
+          "xiaocui": "You realize that you have been used by Wang Wu. He doesn't really want to buy the cucumbers, but has other purposes. You decide to stand up and expose Wang Wu's conspiracy, but find that you have no direct evidence.",
+          "zhangsan": "You secretly picked up a piece of cucumber you had left on the ground and took it to the old Chinese doctor in the village for identification. The results showed that the cucumber did contain trace amounts of a toxic substance, which was the toxin of wild almonds."
+        }
+      }
+    ],
+    "createdAt": 1754300694093,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754300962811_oz3v6vcw5",
+    "title": "Watermelon Mystery",
+    "rounds": 3,
+    "background": "In the scorching summer, Huaihua Village holds its annual watermelon festival. The 'Jade' watermelon, carefully cultivated by the village chief, Old Man Wang, has won the love of the whole village with its sweet and juicy taste. However, on the eve of the watermelon festival, the priceless 'Jade' watermelon mysteriously disappears, leaving only an empty vine. Everyone suspects that someone has stolen the watermelon, wanting to enjoy this delicacy alone, or to secretly sabotage the watermelon festival. The participants must find the real culprit, uncover the truth behind the watermelon theft, and let the watermelon festival proceed smoothly.",
+    "characters": [
+      {
+        "id": "character1",
+        "name": "Li Cuihua",
+        "identity": "Old Man Wang's niece, a university student in town, who came back specially to help with the watermelon festival",
+        "personality": "Lively and cheerful, curious, very concerned about the big and small matters in the village",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character2",
+        "name": "Zhang Dazhuang",
+        "identity": "A strong laborer in the village, usually taciturn, but very strong",
+        "personality": "Honest and simple, not good with words, very enthusiastic about village affairs",
+        "isMainCharacter": false
+      },
+      {
+        "id": "character3",
+        "name": "Aunt Zhao",
+        "identity": "The village's famous gossip queen, well-informed, loves to pry into other people's private affairs",
+        "personality": "Enthusiastic and cheerful, loves to join in the fun, but sometimes exaggerates",
+        "isMainCharacter": false
+      },
+      {
+        "id": "character4",
+        "name": "Sun Quezi",
+        "identity": "An old bachelor in the village, with a lame leg, who usually makes a living by collecting scraps",
+        "personality": "Solitary and indifferent, doesn't like to communicate with others, but has an amazing memory",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The news of the watermelon theft quickly spreads throughout the village, and the villagers are talking about it. Li Cuihua wants to find the watermelon as soon as possible. She first finds Zhang Dazhuang, who was the last to see the watermelon, to ask about the situation. At the same time, Aunt Zhao is also inquiring everywhere, wanting to get first-hand information. Sun Quezi is smoking alone at the village entrance, seemingly indifferent to all this.",
+        "privateClues": {
+          "character1": "Last night, I saw Zhang Dazhuang walking suspiciously towards the melon shed, he seemed to be holding a sack. I thought it was strange, but I was too sleepy at the time and didn't think much of it.",
+          "character2": "Last night, I helped Old Man Wang move the watermelon to the melon shed, it was really heavy. I saw Sun Quezi staring at us, his eyes were very strange.",
+          "character3": "I heard that Sun Quezi has been short of money recently, it seems he has gambling debts. Could he have stolen the watermelon because he was short of money?",
+          "character4": "Last night, I saw Aunt Zhao sneak into Old Man Wang's yard, I don't know what she wanted to do. She has always been very interested in Old Man Wang's things."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Li Cuihua finds Old Man Wang and learns that the 'Jade' watermelon is a new variety this year and is very valuable. She begins to suspect that someone in the village is coveting the value of this watermelon. Zhang Dazhuang actively finds Li Cuihua and says he saw Sun Quezi loitering near the melon shed. Aunt Zhao claims to have seen Sun Quezi steal a large watermelon from the melon shed with her own eyes. Sun Quezi flatly denies it, claiming to know nothing.",
+        "privateClues": {
+          "character1": "Old Man Wang said that he was keeping this watermelon for the town's agricultural product exhibition. If it wins an award, it will bring great honor to the village. Aunt Zhao has always wanted her son to be the village chief. Could she have stolen the watermelon to prevent Old Man Wang from winning the award?",
+          "character2": "I see Aunt Zhao often interacting with some outsiders. Could she have sold the watermelon to them?",
+          "character3": "I went to Old Man Wang's house yesterday to deliver vegetables and saw Li Cuihua constantly asking about the watermelon, she seemed very anxious. Could she be trying to sell the watermelon and split the money herself?",
+          "character4": "Last night I heard Zhang Dazhuang and Aunt Zhao arguing near the melon shed, it seemed to be about an uneven distribution of spoils. Did they steal the watermelon together?"
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Li Cuihua carefully analyzes all the clues and finds that everyone is a suspect. She decides to gather everyone together for a confrontation. Zhang Dazhuang accuses Sun Quezi of stealing the watermelon, while Aunt Zhao accuses Zhang Dazhuang and Sun Quezi of conspiring together. Sun Quezi continues to deny it and bites back, saying he was framed. The truth is about to be revealed.",
+        "privateClues": {
+          "character1": "I found that the lock on the melon shed was deliberately broken, and the technique was very professional. Zhang Dazhuang used to be a locksmith, he definitely has this ability.",
+          "character2": "I did have a fight with Aunt Zhao yesterday, but that was because she slandered me for stealing the watermelon. I absolutely did not do such a thing.",
+          "character3": "I did go to Old Man Wang's house yesterday, but that was because I wanted to persuade him not to work too hard. I absolutely did not steal the watermelon.",
+          "character4": "Actually, I saw everything last night. It was Zhang Dazhuang and Aunt Zhao who stole the watermelon together. They gave me some benefits to help them cover up the truth. But now my conscience is uneasy, and I have decided to tell the truth."
+        }
+      }
+    ],
+    "createdAt": 1754300962811,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754301001095_jejvnrtt9",
+    "title": "Peach Orchard Mystery",
+    "rounds": 3,
+    "background": "As the sun sets, a gentle breeze blows through the peach orchard, bringing with it a sweet, fruity fragrance. You and your close friends, Li Qing and Zhao Ming, have been invited by the old village chief to participate in the annual Peach Orchard Festival. It is said that at the festival, the best quality peaches of the year are selected and offered to the Peach Orchard God. However, this year's festival is shrouded in a strange atmosphere. The old village chief looks grave, as if he has a premonition of something ominous. Sure enough, during the sacrificial ceremony, the 'King of Peaches,' which was supposed to be offered to the Peach Orchard God, disappears without a trace! What's even more shocking is that the person who discovered the theft of the King of Peaches has fallen into a coma, foaming at the mouth. Is it the wrath of the Peach Orchard God? Or is there another hidden story? You must find the King of Peaches and uncover the truth before the three rounds of sacrifices are over, otherwise, the entire village will suffer misfortune.",
+    "characters": [
+      {
+        "id": "liqing",
+        "name": "Li Qing",
+        "identity": "Wandering Taoist priest",
+        "personality": "Calm and composed, good at observation, slightly mysterious",
+        "isMainCharacter": true
+      },
+      {
+        "id": "zhaoming",
+        "name": "Zhao Ming",
+        "identity": "A down-and-out scholar",
+        "personality": "Meticulous, well-read, a bit timid",
+        "isMainCharacter": true
+      },
+      {
+        "id": "wanglaohan",
+        "name": "Old Man Wang",
+        "identity": "The old village chief of Peach Orchard Village",
+        "personality": "Old and kind, attaches great importance to the Peach Orchard Festival, a bit stubborn",
+        "isMainCharacter": false
+      },
+      {
+        "id": "zhangsaozi",
+        "name": "Sister-in-law Zhang",
+        "identity": "A woman in the village, responsible for the preparation of the sacrifice",
+        "personality": "Enthusiastic and cheerful, likes to gossip, well-informed",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The news of the King of Peaches' theft spreads quickly, and the village is in a panic. Old Man Wang insists that this is the Peach Orchard God's punishment for the village and demands that the King of Peaches be found and sacrificed as soon as possible. Sister-in-law Zhang is inquiring everywhere, claiming to have seen someone sneak into the peach orchard before the sacrifice.",
+        "privateClues": {
+          "liqing": "You notice a faint demonic aura remaining on the altar, not from divine power. The demonic aura points to the depths of the peach orchard, as if something is attracting it. An incense stick seems to be missing from the censer next to the altar.",
+          "zhaoming": "You carefully observe the comatose person and find a special peach fragrance remaining in his mouth, which is slightly different from the fragrance of the King of Peaches. At the same time, you notice a delicately made sachet hanging from the village chief's waist, which seems to be newly made."
+        },
+        "npcClues": {
+          "wanglaohan": "Some strange things have happened in the village recently. The crops in the fields have withered for no reason, and the well water has become turbid. I'm worried this is a warning from the Peach Orchard God.",
+          "zhangsaozi": "Last night I seemed to see Old Man Wang going to the back mountain alone, I don't know what he was doing."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Old Man Wang insists on continuing the sacrifice and demands that the peach orchard be sealed off, prohibiting anyone from entering or leaving. Sister-in-law Zhang reveals that there is a legend in the village about a 'peach demon,' which is said to be a demon that lives deep in the peach orchard and absorbs the essence of the peach trees to cultivate.",
+        "privateClues": {
+          "liqing": "You go to the depths of the peach orchard and find a damaged peach tree with obvious claw marks on the trunk. The claw marks are new, as if made by some kind of beast. At the same time, you find a piece of cloth hanging on a branch, which seems to be torn from some kind of clothing.",
+          "zhaoming": "You consult ancient books and find that the records about the peach demon are not groundless. The ancient books record that the peach demon likes to suck human essence, especially those with greedy hearts. You find that Sister-in-law Zhang's bracelet is very expensive, not something a village woman like her can afford."
+        },
+        "npcClues": {
+          "wanglaohan": "We can't delay any longer, we must start the sacrifice immediately, or the Peach Orchard God will really punish us.",
+          "zhangsaozi": "Oh, you can't talk nonsense about the peach demon, you'll be punished by the Peach Orchard God. However, I heard that when Old Man Wang was young, he once secretly picked a strange peach from the peach orchard, and his health has been poor ever since."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "The sacrifice is about to begin, and Old Man Wang is determined to offer a villager as a sacrifice to the Peach Orchard God, claiming that only in this way can the god's anger be appeased. Sister-in-law Zhang secretly tells you that Old Man Wang seems to have a special obsession with the Peach Orchard Festival, even at the cost of others' lives.",
+        "privateClues": {
+          "liqing": "You find that the knife used by Old Man Wang for the sacrifice is engraved with strange runes, not Taoist talismans, but some kind of evil art. You speculate that Old Man Wang is not really going to make a sacrifice, but is using the sacrifice to achieve some ulterior motive. You recall the missing incense from the first round, which was engraved with similar runes.",
+          "zhaoming": "You find a piece of disturbed soil next to the peach orchard altar. You dig up the soil and find an empty box buried inside, with the name 'King of Peaches' carved on it. The box is old, not recently placed. You realize that Old Man Wang has always known where the King of Peaches is, he never lost it."
+        },
+        "npcClues": {
+          "wanglaohan": "This is for the village, for the peach orchard, sacrificing one person is worth it.",
+          "zhangsaozi": "Old Man Wang is crazy! He must be crazy! We can't let him do this."
+        }
+      }
+    ],
+    "createdAt": 1754301001095,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754301218318_bfad6mwn8",
+    "title": "Water Source Mystery: The Secret of Nongfu Spring",
+    "rounds": 3,
+    "background": "By the Thousand Island Lake, the Nongfu Spring factory, famous for its high-quality water source, has recently been shrouded in a haze. The water quality inspection report shows unexplained fluctuations in water quality. Although the officials strongly deny pollution, the internal employees are whispering among themselves. The old factory director has mysteriously disappeared, the new factory director is eager to distance himself, and the guardian of the water source has become taciturn. An investigation into the secret of the water source has quietly begun. What is the truth? Is it to cover up the truth for profit, or is there another hidden story? Everything is hidden in the landscape of the Thousand Island Lake.",
+    "characters": [
+      {
+        "id": "changzheng",
+        "name": "Zhang Zheng",
+        "identity": "Nongfu Spring investigative reporter",
+        "personality": "Sharp, persistent, pursues the truth",
+        "isMainCharacter": true
+      },
+      {
+        "id": "lili",
+        "name": "Li Li",
+        "identity": "Nongfu Spring quality inspector",
+        "personality": "Cautious, upright, has a conscience",
+        "isMainCharacter": true
+      },
+      {
+        "id": "zhaosi",
+        "name": "Zhao Si",
+        "identity": "An old villager at the Nongfu Spring water source",
+        "personality": "Simple, talkative, knows the inside story",
+        "isMainCharacter": false
+      },
+      {
+        "id": "wangbo",
+        "name": "Wang Bo",
+        "identity": "The new factory director of Nongfu Spring",
+        "personality": "Slick, worldly, eager for success",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Zhang Zheng and Li Li arrive at Thousand Island Lake and begin to investigate the water pollution incident separately. Zhang Zheng secretly interviews the old villager Zhao Si, trying to learn more about the secrets of the water source. Li Li looks for clues inside the factory, but finds that some quality inspection reports have been tampered with. Wang Bo does his best to stop Zhang Zheng and Li Li's investigation, claiming that everything is a rumor.",
+        "privateClues": {
+          "changzheng": "Zhao Si reveals that the old factory director went to the depths of the water source many times before he disappeared, as if he was looking for something. He mentioned a place called 'Stone Dragon Pool,' saying that it is the most mysterious area of the water source.",
+          "lili": "You find that in the recent water sample test reports, the pH value has abnormal fluctuations, which is significantly different from the previous normal values. The tampering marks on this report are very obvious, as if someone did it on purpose."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Zhang Zheng goes to 'Stone Dragon Pool' to investigate and finds that the pool water is different from the normal water source quality, as if it has been polluted by some kind of mineral. Li Li discovers that the person who tampered with the report is Wang Bo's secretary. Wang Bo begins to distance himself from Li Li and intends to transfer her from the quality inspection department. Zhao Si becomes vigilant and is unwilling to reveal more information.",
+        "privateClues": {
+          "changzheng": "You find some abandoned mining equipment near Stone Dragon Pool. The equipment has a blurry mark on it, which seems to belong to a company called 'Jinshi Mining.' You speculate that the water pollution may be related to this company.",
+          "lili": "You secretly copied a copy of the original water sample test data and found that the pollution source may be excessive heavy metals, but the specific type is not yet clear. You also found that Wang Bo had a secret meeting with the person in charge of 'Jinshi Mining.'"
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Zhang Zheng finds out that 'Jinshi Mining' has a beneficial relationship with Wang Bo. The company's illegal mining has caused minerals to penetrate into the water source, polluting the water quality. Li Li decides to disclose the truth to the media, but is blocked by Wang Bo. Zhao Si finally reveals that the old factory director discovered the secret of 'Jinshi Mining' and was therefore framed and disappeared. In the end, the truth of the pollution incident is revealed.",
+        "privateClues": {
+          "changzheng": "You find evidence of illegal mining by 'Jinshi Mining' and learn that they have signed a secret agreement with Nongfu Spring, allowing them to mine minerals near the water source in exchange for financial support from Nongfu Spring. The agreement has Wang Bo's signature.",
+          "lili": "You successfully sent the water sample test report and the photo of Wang Bo and the person in charge of 'Jinshi Mining' to the media anonymously. At the same time, you have also collected enough evidence to report Wang Bo's criminal behavior to the police."
+        }
+      }
+    ],
+    "createdAt": 1754301218318,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754301360682_v48mss5xo",
+    "title": "The Kiwi Fruit Dispute",
+    "rounds": 3,
+    "background": "In a sunny orchard, the annual 'Kiwi King' competition is about to begin. The prize of the competition is the rarest 'Golden Kiwi' in the orchard, which is said to make people stay young and healthy forever. The old orchard owner has announced his retirement, and whoever wins this competition will have the opportunity to take over the entire orchard. However, behind the seemingly fair competition, there are undercurrents. The competitors have long had their own ulterior motives, and in order to win the competition, they are not afraid to use various means. Friendship, love, and interests are all shaky in the face of this small kiwi fruit.",
+    "characters": [
+      {
+        "id": "kiwiKing",
+        "name": "Li Dali",
+        "identity": "The son of the old orchard owner, and one of the heirs to the orchard",
+        "personality": "Honest and simple, down-to-earth and hardworking, has a deep love for the orchard, but lacks competition experience.",
+        "isMainCharacter": true
+      },
+      {
+        "id": "kiwiQueen",
+        "name": "Zhao Xiaomei",
+        "identity": "The daughter of the owner of the neighboring orchard, and Li Dali's childhood sweetheart",
+        "personality": "Smart and clever, good at socializing, has unique insights into the cultivation and sales of kiwi fruit, but has to compete with Li Dali for the benefit of her family.",
+        "isMainCharacter": true
+      },
+      {
+        "id": "uncleWang",
+        "name": "Uncle Wang",
+        "identity": "An old employee of the orchard, who has witnessed the rise and fall of the orchard",
+        "personality": "Taciturn, experienced, knows everything about the orchard.",
+        "isMainCharacter": false
+      },
+      {
+        "id": "auntZhang",
+        "name": "Aunt Zhang",
+        "identity": "The cook in the orchard canteen, enthusiastic and hospitable, a well-informed gossip",
+        "personality": "Enthusiastic and cheerful, helpful, but also a complete gossip lover.",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins. The first round is a speed race to see who can eat the specified number of kiwi fruits in the shortest time. Li Dali and Zhao Xiaomei are both going all out. Uncle Wang watches silently from the side, while Aunt Zhang is busy cheering for everyone. During the competition, Zhao Xiaomei seems to deliberately slow down, which arouses Li Dali's suspicion.",
+        "privateClues": {
+          "kiwiKing": "You notice that when Zhao Xiaomei is eating kiwi fruit, she seems to deliberately pick some smaller ones. She seems to be hiding something, which makes you very uneasy. You remember that she often deliberately lost to you when you were young to give you face.",
+          "kiwiQueen": "You have learned a secret. The kiwi fruit from the neighboring orchard has been selling poorly recently. Your father hopes that you will win the competition and take this opportunity to open up sales channels for the orchard. You see the hopeful look in Li Dali's eyes and feel a little guilty."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "The second round is a kiwi fruit knowledge quiz, with questions involving the cultivation, nutritional value, and various related historical allusions of kiwi fruit. Li Dali and Zhao Xiaomei help each other during the quiz, and the atmosphere is harmonious. But when asked about the legend of the 'Golden Kiwi,' Uncle Wang suddenly becomes silent, as if he knows something.",
+        "privateClues": {
+          "kiwiKing": "You secretly hear Aunt Zhang muttering to Uncle Wang that the legend of the 'Golden Kiwi' is actually fake, and was made up to encourage everyone to grow kiwi fruit. But Uncle Wang doesn't seem to agree, his expression is very serious.",
+          "kiwiQueen": "You accidentally discover that Uncle Wang is holding an old orchard log, which contains some clues about the 'Golden Kiwi,' but the handwriting is blurred and difficult to recognize. You can be sure that Uncle Wang knows more about the Golden Kiwi than you do."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "The final round is a kiwi fruit creative cooking competition. Li Dali and Zhao Xiaomei need to use kiwi fruit as the main ingredient to create a delicious dish. During the process, Zhao Xiaomei accidentally knocks over Li Dali's ingredients, and the two have a dispute. Aunt Zhang tries to mediate, but with little effect. Uncle Wang walks alone to the depths of the orchard, as if looking for something.",
+        "privateClues": {
+          "kiwiKing": "You are very angry and think that Zhao Xiaomei deliberately sabotaged your competition to make you lose. You notice that her eyes are evasive, as if she is hiding something. You swear to find out the truth and expose her true colors. You see Uncle Wang walking towards the depths of the orchard, where is he going?",
+          "kiwiQueen": "You are struggling internally, wanting to win the competition but not wanting to hurt Li Dali. Knocking over the ingredients was not your intention, but you do have the idea of using this competition to help your family. You see from a distance that Uncle Wang seems to be looking for something. Thinking of the log you saw before, you realize that the Golden Kiwi may really exist, and it is hidden in the orchard!"
+        }
+      }
+    ],
+    "createdAt": 1754301360682,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754301921228_pni5clcks",
+    "title": "Sweet Conspiracy: The Cantaloupe Contest Saga",
+    "rounds": 3,
+    "background": "The annual 'Melon King Contest' is held as scheduled in Melon Town, which is rich in cantaloupes. In order to promote the cantaloupes of Melon Town, the town mayor has spent a lot of money to hold this competition, and promised that the champion will be awarded the title of 'Melon King' and 30% of the shares in the cantaloupe industry of Melon Town. The old-brand melon farmer 'Sweetheart Melon Garden' and the emerging force 'Honey Talk Orchard' are the hot favorites to win the championship. The two melon gardens are secretly competing for this competition. On the eve of the competition, it was rumored that the cantaloupes of 'Sweetheart Melon Garden' had been tampered with, making this competition confusing. Just as the competition is about to begin, everyone is eyeing each other, wanting to know who the final 'Melon King' will be.",
+    "characters": [
+      {
+        "id": "tianxin",
+        "name": "Li Tiantian",
+        "identity": "Heir to Sweetheart Melon Garden",
+        "personality": "Shrewd and capable, competitive, but sometimes too impulsive",
+        "isMainCharacter": true
+      },
+      {
+        "id": "miyu",
+        "name": "Zhao Miyu",
+        "identity": "Founder of Honey Talk Orchard",
+        "personality": "Calm and composed, good at observation, has a deep city",
+        "isMainCharacter": true
+      },
+      {
+        "id": "wangcai",
+        "name": "Wang Wangcai",
+        "identity": "The mayor of Melon Town",
+        "personality": "Slick and worldly, profit-oriented, keen on power and money transactions",
+        "isMainCharacter": false
+      },
+      {
+        "id": "zhangsan",
+        "name": "Zhang San",
+        "identity": "Melon farmer, onlooker",
+        "personality": "Honest and simple, well-informed, likes to gossip",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins! The host announces the rules: each person has a carefully selected cantaloupe in front of them, and the one who finishes eating it in the shortest time and raises their hand wins. Li Tiantian and Zhao Miyu quickly get into the zone and start eating. Mayor Wang Wangcai watches with a smile, talking to others from time to time. Zhang San is inquiring about something in the crowd.",
+        "privateClues": {
+          "tianxin": "Last night you saw a suspicious figure in your melon garden, who seemed to be from Zhao Miyu's orchard. You suspect they tampered with your cantaloupes, but you have no evidence. You secretly took a bite of your own melon and found that it tasted a bit bitter.",
+          "miyu": "You bribed Mayor Wang Wangcai in advance and promised to give him a share of the profits after the competition. You learned that a batch of melons in Li Tiantian's melon garden was infected with pests and diseases, but she concealed it. You are prepared to expose her at the right time.",
+          "wangcai": "(AI) Last night Zhao Miyu secretly sent a box of valuable gifts and hinted that she hoped you would 'take care' of her in the competition. You agreed and secretly adjusted the quality of Li Tiantian's melon, but you have to pretend to be fair and just on the surface.",
+          "zhangsan": "(AI) I heard someone say that there seems to be a problem with the melons in Li Tiantian's melon garden, but I don't know what the specific problem is. It seems to be related to pests and diseases. I also saw Mayor Wang secretly talking to Zhao Miyu."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Li Tiantian is the first to raise her hand to signal that she has finished, but she suddenly clutches her stomach and her face turns pale. Zhao Miyu takes the opportunity to speed up and also raises her hand to signal that she has finished. Mayor Wang Wangcai declares Zhao Miyu the winner, but the audience is talking about Li Tiantian's condition. Zhang San takes the opportunity to spread the news that the cantaloupes in Li Tiantian's melon garden may be infected with pests and diseases.",
+        "privateClues": {
+          "tianxin": "Your stomach hurts more and more, and you suspect that the melon was drugged. You remember that yesterday you saw Zhao Miyu's assistant sneak into your melon garden. You need to find evidence to prove that Zhao Miyu framed you.",
+          "miyu": "You successfully won the competition, but Li Tiantian's reaction makes you a little uneasy. You are worried that she will discover what you did. You must consolidate your victory as soon as possible and let Wang Wangcai help you suppress public opinion.",
+          "wangcai": "(AI) You see that Li Tiantian is not in a good condition, and you feel a little guilty. You are worried that the matter will be exposed and affect your reputation. You decide to stabilize the situation first, appease the emotions of the masses, and find an opportunity to discuss countermeasures with Zhao Miyu.",
+          "zhangsan": "(AI) Li Tiantian's current situation further confirms my guess, her melon must have a problem! And I saw Mayor Wang Wangcai secretly winking at Zhao Miyu, they must be up to something."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Li Tiantian endures the severe pain and accuses Zhao Miyu of drugging her melon. Zhao Miyu flatly denies it and bites back, accusing Li Tiantian of concealing the pest and disease in her melon garden. Seeing this, Mayor Wang Wangcai announces a suspension of the competition and requests that the cantaloupes of both parties be tested. Zhang San fans the flames on the side, demanding a thorough investigation of the matter.",
+        "privateClues": {
+          "tianxin": "You must produce evidence to prove Zhao Miyu's crime. You think of a way. You can secretly take away the remaining cantaloupe residue from Zhao Miyu and hand it over to a reliable testing agency for testing to find evidence of her poisoning.",
+          "miyu": "The current situation is very unfavorable for you. You must destroy the evidence as soon as possible and let Mayor Wang Wangcai come forward to clarify for you. At the same time, you must also prepare in advance to deal with Li Tiantian's accusations.",
+          "wangcai": "(AI) Things have gotten out of your control. To protect yourself, you must make a choice, whether to continue to stand on Zhao Miyu's side, or to turn to Li Tiantian to save yourself? The best way now is to delay time and wait for the test results to come out.",
+          "zhangsan": "(AI) This matter is getting more and more interesting! I must find out the truth. I saw Li Tiantian secretly take away the remaining melon from Zhao Miyu. It seems she is going to find evidence. I have to keep a close eye on her movements!"
+        }
+      }
+    ],
+    "createdAt": 1754301921228,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754302440092_nnyy5jm8e",
+    "title": "Lemon's Lament",
+    "rounds": 3,
+    "background": "The annual 'Sour Challenge' is held as scheduled in Lemon Town. The town's residents are famous for producing high-quality lemons, but their attitude towards lemons is very complicated. They both rely on it for wealth and fear its sourness. For this year's challenge, in order to increase the watchability and prize money of the competition, the town mayor specially selected Emilia and Old John, who have never participated in the competition before. Emilia is the owner of a newly opened coffee shop in the town, and Old John is an old gardener in a lemon plantation. Both have unknown secrets about lemons. The seemingly simple lemon-eating contest is actually full of undercurrents, hiding choices about the past and future of Lemon Town.",
+    "characters": [
+      {
+        "id": "emilia",
+        "name": "Emilia Rose",
+        "identity": "Coffee shop owner",
+        "personality": "Calm, decisive, gentle on the outside but strong on the inside",
+        "isMainCharacter": true
+      },
+      {
+        "id": "john",
+        "name": "John Miller",
+        "identity": "Old gardener",
+        "personality": "Taciturn, experienced, seems to hide many secrets",
+        "isMainCharacter": true
+      },
+      {
+        "id": "mayor",
+        "name": "Richard Green",
+        "identity": "The mayor of Lemon Town",
+        "personality": "Slick and worldly, values interests, slightly hypocritical",
+        "isMainCharacter": false
+      },
+      {
+        "id": "martha",
+        "name": "Martha Brown",
+        "identity": "A resident of the town",
+        "personality": "Gossipy, curious, well-informed",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins. The first round is a timed lemon-eating contest to see who can eat the most lemons in the allotted time. Although Emilia is fast, she seems to be not used to the sour taste, and her expression is a bit painful. Old John, on the other hand, seems very calm, as if he is not eating lemons, but just ordinary fruit. The mayor is giving an inspiring speech on the stage, while Martha is whispering to other residents offstage, talking about the two contestants.",
+        "privateClues": {
+          "emilia": "You smell a faint lemon blossom scent on Old John, which is slightly different from the ordinary lemon scent. You remember that when you were a child, your grandmother used lemon blossom oil to treat your stomach problems, but the effect was not good. You have always been sensitive to the smell of lemon blossoms.",
+          "john": "You notice that when Emilia is eating lemons, her eyes will occasionally look at the mayor, as if looking for his reaction. You remember that the mayor worked in your father's lemon grove when he was young, but was fired for stealing lemons."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "The second round is a lemon juice competition, where contestants need to squeeze the most lemon juice in the shortest time. Emilia uses the tools from her coffee shop and is very efficient, far ahead. Old John seems to be struggling a bit, but the color of the lemon juice he squeezes seems to be darker than Emilia's. The mayor announces a halftime break. Martha runs over to ask Emilia if she has any grudges against Old John, because Old John has been asking about your coffee shop recently.",
+        "privateClues": {
+          "emilia": "Martha tells you that Old John has been asking others if the lemons used in your coffee shop are from local sources. And to ensure quality, your shop has always imported lemons from other places. You are worried that Old John will use this to make an issue and affect your business.",
+          "john": "You notice a piece of paper sticking out of the mayor's suit pocket, which says 'Control Emilia, the reward will be doubled after the matter is done.' You vaguely feel that there is an ulterior secret behind this competition, and Emilia is likely being used by the mayor."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "The third and final round requires contestants to carve lemon peels into exquisite works of art. Emilia carves a lifelike lemon blossom, which wins applause from the audience. Old John, however, suddenly gives up carving, walks up to the mayor, and accuses him of using the lemon competition to cover up the illegal smuggling of lemons. The scene is in an uproar, and Martha excitedly takes out her phone to record.",
+        "privateClues": {
+          "emilia": "You suddenly remember that before your grandmother died, she told you that lemon blossom oil can cure a rare poison, and this poison is only contained in a mutated lemon unique to Lemon Town. You realize that the lemon blossom scent Old John gave you before was problematic, and the mayor is likely involved.",
+          "john": "You can see from the mayor's expression that he is guilty. You tell Emilia that the mayor has been secretly selling the town's mutated lemons to foreign pharmaceutical companies at a high price, and this mutated lemon is highly toxic and long-term consumption will lead to serious diseases."
+        }
+      }
+    ],
+    "createdAt": 1754302440092,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754302869153_qs6rfp7oe",
+    "title": "The Melon Seed King Contest: The Lost Recipe for Fried Goods",
+    "rounds": 3,
+    "background": "The annual 'Melon Seed King Contest' is held as scheduled in the ancient town of Lin'an. This competition is not only to compete for the title of 'Melon Seed King,' but also about the ownership of the ancestral secret recipe for fried goods. Legend has it that the 'Fried Goods King,' Lu You, integrated his life's work into a unique secret recipe for fried goods, and stipulated that only the Melon Seed King could inherit it. Now, this secret recipe has unexpectedly disappeared, casting a shadow over this year's competition. The contestants must not only compete in the speed of eating melon seeds, but also search for the lost secret recipe and uncover the hidden secrets behind it.",
+    "characters": [
+      {
+        "id": "character1",
+        "name": "Lu Xiaoman",
+        "identity": "A descendant of Lu You, the owner of the fried goods shop 'You Ji Fried Goods,' and a popular contestant in this year's Melon Seed King Contest.",
+        "personality": "Shrewd and capable, calm on the outside, but eager to revive the family's fried goods business. Carries the expectations of the family, under great pressure.",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character2",
+        "name": "Wang Dachui",
+        "identity": "A veteran melon seed eater, a melon seed wholesaler, and a loyal audience member of the Melon Seed King Contest for three consecutive years.",
+        "personality": "Optimistic, a gossip lover, well-informed, and knows all the big and small matters in Lin'an Town. Good at observing people's words and expressions.",
+        "isMainCharacter": false
+      },
+      {
+        "id": "character3",
+        "name": "Li Cuihua",
+        "identity": "A retired teacher, a melon seed lover, who participates in the Melon Seed King Contest every year, but has never won a prize.",
+        "personality": "Cheerful and outgoing, hospitable, likes to share, but is sometimes too talkative. Has an unusual love for melon seeds.",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins, and Lu Xiaoman takes the lead with her skilled technique. Wang Dachui cheers for her loudly from the audience, and from time to time shares the melon seeds he brought with Li Cuihua next to him. However, Lu Xiaoman suddenly slows down while in the lead, as if she has discovered something unusual.",
+        "privateClues": {
+          "character1": "You notice that the melon seeds used in the competition seem to be a different variety from the ones used in your own fried goods shop, and the taste is also slightly different. You suspect that someone has tampered with them, but you can't be sure for a while.",
+          "character2": "You see Lu Xiaoman secretly observing Li Cuihua several times during the competition, as if she is suspicious of her. You feel that there must be a story behind this.",
+          "character3": "While eating melon seeds, you notice a faint herbal smell on the melon seed shells, which reminds you of the recipe that Old Mr. Lu, a descendant of Lu You, often used when you were young."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Lu Xiaoman deliberately slows down to observe the reactions of the other contestants. Wang Dachui seems to be cheering for her enthusiastically, but he exchanges glances with Li Cuihua next to him from time to time. Halfway through the competition, someone suddenly reports that Lu Xiaoman is cheating, saying that she is using a special technique. The scene is in an uproar.",
+        "privateClues": {
+          "character1": "You notice that Wang Dachui and Li Cuihua are exchanging glances frequently, and they seem to be deliberately hiding something. You recall seeing similar gestures in the old Lu family house when you were a child. At that time, Wang Dachui and Old Mr. Lu had a good relationship.",
+          "character2": "You notice that Li Cuihua has been secretly observing Lu Xiaoman and seems to be looking for something. You accidentally hear her muttering 'secret recipe,' which makes you curious.",
+          "character3": "You see Wang Dachui secretly stuffing a handful of melon seeds into Lu Xiaoman's pocket, and then pretending that nothing happened. This makes you think he is up to something, but you don't know what he wants to do."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Under the questioning of the crowd, Lu Xiaoman is forced to undergo an inspection. As a result, melon seeds mixed with special herbs are found in her pocket. Lu Xiaoman is unable to defend herself and is in a predicament. At this time, Wang Dachui suddenly stands up and claims to know the truth. Li Cuihua also silently takes out an old secret recipe for fried goods.",
+        "privateClues": {
+          "character1": "You find that the herbs in your pocket are very similar to one of the medicinal materials in the ancestral secret recipe, but the ratio is completely different. You realize that someone wants to use you to cover up the truth, and the real secret recipe is elsewhere.",
+          "character2": "You admit that you secretly put the herbal melon seeds into Lu Xiaoman's pocket in order to draw out the secret recipe in Li Cuihua's hands. You have always suspected that Old Mr. Lu gave the secret recipe to her, and your real purpose is to get the secret recipe and carry it forward.",
+          "character3": "The secret recipe in your hand is a fragment left by Lu You, and the key ratio is missing. You have been trying to find the complete secret recipe for many years, but you have never found any clues. Until today, you found that the herbal smell in Lu Xiaoman's melon seeds is very similar to what you smelled back then, but it is obviously not the same."
+        }
+      }
+    ],
+    "createdAt": 1754302869153,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754302898488_ugh8a7mal",
+    "title": "The Cracking King Contest",
+    "rounds": 3,
+    "background": "In Cracking Melon Seed Town, where cracking melon seeds is a cultural center, the annual 'Cracking King Contest' is the town's grandest festival. All kinds of melon seed cracking masters gather together to compete for the title of 'Cracking King' and the golden melon seed that symbolizes honor. However, this year's competition is shrouded in a shadow. It is said that the golden melon seed has been stolen, and the thief is hidden among the contestants. Who will win the competition, and who is the mastermind? The townspeople are eagerly waiting, and a tense atmosphere fills the air.",
+    "characters": [
+      {
+        "id": "character1",
+        "name": "Li Cuihua",
+        "identity": "Melon seed stall owner, former Cracking King",
+        "personality": "Spicy and straightforward, confident, competitive, has a special affection for the golden melon seed",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character2",
+        "name": "Wang Dachui",
+        "identity": "Novice melon seed cracking enthusiast, a tourist from out of town",
+        "personality": "Honest and simple, curious, although his skills are average, he is determined to participate",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character3",
+        "name": "Zhang San",
+        "identity": "Cracking Melon Seed Contest judge",
+        "personality": "Serious, meticulous, fair and selfless",
+        "isMainCharacter": false
+      },
+      {
+        "id": "character4",
+        "name": "Zhao Liu",
+        "identity": "The mayor of Cracking Melon Seed Town",
+        "personality": "Slick and worldly, values fame and fortune, very concerned about the competition results",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins, and the contestants are eager to start. The first round is a speed competition. Whoever cracks the specified number of melon seeds in the shortest time can advance. Li Cuihua is as good as ever, with amazing speed. Although Wang Dachui is slow, he tries his best to keep up. The judge Zhang San seriously records the scores, and the mayor Zhao Liu patrols under the stage, as if looking for something.",
+        "privateClues": {
+          "character1": "(Li Cuihua) You find that your melon seed bag is mixed with very poor quality melon seeds, which affects your speed. Upon closer inspection, you find that Wang Dachui touched your bag before you started.",
+          "character2": "(Wang Dachui) You accidentally see the mayor Zhao Liu secretly hiding something under the judge Zhang San's table, as if he wants to influence the outcome of the competition."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "The second round is a skill competition, which requires the contestants to crack the melon seeds while keeping the kernels intact. The one with the most intact kernels wins. Li Cuihua is experienced and at ease. Wang Dachui is clumsy, but with patience, he barely keeps up. When the judge Zhang San announces the rules of the competition, his eyes flicker, as if he has something to hide. Mayor Zhao Liu keeps staring at the competition and whispers to the judge from time to time.",
+        "privateClues": {
+          "character1": "(Li Cuihua) You notice that Mayor Zhao Liu keeps winking at the judge Zhang San, implying that he should take care of Wang Dachui. You suspect that there is some kind of deal between them.",
+          "character2": "(Wang Dachui) You notice a familiar melon seed bag on the judge Zhang San's table, which looks exactly like the one you accidentally lost yesterday, and there are fewer melon seeds inside."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "The final round is a creative competition, where contestants need to use the cracked melon seed shells to create a work of art. The one with the best work wins. Li Cuihua uses the melon seed shells to create a lifelike pattern of the golden melon seed. Wang Dachui, on the other hand, creates a map of Cracking Melon Seed Town, expressing his love for the town. Zhang San announces the scoring criteria, and Zhao Liu prepares to present the award. The winner is about to be announced.",
+        "privateClues": {
+          "character1": "(Li Cuihua) In Wang Dachui's work, you find a unique fragment from your melon seed stall. This fragment is from the box of your lost golden melon seed.",
+          "character2": "(Wang Dachui) You suddenly remember seeing an empty golden melon seed box in Mayor Zhao Liu's room yesterday, and it was exactly the same as the lost box described by Li Cuihua."
+        }
+      }
+    ],
+    "createdAt": 1754302898488,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754303242303_kxqhus2rp",
+    "title": "Default Script",
+    "background": "A story background generated based on your request 'eat at a buffet'",
+    "rounds": 3,
+    "characters": [
+      {
+        "id": "char_1754303242303_vn7ymk98p",
+        "name": "Character 1",
+        "identity": "Identity 1",
+        "personality": "Personality Trait 1",
+        "isMainCharacter": true
+      },
+      {
+        "id": "char_1754303242303_imhxh3c2u",
+        "name": "Character 2",
+        "identity": "Identity 2",
+        "personality": "Personality Trait 2",
+        "isMainCharacter": true
+      },
+      {
+        "id": "char_1754303242303_r0xavq8w2",
+        "name": "AI Character 1",
+        "identity": "AI Identity 1",
+        "personality": "AI Personality Trait 1",
+        "isMainCharacter": false
+      },
+      {
+        "id": "char_1754303242303_d3xl9a4oa",
+        "name": "AI Character 2",
+        "identity": "AI Identity 2",
+        "personality": "AI Personality Trait 2",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Round 1 plot: Story development related to eating at a buffet..."
+      },
+      {
+        "round": 2,
+        "plot": "Round 2 plot: Story development related to eating at a buffet..."
+      },
+      {
+        "round": 3,
+        "plot": "Round 3 plot: Story development related to eating at a buffet..."
+      }
+    ],
+    "createdAt": 1754303242303,
+    "createdBy": "fallback"
+  },
+  {
+    "id": "script_1754303325288_cjgaypn1y",
+    "title": "Default Script",
+    "background": "A story background generated based on your request 'learn to cook'",
+    "rounds": 3,
+    "characters": [
+      {
+        "id": "char_1754303325288_fw7xbbeso",
+        "name": "Character 1",
+        "identity": "Identity 1",
+        "personality": "Personality Trait 1",
+        "isMainCharacter": true
+      },
+      {
+        "id": "char_1754303325288_yqy9xcuh5",
+        "name": "Character 2",
+        "identity": "Identity 2",
+        "personality": "Personality Trait 2",
+        "isMainCharacter": true
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Round 1 plot: Story development related to learning to cook..."
+      },
+      {
+        "round": 2,
+        "plot": "Round 2 plot: Story development related to learning to cook..."
+      },
+      {
+        "round": 3,
+        "plot": "Round 3 plot: Story development related to learning to cook..."
+      }
+    ],
+    "createdAt": 1754303325288,
+    "createdBy": "fallback"
+  },
+  {
+    "id": "script_1754303369917_kkqg3you0",
+    "title": "Default Script",
+    "background": "A story background generated based on your request 'battle royale'",
+    "rounds": 3,
+    "characters": [
+      {
+        "id": "char_1754303369917_g7y0c1pkr",
+        "name": "Character 1",
+        "identity": "Identity 1",
+        "personality": "Personality Trait 1",
+        "isMainCharacter": true
+      },
+      {
+        "id": "char_1754303369917_3n5639nnm",
+        "name": "Character 2",
+        "identity": "Identity 2",
+        "personality": "Personality Trait 2",
+        "isMainCharacter": true
+      },
+      {
+        "id": "char_1754303369917_gostmnjzh",
+        "name": "AI Character 1",
+        "identity": "AI Identity 1",
+        "personality": "AI Personality Trait 1",
+        "isMainCharacter": false
+      },
+      {
+        "id": "char_1754303369917_vota9qi4v",
+        "name": "AI Character 2",
+        "identity": "AI Identity 2",
+        "personality": "AI Personality Trait 2",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Round 1 plot: Story development related to battle royale..."
+      },
+      {
+        "round": 2,
+        "plot": "Round 2 plot: Story development related to battle royale..."
+      },
+      {
+        "round": 3,
+        "plot": "Round 3 plot: Story development related to battle royale..."
+      }
+    ],
+    "createdAt": 1754303369917,
+    "createdBy": "fallback"
+  },
+  {
+    "id": "script_1754303633333_49hchbqis",
+    "title": "Default Script",
+    "background": "A story background generated based on your request 'eat cucumber'",
+    "rounds": 3,
+    "characters": [
+      {
+        "id": "char_1754303633333_oh7kkeccz",
+        "name": "Character 1",
+        "identity": "Identity 1",
+        "personality": "Personality Trait 1",
+        "isMainCharacter": true
+      },
+      {
+        "id": "char_1754303633333_7myd7p01b",
+        "name": "Character 2",
+        "identity": "Identity 2",
+        "personality": "Personality Trait 2",
+        "isMainCharacter": true
+      },
+      {
+        "id": "char_1754303633333_qo2zt6fwq",
+        "name": "AI Character 1",
+        "identity": "AI Identity 1",
+        "personality": "AI Personality Trait 1",
+        "isMainCharacter": false
+      },
+      {
+        "id": "char_1754303633333_n8vniyict",
+        "name": "AI Character 2",
+        "identity": "AI Identity 2",
+        "personality": "AI Personality Trait 2",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Round 1 plot: Story development related to eating cucumber..."
+      },
+      {
+        "round": 2,
+        "plot": "Round 2 plot: Story development related to eating cucumber..."
+      },
+      {
+        "round": 3,
+        "plot": "Round 3 plot: Story development related to eating cucumber..."
+      }
+    ],
+    "createdAt": 1754303633333,
+    "createdBy": "fallback"
+  },
+  {
+    "id": "script_1754349630213_m79rbbozt",
+    "title": "Default Script",
+    "background": "A story background generated based on your request 'eat cantaloupe challenge'",
+    "rounds": 3,
+    "characters": [
+      {
+        "id": "char_1754349630213_0o7r95413",
+        "name": "Character 1",
+        "identity": "Identity 1",
+        "personality": "Personality Trait 1",
+        "isMainCharacter": true
+      },
+      {
+        "id": "char_1754349630213_epdhsh8ku",
+        "name": "AI Character 1",
+        "identity": "AI Identity 1",
+        "personality": "AI Personality Trait 1",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Round 1 plot: Story development related to eat cantaloupe challenge..."
+      },
+      {
+        "round": 2,
+        "plot": "Round 2 plot: Story development related to eat cantaloupe challenge..."
+      },
+      {
+        "round": 3,
+        "plot": "Round 3 plot: Story development related to eat cantaloupe challenge..."
+      }
+    ],
+    "createdAt": 1754349630213,
+    "createdBy": "fallback"
+  },
+  {
+    "id": "script_1754355908698_4o4xwaj2m",
+    "title": "Default Script",
+    "background": "A story background generated based on your request 'Yesterday I dreamed that I participated in a grand baozi making competition. All kinds of masters gathered and the competition was fierce. Halfway through the competition, a contestant was suddenly poisoned and fell to the ground, and the scene was in chaos. Everyone has a motive to win, everyone has touched the ingredients, and the murderer is hidden among us.'",
+    "rounds": 3,
+    "characters": [
+      {
+        "id": "char_1754355908698_rhdg8zkh4",
+        "name": "Character 1",
+        "identity": "Identity 1",
+        "personality": "Personality Trait 1",
+        "isMainCharacter": true
+      },
+      {
+        "id": "char_1754355908698_psyzdddlm",
+        "name": "AI Character 1",
+        "identity": "AI Identity 1",
+        "personality": "AI Personality Trait 1",
+        "isMainCharacter": false
+      },
+      {
+        "id": "char_1754355908698_ks9x5mha8",
+        "name": "AI Character 2",
+        "identity": "AI Identity 2",
+        "personality": "AI Personality Trait 2",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Round 1 plot: Yesterday I dreamed that I participated in a grand baozi making competition. All kinds of masters gathered and the competition was fierce. Halfway through the competition, a contestant was suddenly poisoned and fell to the ground, and the scene was in chaos. Everyone has a motive to win, everyone has touched the ingredients, and the murderer is hidden among us. Story development related to..."
+      },
+      {
+        "round": 2,
+        "plot": "Round 2 plot: Yesterday I dreamed that I participated in a grand baozi making competition. All kinds of masters gathered and the competition was fierce. Halfway through the competition, a contestant was suddenly poisoned and fell to the ground, and the scene was in chaos. Everyone has a motive to win, everyone has touched the ingredients, and the murderer is hidden among us. Story development related to..."
+      },
+      {
+        "round": 3,
+        "plot": "Round 3 plot: Yesterday I dreamed that I participated in a grand baozi making competition. All kinds of masters gathered and the competition was fierce. Halfway through the competition, a contestant was suddenly poisoned and fell to the ground, and the scene was in chaos. Everyone has a motive to win, everyone has touched the ingredients, and the murderer is hidden among us. Story development related to..."
+      }
+    ],
+    "createdAt": 1754355908698,
+    "createdBy": "fallback"
+  },
+  {
+    "id": "script_1754465356284_ksjkkzk8r",
+    "title": "Watermelon Mystery",
+    "rounds": 3,
+    "background": "In the height of summer, the cicadas chirp noisily. Wang Apo's watermelon field ushers in the most fruitful day of the year. The red, sandy, and sweet watermelons are the favorite of the village children. However, on the morning of the harvest, Wang Apo discovers that her carefully cultivated 'Melon King' is missing! The melon vine has been cut by a sharp weapon, leaving only an empty stem. The villagers are talking about it. Some say it was stolen by a wild animal, some say it was a prank by a naughty child, and some say it was a jealous competitor. What is the truth? Only by finding the Melon King can the mystery of the missing watermelon be solved.",
+    "characters": [
+      {
+        "id": "wangPo",
+        "name": "Wang Cuihua",
+        "identity": "Melon farmer, the only watermelon grower in the village",
+        "personality": "Hardworking and simple, straightforward, loves melons as much as her own life",
+        "isMainCharacter": true
+      },
+      {
+        "id": "liXiao",
+        "name": "Li Xiaoming",
+        "identity": "A naughty child in the village, famous for being mischievous",
+        "personality": "Naughty, curious, adventurous",
+        "isMainCharacter": false
+      },
+      {
+        "id": "zhangSan",
+        "name": "Zhang San",
+        "identity": "The owner of the village grocery store, always smiling",
+        "personality": "Shrewd, slick, well-informed",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Wang Apo is anxious when she finds the Melon King is missing. She first finds Li Xiaoming, who often plays near her melon field, to ask if he has seen any suspicious people. Li Xiaoming stammers and says that yesterday evening he saw Zhang San wandering suspiciously near the melon field with a sack. Zhang San flatly denies it, saying that he was just fishing by the small river next to the melon field.",
+        "privateClues": {
+          "wangPo": "The cut on the melon vine is very neat, as if made by a knife, not bitten by an animal. There are some scattered cigarette butts around the Melon King, which are not the brand of cigarettes I smoke.",
+          "liXiao": "I did see Uncle Zhang San going towards the melon field with a sack yesterday, but he rarely goes there to fish, and I didn't see his fishing gear by the river.",
+          "zhangSan": "I did go fishing by the river yesterday, but I didn't catch anything, so I was in a bad mood and smoked a few cigarettes. The sack is for fishing gear, I'm innocent!"
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Wang Apo confronts Zhang San, and the two argue endlessly. Li Xiaoming adds fuel to the fire, saying that he saw Zhang San carry the sack home. Wang Apo demands to search Zhang San's grocery store, but Zhang San firmly refuses. During the argument, Wang Apo notices a fresh scratch on Zhang San's hand. Zhang San explains that he was accidentally scratched by a fishhook.",
+        "privateClues": {
+          "wangPo": "The scratch on Zhang San's hand is long and deep, it doesn't look like it could be caused by a fishhook. His shop has recently stocked some new goods, all of which are high-end watermelon knives that are only available in the city.",
+          "liXiao": "Uncle Zhang San is usually not willing to smoke such expensive cigarettes. I think I've seen the cigarette butts near the melon field yesterday, they are the brand he usually smokes. Also, his shoes had fresh mud on them yesterday, which is very similar to the soil in the melon field.",
+          "zhangSan": "Damn Li Xiaoming, he must be jealous of my recent good business! The scratch on my hand was really caused by a fishhook. I sell watermelon knives to make it convenient for customers to cut watermelons, not to steal them!"
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Wang Apo insists on searching Zhang San's shop. In the end, with the mediation of the village chief, Zhang San reluctantly agrees. During the search, the Melon King is not found. However, in the corner of Zhang San's backyard, Wang Apo finds a discarded sack covered in mud, with some watermelon rinds inside!",
+        "privateClues": {
+          "wangPo": "The watermelon rinds in the sack are obviously not from ordinary watermelons. The flesh is dark in color and very sweet, exactly the same as my Melon King! Also, the sack has the unique fertilizer smell of my melon field.",
+          "liXiao": "I saw Uncle Zhang San drag the sack to the backyard yesterday, and he secretly burned something. The smoke was very thick and the smell was strange, a bit like burning watermelon rinds.",
+          "zhangSan": "That... that was thrown in my backyard by someone else! I have no idea what's inside! Someone must be framing me! I recently bought a batch of inferior watermelons and threw them in the backyard because I was afraid of affecting my reputation!"
+        }
+      }
+    ],
+    "createdAt": 1754465356284,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754466654535_cctfu8f3l",
+    "title": "The Secret of the Grape Vineyard",
+    "rounds": 3,
+    "background": "In sunny Tuscany, the air is filled with the sweet scent of grapes. The Vittorio Grape Vineyard is one of the most prestigious orchards in this land, famous for its Royal Grapes. However, this year's harvest season is shrouded in a shadow. The old owner, Vittorio Bellini, suddenly passed away, and the cause of death is a mystery. It was officially announced as a heart attack, but there are various speculations circulating, the most prevalent of which is that Vittorio hid a priceless secret recipe. This recipe is related to the secret of the unique flavor of the Royal Grapes and has attracted countless people's covetousness. Now, Vittorio's funeral has just ended, and his will has not yet been announced. Everyone has their own ulterior motives, waiting for the final truth to be revealed. And you, Vittorio's only daughter, Emilia Bellini, will have to face all this.",
+    "characters": [
+      {
+        "id": "emilia",
+        "name": "Emilia Bellini",
+        "identity": "Vittorio Bellini's daughter, the heir to the grape vineyard",
+        "personality": "Smart, independent, slightly melancholic, saddened by her father's death, but also suspects that there is more to it.",
+        "isMainCharacter": true
+      },
+      {
+        "id": "marco",
+        "name": "Marco Ricci",
+        "identity": "The old butler of the grape vineyard, has worked for the Bellini family for over thirty years",
+        "personality": "Loyal and honest, taciturn, but seems to be hiding some secrets.",
+        "isMainCharacter": false
+      },
+      {
+        "id": "sofia",
+        "name": "Sofia Graziani",
+        "identity": "The owner of the local town's flower shop, has a close relationship with the Bellini family",
+        "personality": "Enthusiastic and cheerful, gossipy, well-informed, knows everything about the grape vineyard.",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "After the funeral, Emilia returns to her father's study, hoping to find some clues. The study is filled with books and documents, and the air is filled with the smell of old paper. Marco is packing things, looking a little absent-minded. Sofia comes to offer her condolences with a bouquet of white lilies and comforts Emilia. She mentions that old Vittorio seemed to be looking for something before he died, and often locked himself in the study.",
+        "privateClues": {
+          "emilia": "You find a crumpled note in your father's desk drawer, which says 'Royal Grapes, under the moonlight, the third row.'",
+          "marco": "You see Emilia enter the study and feel uneasy. You know that old Vittorio was hiding some secrets, and these secrets may affect your future. You hide a diary about the secrets of the grape vineyard.",
+          "sofia": "You hear some rumors in the flower shop about the cause of Vittorio's death. Some say he discovered an ancient treasure buried in the grape vineyard. You tell this to Emilia, hoping she can find the truth."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Following the hint on the note, Emilia comes to the grape vineyard at night. Under the moonlight, she counts to the third row of vines and finds an iron box buried at the root of one of them. Inside the iron box is a letter and an old photo. The letter is from Vittorio to Emilia, confessing that he is not her biological father, and that her biological father is someone else. The photo is of a young man. Marco also discovers Emilia's actions and tries to stop her from investigating further, but is questioned by Emilia. Sofia reveals that Emilia's biological father was once a gardener in the grape vineyard, but disappeared mysteriously many years ago.",
+        "privateClues": {
+          "emilia": "The letter mentions that your biological father's name is Riccardo Graziani, Sofia's brother. He disappeared after a dispute with Vittorio over the use of a certain pesticide.",
+          "marco": "You know what's in the iron box, it's old Vittorio's biggest secret. You once promised him to keep the secret, but now you are starting to waver. You are afraid that Emilia will discover the deal between you and old Vittorio, that you secretly helped him replace the grape recipe.",
+          "sofia": "You are surprised that Emilia is Riccardo's daughter. You always thought Riccardo was dead. Back then, you witnessed the argument between Riccardo and Vittorio, and then Riccardo disappeared. You suspect that Vittorio killed your brother."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Emilia finds Sofia and questions her about Riccardo. Sofia confesses the truth of that year and accuses Vittorio of being the murderer. Emilia decides to investigate Riccardo's disappearance. She finds Marco and hopes he can help. Marco finally has a change of heart and tells Emilia that Vittorio did have a dispute with Riccardo back then, but he did not intentionally kill him. Riccardo accidentally fell into a deep well in the grape vineyard. Vittorio, afraid of taking responsibility, chose to hide the truth and sealed the well. Emilia, led by Marco, finds the deep well, and the truth is finally revealed.",
+        "privateClues": {
+          "emilia": "You find a pocket watch engraved with 'RG' in the deep well, which is your biological father's relic. You realize that although your father Vittorio hid the truth, he may have also carried a heavy burden of guilt.",
+          "marco": "You are finally free from the condemnation of your conscience and tell Emilia the truth. You hope that Emilia can forgive old Vittorio and continue to protect the glory of the grape vineyard. You find old Vittorio's notes on the pesticide recipe under the grape vineyard, which says 'Royal Grapes need to be cared for with love.'",
+          "sofia": "After learning the cause of your brother's death, you are deeply saddened. But you also understand that the truth being revealed is the best comfort for your brother. You hope that Emilia can re-operate the grape vineyard and let Riccardo's spirit live on forever. You tell Emilia that the real secret of the Royal Grapes is love, not pesticides."
+        }
+      }
+    ],
+    "createdAt": 1754466654535,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754467058265_9chltjj5k",
+    "title": "The Secret Under the Spotlight",
+    "rounds": 3,
+    "background": "The star-studded stage, the brilliant lights, this is the arena that the nation's top dancers dream of - the 'Dance Miracle' national dance selection competition. Every year, countless dancers with dreams gather here, just to compete for the championship trophy that symbolizes honor and the opportunity to sign with a top brokerage company. This year's competition is particularly fierce, the competitors are unprecedentedly strong, and various rumors are rampant. On the eve of the semi-finals, a very promising dark horse contestant suddenly announced her withdrawal, with a vague reason, as if hiding an ulterior secret. Around this withdrawal incident, everyone has their own ulterior motives. The dream of dancing, the desire for fame, the shadow of jealousy, are intertwined into a complex picture. Everyone wants to show their most perfect self under the spotlight, but the spotlight also illuminates the shadows hidden in the dark. This competition is by no means just a contest of dance skills, but also a contest of human nature and desire. You, as a highly anticipated seed contestant, can you clear the fog, realize your dance dream, and uncover the truth hidden behind the withdrawal?",
+    "characters": [
+      {
+        "id": "character1",
+        "name": "Amy Chen",
+        "identity": "Ballet dancer, known as the 'Black Swan'",
+        "personality": "Cold and arrogant on the outside, but longs for recognition on the inside, has extremely high demands on herself, slightly neurotic",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character2",
+        "name": "Li Wei",
+        "identity": "Staff of the event organizing committee",
+        "personality": "Slick and worldly, good at everything, good at observation, well-informed",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The day before the semi-finals of the selection competition, Amy is practicing alone in the dance studio. The high-intensity training has exhausted her physically and mentally. Li Wei comes to inform Amy that the highly acclaimed contestant Zhao Linlin has suddenly announced her withdrawal, citing physical discomfort. Li Wei implies to Amy that Zhao Linlin's withdrawal is an opportunity for her, and she should seize it. Although Amy is calm on the surface, her heart is full of doubts and unease. She vaguely feels that Zhao Linlin's withdrawal is not simple, and seems to be hiding some secret. Outside the dance studio, the lights are dim, and a figure flashes, as if monitoring her every move.",
+        "privateClues": {
+          "character1": "You receive an anonymous letter with only one sentence: 'Watch your step.' The envelope has a faint jasmine perfume smell.",
+          "character2": "Before Zhao Linlin withdrew, she had repeatedly asked the organizing committee for information about Amy's background. She seemed very interested in Amy's past."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Amy finds Li Wei and asks for more details about Zhao Linlin's withdrawal. Li Wei stammers and only says that Zhao Linlin was under too much pressure and her physical condition did not allow her to continue the competition. Amy does not believe his words. She finds that Li Wei's attitude is a bit evasive, as if he is hiding something. Amy remembers the warning in the anonymous letter and begins to pay attention to the people and things around her. She finds that the other contestants are also looking at her strangely, as if she has become the target of public criticism. During rehearsal, Amy accidentally sprains her foot. Although the injury is not serious, it makes her more vigilant. She begins to suspect that someone is secretly framing her.",
+        "privateClues": {
+          "character1": "Your ballet shoes have been tampered with. The soles seem to have been smeared with some oily substance, which caused you to almost slip. If you smell it carefully, it smells a bit like the hand cream your mother uses.",
+          "character2": "You find in the surveillance footage that the night before she withdrew, Zhao Linlin had secretly entered Amy's dance studio. But the footage is very blurry and it is impossible to see what she did."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "On the day of the final, Amy meets Li Wei backstage. Li Wei tells her that the organizing committee has investigated and found that Zhao Linlin withdrew because she discovered that Amy had used banned drugs in a competition abroad. He warns Amy that if she withdraws voluntarily now, the organizing committee can announce to the public that it is due to physical discomfort, thus preserving her reputation. Amy is shocked. She has never touched banned drugs. She knows that someone is deliberately framing her. She realizes that this is not just about the competition, but a slander against her life. She decides not to be silent anymore, to find the mastermind and clear her name.",
+        "privateClues": {
+          "character1": "You recall that during the competition abroad, you received a 'mysterious gift,' a bottle of nutrient solution that you never ordered. You didn't pay attention to it at the time and threw it away. Now that you think about it, that bottle of nutrient solution was likely the source of the tampered banned drugs.",
+          "character2": "You find a photo in Zhao Linlin's room. The photo is of Amy's mother and a strange man. The man is holding a document, which seems to be Amy's drug test report from the competition abroad."
+        }
+      }
+    ],
+    "createdAt": 1754467058265,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754467207980_14dggnb49",
+    "title": "The Secret Under the Spotlight",
+    "rounds": 3,
+    "background": "In the height of summer, the star-studded 'Dance Miracle' national finals are about to kick off. Every year, countless dancers with dreams long to stand on this stage, conquer the audience with their dance, and win glory. However, behind the glamorous facade, there are unknown competitions and secrets. This year's final is particularly eye-catching, because the defending champion, Emilia, not only has to face the challenge of a new dark horse, but also has to deal with a sudden rumor - someone claims that her famous dance steps are not original, but stolen from the posthumous work of the genius dancer, Victor. Public opinion pressure is like a mountain, and Emilia must prove herself in the final, not only with her perfect dance, but also by uncovering the truth and defending her reputation. At the same time, someone hidden in the audience seems to be waiting for an opportunity to reveal a dusty past. Tonight, the spotlight not only illuminates the stage, but also the secrets buried in the dark.",
+    "characters": [
+      {
+        "id": "character1",
+        "name": "Emilia Romanova",
+        "identity": "Defending champion, 'Dance Miracle' finalist",
+        "personality": "Confident, strong, will show pride and a hint of anxiety when faced with questioning",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character2",
+        "name": "Andrei Ivanov",
+        "identity": "'Dance Miracle' backstage staff, in charge of lighting",
+        "personality": "Taciturn, observant, knows a little about dance, seems to be hiding some secrets",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "On the night of the final, Emilia is about to go on stage. The backstage atmosphere is tense, with all kinds of discussions. Andrei silently adjusts the lights, seemingly indifferent to everything around him. Emilia is doing her final preparations in the dressing room, she can feel the pressure from all sides. A reporter suddenly bursts into the dressing room, trying to interview Emilia about the rumors of plagiarism. Emilia angrily refuses the interview and claims that she will prove everything on stage. At the same time, Andrei finds an old photo in a corner backstage. The photo is of a young Victor and a young woman, with the woman's back to the camera, her face unclear. The back of the photo says: 'Victor and his Muse.'",
+        "privateClues": {
+          "character1": "Received an anonymous text message: 'Your dance moves are stolen! Victor is watching you.' This makes you more anxious and also makes you suspicious of the people around you.",
+          "character2": "There are also some faint words on the back of the photo, which can only be seen at a specific angle of light. It seems to be: '...Amy...truth...protect...'"
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Emilia's performance is stunning, but there are some minor incidents during the process. At the climax, the lights suddenly fail for a short time. Although they are quickly restored, it has already affected Emilia's mood. After the performance, Emilia questions the backstage manager, but is told that the lighting equipment is all normal, and it may have been caused by a voltage fluctuation. Emilia suspects that someone is deliberately causing trouble. Andrei comes over at this time and tells Emilia in a low voice that he saw someone loitering near the lighting control room, but he didn't see who it was. He is willing to help investigate this matter. Emilia agrees to Andrei's help, but her heart is still full of doubts. Andrei begins to investigate secretly. He finds that the log records of the lighting control system have been tampered with, and the time is exactly during Emilia's performance.",
+        "privateClues": {
+          "character1": "You find that your dance shoes have been tampered with. The soles seem to have been smeared with some substance, which caused you to slip a little during the performance. You are more convinced that someone wants to frame you.",
+          "character2": "You find a torn piece of paper in the trash can of the lighting control room, which says: '...must stop...Victor...public...'"
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Emilia decides to announce the truth at the awards ceremony. She finds Victor's dance partner from back then and learns from her that Victor did create a stunning set of dance moves, but for some reason they were not made public. Emilia realizes that the rumors are not groundless, but her dance moves are not plagiarism, but inspired by Victor's work. Andrei finds Emilia, gives her the torn paper and the old photo, and tells her that the lighting failure was not an accident, but man-made. He suspects that someone does not want Emilia to win the competition, so as to cover up Victor's secret back then. At the awards ceremony, Emilia bravely tells Victor's story and declares that her dance moves are a tribute to Victor, not plagiarism. In the end, Emilia wins the competition and also wins respect. Andrei also finds the real culprit in the lighting control room. It turns out to be the agent of another contestant. He was worried that Emilia would win the championship again, thus affecting the development of his artist, so he planned all this.",
+        "privateClues": {
+          "character1": "You notice that Andrei's eyes are always thoughtful, as if he is hiding many secrets. You decide to test him and ask him about Victor to see if he knows anything.",
+          "character2": "In the control room, you find a list of the finalists. Emilia's name has been crossed out in red pen. Next to the list is a bottle of ointment for muscle soreness, the brand is very obscure."
+        }
+      }
+    ],
+    "createdAt": 1754467207980,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754467511665_juaqucq6w",
+    "title": "Watermelon Field Mystery",
+    "rounds": 3,
+    "background": "In the scorching summer, watermelon is a great way to relieve the heat. Green Water Village holds a lively watermelon-eating contest every year, and this year is no exception. However, this year's competition is shrouded in a strange atmosphere. The prize money for the competition, which was only for fun in previous years, is ridiculously high this year. It is rumored that it is sponsored by the mysterious wealthy merchant Li Yuanwai, who is new to the village. What is even more disturbing is that the watermelons used in the competition in previous years were all grown by Old Wang at the head of the village, but this year they have been replaced with 'Black Beauty' provided by Li Yuanwai. On the eve of the competition, the old cat in the village, 'Heizi,' suddenly died for no reason, and some people even claimed to have heard strange noises from the watermelon field in the middle of the night. The air is filled with the sweet smell of watermelon, and also a hint of an indescribable conspiracy. What is the secret behind this seemingly simple watermelon-eating contest? And who will be the final winner, or victim, of this game?",
+    "characters": [
+      {
+        "id": "character1",
+        "name": "Wang Dazhuang",
+        "identity": "An honest melon farmer, and also the perennial champion of the village's watermelon-eating contest",
+        "personality": "Honest and simple, strong, with an amazing speed of eating watermelons, a bit self-abased, but has an unyielding spirit in his bones.",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character2",
+        "name": "Li Yuanwai",
+        "identity": "A wealthy merchant who has newly moved to the village, mysterious and generous",
+        "personality": "A smiling tiger, sinister and cunning, with a deep mind, and an unusual enthusiasm for the watermelon competition.",
+        "isMainCharacter": false
+      },
+      {
+        "id": "character3",
+        "name": "Zhang Cuihua",
+        "identity": "The village's gossip queen, well-informed, loves to join in the fun",
+        "personality": "Enthusiastic and cheerful, with a loud voice, likes to inquire about all kinds of gossip, but is not a bad person.",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The competition officially begins, with gongs and drums and firecrackers. The crowd of villagers is huge, and the cheers are deafening. Wang Dazhuang stands in the most conspicuous position. He looks at the mountain of Black Beauty watermelons in front of him, takes a deep breath, and tries to calm his inner tension. Li Yuanwai, dressed in a silk robe, stands aside with a smile, but his eyes are unfathomable. Zhang Cuihua squeezes to the front of the crowd, shouting and cheering at the top of her lungs, and from time to time muttering something to the people around her. The rules of the competition are simple: whoever eats the most watermelons in the allotted time wins. At the referee's command, the contestants pick up the watermelons and start eating ravenously. Wang Dazhuang is indeed an old hand at eating watermelons. He chooses a large and round watermelon and eats more than half of it in a few bites. Li Yuanwai always has a smile on his face, applauding from time to time, but his eyes are always on Wang Dazhuang, as if observing something. Zhang Cuihua looks around, sometimes at Wang Dazhuang, sometimes at Li Yuanwai, and keeps muttering: 'This year's melons seem a bit different, not as sweet as in previous years.' Halfway through the competition, Wang Dazhuang suddenly feels dizzy, but he grits his teeth, endures the discomfort, and continues to eat. Seeing Wang Dazhuang's pale face, Li Yuanwai's mouth shows a faint, imperceptible smile. Zhang Cuihua begins to suspect that there is something wrong with the melons and inquires everywhere to find out their origin.",
+        "privateClues": {
+          "character1": "The watermelon provided by Li Yuanwai tastes a bit strange, not like ordinary Black Beauty, and I feel a little dizzy after eating it. (58 characters)",
+          "character2": "Wang Dazhuang's eating speed is very fast, but his face is getting worse and worse. It seems the plan is going smoothly. The stuff added to the Black Beauty will take effect soon. (65 characters)",
+          "character3": "This watermelon tastes wrong today. If you smell it carefully, there seems to be a faint almond smell! I heard that Li Yuanwai recently opened a medicinal herb shop in the village. (72 characters)"
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Wang Dazhuang's head is getting dizzier and dizzier, and he starts to see double. He realizes that he may have fallen into a trap. He forces himself to slow down his eating speed, trying to relieve his discomfort. Li Yuanwai seems to have noticed Wang Dazhuang's abnormality. He walks up to Wang Dazhuang and asks hypocritically: 'Brother Wang, are you okay? Do you want to take a break?' Wang Dazhuang shakes his head. He knows that if he stops, he will lose completely. Zhang Cuihua finally finds out the origin of the watermelons. She learns that these watermelons were indeed provided by Li Yuanwai, and were bought from a merchant from another place. It is said that this kind of Black Beauty is a new variety and is particularly sweet. But Zhang Cuihua always feels that things are not that simple. She remembers the death of the old cat Heizi in the village, and the faint almond smell in the watermelon, and her heart is full of doubts. She decides to find a chance to talk to Wang Dazhuang. Just then, Wang Dazhuang suddenly feels a sharp pain. He clutches his stomach, his face as pale as paper. He can't hold on any longer and collapses to the ground. The crowd of villagers is in an uproar. Li Yuanwai immediately steps forward to check, pretending to be concerned: 'Brother Wang, what's wrong with you? Quick, call a doctor!' Seeing this, Zhang Cuihua immediately squeezes to Wang Dazhuang's side and says in a low voice: 'Dazhuang, there's something wrong with this melon! Be careful of Li Yuanwai!' Wang Dazhuang raises his head with difficulty, looks at Zhang Cuihua, and his eyes are full of gratitude.",
+        "privateClues": {
+          "character1": "Zhang Cuihua told me that there is something wrong with the watermelon and asked me to be careful of Li Yuanwai. Is this all Li Yuanwai's doing? Why would he do this? (62 characters)",
+          "character2": "Wang Dazhuang has finally fallen. It seems the dose was just right. That old gossip Zhang Cuihua, how dare she ruin my good plan! It seems I need to find a chance to shut her up. (68 characters)",
+          "character3": "It seems my guess was right, there is indeed something wrong with this watermelon! Li Yuanwai must be up to something! I have to find a way to expose his true colors and not let honest people suffer! (75 characters)"
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Wang Dazhuang is sent to the village clinic, and the doctor diagnoses him with food poisoning. Li Yuanwai insists that it is a quality problem with the watermelon and says he will bear all the medical expenses. But Wang Dazhuang and Zhang Cuihua both know that this is by no means ordinary food poisoning. Zhang Cuihua decides to risk investigating Li Yuanwai. She secretly sneaks into Li Yuanwai's residence and searches for evidence everywhere. She finds a suspicious bottle with the words 'amygdalin' on it. She immediately realizes that this is the culprit that caused Wang Dazhuang's poisoning. At the same time, Wang Dazhuang also struggles to get out of bed. He knows he can't just sit back and wait. He decides to confront Li Yuanwai. He comes to Li Yuanwai's residence and happens to run into Zhang Cuihua who is searching for evidence. The two exchange a look and immediately understand each other's intentions. Li Yuanwai suddenly appears, holding a dagger in his hand, with a ferocious expression on his face: 'Since you both know, then you can both go to hell!' Wang Dazhuang and Zhang Cuihua fight back with all their might, and a fierce battle begins. In the end, Wang Dazhuang, with his superior strength, subdues Li Yuanwai. It turns out that Li Yuanwai is not an ordinary wealthy merchant, but a drug smuggler. He sponsored the watermelon-eating contest to cover up his activities, mixing drugs into the watermelons and then transporting them to other places through the competition. And Wang Dazhuang, as the perennial champion of the watermelon-eating contest, naturally became the biggest obstacle in his plan. The truth is revealed, and the villagers are furious, taking Li Yuanwai to the police station. Although Wang Dazhuang is weak, his heart is full of justice and courage. He knows that he has done the right thing.",
+        "privateClues": {
+          "character1": "Amygdalin! So that's it, Li Yuanwai wanted to use the watermelon-eating contest to smuggle drugs! Fortunately, Cuihua and I discovered his conspiracy and stopped him! (63 characters)",
+          "character2": "The plan failed! Those two idiots, Wang Dazhuang and Zhang Cuihua, ruined my big plan! But it doesn't matter, I still have a chance to make a comeback! (58 characters)",
+          "character3": "The truth is finally out! Li Yuanwai is really a criminal! Fortunately, Dazhuang and I stopped him, otherwise who knows how many people would have been harmed! (60 characters)"
+        }
+      }
+    ],
+    "createdAt": 1754467511665,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754467916276_3ed4ge1h0",
+    "title": "The Curse of Moonshadow Village",
+    "rounds": 3,
+    "background": "Legend has it that in the far east, there is a village blessed by the moonlight but shrouded in a curse - Moonshadow Village. Every full moon night, the village is enveloped in a strange purple mist, and the villagers go mad and kill each other. This terrifying scene has been going on for hundreds of years, but no one has been able to break it. Until one day, a young man who called himself an onmyoji, Usagi, came to Moonshadow Village with his loyal shikigami, Hachi. Usagi had heard the legend of Moonshadow Village and was determined to use his own power to uncover the truth of the curse and save the villagers shrouded in darkness. He knew that this was not only to help others, but also to prove his own ability and wash away the shame of his family. His family was once a powerful onmyoji family, but they failed in an exorcism ceremony and have since declined. Whether Usagi can succeed is still unknown. But in his eyes, a raging fire is burning, which is the desire for the truth and the hope for the future. He firmly believes that as long as he finds the source of the curse, he will be able to break the shadow that hangs over Moonshadow Village. And Hachi will always be by his side, becoming his most solid backing.",
+    "characters": [
+      {
+        "id": "usagi",
+        "name": "Usagi",
+        "identity": "Young onmyoji",
+        "personality": "Calm, persistent, a bit conceited, eager to prove himself",
+        "isMainCharacter": true
+      },
+      {
+        "id": "oldManKenji",
+        "name": "Grandpa Kenji",
+        "identity": "The village chief of Moonshadow Village, old and wise",
+        "personality": "Worried, weathered, has a deep understanding of the village's curse",
+        "isMainCharacter": false
+      },
+      {
+        "id": "midori",
+        "name": "Midori",
+        "identity": "The young miko of Moonshadow Village",
+        "personality": "Mysterious, taciturn, has the ability to perceive the curse",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "Usagi and Hachi arrive at Moonshadow Village. The village is shrouded in a depressing atmosphere, the houses are dilapidated, and the villagers' faces are filled with fear and numbness. The air is filled with a faint smell of blood and decay, which makes people feel uncomfortable. Usagi first visits the village chief, Grandpa Kenji, hoping to learn more about the curse. Grandpa Kenji tremblingly leads Usagi into a dim room filled with old sacrificial items. He tells Usagi that the earliest record of the curse can be traced back hundreds of years, when the village worshiped a powerful moon god, but because of the villagers' blasphemy, the moon god sent down a punishment. Since then, a tragedy has occurred every full moon night. Grandpa Kenji also mentioned that there is a young miko in the village, Midori, who may be able to perceive the root of the curse. Usagi bids farewell to Grandpa Kenji and decides to visit Midori. Midori lives in a simple hut on the edge of the village. The hut is dim and damp, with a smell of herbs. When Midori sees Usagi, she does not show any surprise, but just looks at him silently. Usagi explains his purpose and hopes she can help. Midori is silent for a moment, then slowly says: 'The power of the curse is strengthening, the full moon night is coming, and we don't have much time left. Go to the ancient shrine in the center of the village, the answer may be hidden there.' After saying that, Midori closes her eyes and says no more.",
+        "privateClues": {
+          "usagi": "Grandpa Kenji mentioned that the village once blasphemed the moon god, which led to the curse. Does this mean that the curse is not unbreakable, but can be lifted by obtaining the moon god's forgiveness in some way?",
+          "oldManKenji": "The ancient shrine in the center of the village is the oldest building in the village and the place where successive village chiefs held sacrificial ceremonies. There seems to be some secret hidden in the shrine, but no one dares to approach it.",
+          "midori": "My perception tells me that the core of the curse is not the moon god, but some evil thing sealed under the shrine. The moon god is just taking the blame."
+        }
+      },
+      {
+        "round": 2,
+        "plot": "Following Midori's guidance, Usagi and Hachi come to the ancient shrine in the center of the village. The shrine is dilapidated, covered with dust and cobwebs. The main gate of the shrine is tightly closed, and it is engraved with ancient runes that emit a faint light. Usagi carefully observes these runes and finds that they seem to be an ancient sealing technique. He tries to break the seal, but finds that these runes contain powerful energy, and it is difficult for him to break them easily with his current strength. Just as Usagi is feeling helpless, Grandpa Kenji slowly walks over with a cane. He tells Usagi that these runes were carved by the first village chief to seal the evil thing under the shrine. Grandpa Kenji also says that only a miko with a pure bloodline can open the gate of the shrine. At this time, Midori also comes to the shrine. She walks to the gate and slowly chants an ancient spell. As the spell is chanted, the runes on the gate begin to flicker, emitting a dazzling light. Suddenly, with a loud noise, the gate of the shrine slowly opens. Behind the gate is a dark passage leading to the underground. A cold breath rushes out, making people feel creepy. Grandpa Kenji's face is pale, and he trembles as he says: 'This is the source of the curse, you must be careful!' Usagi takes a deep breath, tightens his grip on his magical weapon, and leads Hachi and Midori into the dark passage.",
+        "privateClues": {
+          "usagi": "Grandpa Kenji mentioned that only a miko with a pure bloodline can open the shrine gate. Midori's process of opening the gate was very smooth, and she was very familiar with the spell. Does this mean that she is a descendant of the first miko and has some knowledge of the situation under the shrine?",
+          "oldManKenji": "The first village chief once warned his descendants that they must never open the gate of the shrine, otherwise it would release an uncontrollable evil force. But now, in order to save the village, there is no other choice.",
+          "midori": "The power of the first miko flows in my blood. I must guide them on the right path, even if it means I will pay a price. There is a trap in the passage, be careful."
+        }
+      },
+      {
+        "round": 3,
+        "plot": "Usagi and his party slowly advance along the dark passage. The passage is deep and long, and the walls are covered with distorted murals depicting various terrifying scenes. The air is filled with a strong smell of sulfur, which makes people feel suffocated. Suddenly, Midori stops, her face turning pale. She points ahead and says: 'There is a trap ahead, be careful!' Usagi uses his onmyojutsu and finds that the ground ahead is covered with hidden magic circles. Once these magic circles are touched, they will trigger a powerful attack. Usagi carefully avoids the magic circles and leads everyone to continue forward. Finally, they reach the end of the passage. At the end of the passage is a wide underground altar. In the center of the altar stands a huge stone statue. The stone statue has a ferocious face and exudes an evil aura. Below the stone statue, a black vortex is slowly rotating, which is the source of the curse. Suddenly, the stone statue lets out a low roar, and the ground begins to shake. From the body of the stone statue, a figure slowly walks out. It is a mysterious person in a black robe. He smiles grimly and says: 'You're finally here, I've been waiting for a long time.' The mysterious person admits that he is the real creator of the curse. He used the power of the moon god to turn the village into his experimental field. He needs more souls to maintain his power. A fierce battle is about to break out. Usagi knows that in order to save Moonshadow Village, he must defeat this mysterious person. He and Hachi launch a fierce attack on the mysterious person, while Midori silently chants a spell on the side to support them. After a fierce battle, Usagi finally finds the mysterious person's weakness and successfully defeats him. As the mysterious person falls, the black vortex also disappears, and the curse that has been hanging over Moonshadow Village is finally lifted.",
+        "privateClues": {
+          "usagi": "The mysterious person used the power of the moon god, which means that the moon god itself is not malicious, but was just used. Perhaps there is a way to appease the moon god's anger and completely eliminate the hidden danger of the curse.",
+          "oldManKenji": "Although the curse has been lifted, the villagers' hearts have been greatly traumatized. It will take time to heal their wounds and rebuild the village.",
+          "midori": "Although the mysterious person has been defeated, the evil aura he left behind still exists. A purification ceremony is needed to completely eliminate the hidden danger. I will stay in the village and guard this place."
+        }
+      }
+    ],
+    "createdAt": 1754467916276,
+    "createdBy": "system"
+  },
+  {
+    "id": "script_1754473709160_rm10ks9lx",
+    "title": "Ice Fantasy: The Ice and Fire Maze",
+    "rounds": 3,
+    "background": "After the tragic battle with the Fire Tribe, Ka Suo lost almost all his relatives, including his beloved brother Ying Kong Shi. In order to resurrect his relatives, he embarked on a journey to find the hidden lotus. However, at the critical moment of finding the hidden lotus, Ka Suo finds himself trapped in a time loop maze. In each cycle, he returns to the eve of the ice and fire war, trying to change his destiny, but each result is ambiguous, full of unknown dangers and conspiracies. The undercurrents within the Ice Tribe, the unwillingness of the Fire Tribe to show weakness, and the mysterious forces hidden in the dark all make Ka Suo's road to resurrection extremely difficult. He must unravel the secrets hidden in the time loop to truly break free from the shackles of fate and save everything he cherishes. This time, he is closer to the truth than ever before, but also closer to the brink of death.",
+    "characters": [
+      {
+        "id": "character1",
+        "name": "Ka Suo",
+        "identity": "Prince of the Ice Tribe",
+        "personality": "Kind, values relationships, indecisive",
+        "isMainCharacter": true
+      },
+      {
+        "id": "character2",
+        "name": "Xing Jiu",
+        "identity": "Astrologer of the Star Track Temple",
+        "personality": "Mysterious, calm, insightful",
+        "isMainCharacter": false
+      },
+      {
+        "id": "character3",
+        "name": "Lan Shang",
+        "identity": "Princess of the Mermaid Tribe",
+        "personality": "Innocent and romantic, infatuated, slightly arrogant",
+        "isMainCharacter": false
+      }
+    ],
+    "roundContents": [
+      {
+        "round": 1,
+        "plot": "The story begins..."
+      }
+    ]
+  }
+]
