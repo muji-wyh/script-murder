@@ -1810,7 +1810,7 @@ export default function RoomPage() {
                     {/* 剧情要求 */}
                     <div className="mb-6">
                       <label className="block text-white font-medium mb-2">
-                        剧情要求 {room.collectedScript && '(preconfigured)'}
+                        Plot requirements {room.collectedScript && '(preconfigured)'}
                       </label>
                       <textarea
                         value={plotRequirement}
@@ -1842,10 +1842,10 @@ export default function RoomPage() {
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                           </svg>
-                          {room.collectedScript ? '正在重新开始剧本...' : '正在生成剧本...'}
+                          {room.collectedScript ? 'Working on restarting the script...' : 'Script being generated...'}
                         </>
                       ) : (
-                        room.collectedScript ? '开始此剧本' : '开始游戏'
+                        room.collectedScript ? 'Start this script.' : 'Start the game'
                       )}
                     </button>
                   </div>
