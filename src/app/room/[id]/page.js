@@ -1663,8 +1663,8 @@ export default function RoomPage() {
             <div>
               <h1 className="text-2xl font-bold text-white mb-1">{room.name}</h1>
               <p className="text-purple-300 text-sm">Room No.: {room.id} | Status: {
-                room.status === 'waiting' ? '等待中' : 
-                room.status === 'playing' ? '游戏中' : '已结束'
+                room.status === 'waiting' ? 'waiting' :
+                room.status === 'playing' ? 'in-game' : 'finished'
               }</p>
             </div>
             <button
