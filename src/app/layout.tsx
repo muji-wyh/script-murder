@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Scripts Murder',
   description: 'LLM-based large model web game platform to experience script-killing games with intelligent NPC participation',
+  icons: {
+    icon: '/favicon.ico'
+  }
 }
 
 export default function RootLayout({
