@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'LLM推理大师 - AI剧本杀游戏平台',
-  description: '基于LLM的大模型Web游戏平台，体验智能NPC参与的剧本杀游戏',
+  title: 'Scripts Murder',
+  description: 'LLM-based large model web game platform to experience script-killing games with intelligent NPC participation',
 }
 
 export default function RootLayout({

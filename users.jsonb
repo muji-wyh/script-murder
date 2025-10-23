@@ -5,10 +5,10 @@
     "password": "123456",
     "isOnline": true,
     "friends": [
+      "user_1757654096561_fgyd2ytf8",
       "user_xiaolin",
       "user_xiaobao",
-      "user_1756974647427_s99qgwimp",
-      "user_1757654096561_fgyd2ytf8"
+      "user_1756974647427_s99qgwimp"
     ],
     "savedScripts": [],
     "chatHistory": {},
